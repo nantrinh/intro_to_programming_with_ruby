@@ -1,15 +1,15 @@
-require "yaml"
-require "pry"
+require 'yaml'
+require 'pry'
 MESSAGES = YAML.load_file('calculator_messages.yml')
 
-LANGUAGE = 'en'
+LANGUAGE = 'en'.freeze
 
 def prompt(message)
   puts "=> #{message}"
 end
 
 def valid_number?(number)
-  (number.to_i.to_s == number) && (number.to_i != 0) 
+  (number.to_i.to_s == number) && (number.to_i != 0)
 end
 
 def number?(number)
@@ -30,12 +30,12 @@ def operation_to_message(op)
   result
 end
 
-prompt MESSAGES[LANGUAGE]["welcome"] 
+prompt MESSAGES[LANGUAGE]['welcome']
 name = ''
 loop do
   name = gets.chomp
   break unless name.empty?
-  prompt MESSAGES[LANGUAGE]["valid_name"] 
+  prompt MESSAGES[LANGUAGE]['valid_name']
 end
 
 puts "Hello #{name}"
@@ -47,25 +47,25 @@ loop do
   operator_str = ''
 
   loop do
-    prompt MESSAGES[LANGUAGE]['first_number'] 
+    prompt MESSAGES[LANGUAGE]['first_number']
     number1 = gets.chomp
     break if valid_number?(number1)
-    prompt MESSAGES[LANGUAGE]['not_valid'] 
+    prompt MESSAGES[LANGUAGE]['not_valid']
   end
 
   loop do
-    prompt MESSAGES[LANGUAGE]['second_number'] 
+    prompt MESSAGES[LANGUAGE]['second_number']
     number2 = gets.chomp
     break if valid_number?(number2)
-    prompt MESSAGES[LANGUAGE]['invalid_prompt'] 
+    prompt MESSAGES[LANGUAGE]['invalid_prompt']
   end
 
-  prompt MESSAGES[LANGUAGE]['operator_prompt'] 
+  prompt MESSAGES[LANGUAGE]['operator_prompt']
 
   loop do
     operator = gets.chomp
     break if %w(1 2 3 4).include?(operator)
-    prompt MESSAGES[LANGUAGE]['invalid_prompt'] 
+    prompt MESSAGES[LANGUAGE]['invalid_prompt']
   end
 
   number1 = number1.to_i
