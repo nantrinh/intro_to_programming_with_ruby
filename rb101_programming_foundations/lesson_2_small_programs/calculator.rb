@@ -1,4 +1,6 @@
+require "yaml"
 require "pry"
+MESSAGES = YAML.load_file('calculator_messages.yml')
 
 def prompt(message)
   puts "=> #{message}"
@@ -26,12 +28,12 @@ def operation_to_message(op)
   result
 end
 
-prompt 'Welcome to Calculator! Please enter your name:'
+prompt MESSAGES["welcome"] 
 name = ''
 loop do
   name = gets.chomp
   break unless name.empty?
-  prompt 'Make sure to use a valid name.'
+  prompt MESSAGES["valid_name"] 
 end
 
 puts "Hello #{name}"
@@ -43,33 +45,25 @@ loop do
   operator_str = ''
 
   loop do
-    prompt 'What is the first number (Enter nonzero integer)?'
+    prompt MESSAGES['first_number'] 
     number1 = gets.chomp
     break if valid_number?(number1)
-    prompt 'That is not a valid number.'
+    prompt MESSAGES['not_valid'] 
   end
 
   loop do
-    prompt 'What is the second number (Enter nonzero integer)?'
+    prompt MESSAGES['second_number'] 
     number2 = gets.chomp
     break if valid_number?(number2)
-    prompt 'That is not a valid number.'
+    prompt MESSAGES['invalid_prompt'] 
   end
 
-  operator_prompt = <<-MSG
-    What operation would you like to perform?
-    1) add
-    2) subtract
-    3) multiply
-    4) divide
-  MSG
-
-  prompt operator_prompt
+  prompt MESSAGES['operator_prompt'] 
 
   loop do
     operator = gets.chomp
     break if %w(1 2 3 4).include?(operator)
-    prompt 'Must choose 1, 2, 3, or 4'
+    prompt MESSAGES['invalid_prompt'] 
   end
 
   number1 = number1.to_i
@@ -95,8 +89,7 @@ loop do
 
   prompt "#{number1} #{operator_str} #{number2} is #{result}."
 
-  prompt 'Do you want to perform another calculation?'\
-         '(Y to calculate again)'
+  prompt MESSAGES['calculate_again']
   answer = gets.chomp.upcase
   break unless answer == 'Y'
 end
