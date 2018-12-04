@@ -8,6 +8,10 @@ def valid_number?(number)
   (number.to_i.to_s == number) && (number.to_i != 0) 
 end
 
+def number?(number)
+  (number.to_f.to_s == input) && (number.to_f != 0)
+end
+
 def operation_to_message(op)
   case op
   when 1
