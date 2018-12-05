@@ -31,9 +31,9 @@ puts '=> Welcome to the Mortgage Calculator!'
 loop do
   loop do
     puts '=> Please enter the loan amount. (Has to be positive number)'
-    input = gets.chomp
-    if valid?(input)
-      details[:amount] = input.to_f
+    amount = gets.chomp
+    if valid?(amount)
+      details[:amount] = amount.to_f
       break
     else
       puts '=> Please make sure your loan amount is valid.'
@@ -42,9 +42,9 @@ loop do
 
   loop do
     puts '=> Please enter the APR. (Has to be positive number)'
-    input = gets.chomp
-    if valid?(input)
-      details[:apr] = input.to_f
+    apr = gets.chomp
+    if valid?(apr)
+      details[:apr] = apr.to_f
       break
     else
       puts '=> Please make sure your APR is valid.'
@@ -53,18 +53,18 @@ loop do
 
   loop do
     puts '=> Please enter the duration in years. (Has to be positive number)'
-    input = gets.chomp
-    if valid?(input)
-      details[:duration_years] = input.to_f
+    duration_years = gets.chomp
+    if valid?(duration_years)
+      details[:duration_years] = duration_years.to_f
       break
     else
       puts '=> Please make sure your duration (in years) is valid.'
     end
   end
 
-  puts "Your monthly payment will be #{calculate_mortgage(details)}."
+  puts "=> Your monthly payment will be #{calculate_mortgage(details)}."
 
-  puts 'Another calculation? Enter Y to do another calculation.'
-  input = gets.chomp.upcase
-  break if input != 'Y'
+  puts '=> Another calculation? Enter Y to do another calculation.'
+  continue = gets.chomp.upcase
+  break if continue != 'Y'
 end
