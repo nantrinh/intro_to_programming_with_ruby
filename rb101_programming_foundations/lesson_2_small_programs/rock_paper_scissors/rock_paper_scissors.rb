@@ -1,3 +1,5 @@
+require "pry"
+
 VALID_CHOICES = %w(rock paper scissors).freeze
 
 def prompt(message)
@@ -5,11 +7,12 @@ def prompt(message)
 end
 
 def win?(first, second)
-  if (first == 'rock') && (second == 'scissors') ||
-     (first == 'paper') && (second == 'rock') ||
-     (first == 'scissors') && (second == 'paper')
-  end
+  (first == 'rock') && (second == 'scissors') ||
+  (first == 'paper') && (second == 'rock') ||
+  (first == 'scissors') && (second == 'paper')
 end
+
+binding.pry
 
 def display_result(player, computer)
   if win?(player, computer)
