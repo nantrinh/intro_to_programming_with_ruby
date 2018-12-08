@@ -94,7 +94,7 @@ def play_again?
   answer == 'Y'
 end
 
-def get_player_choice(choice)
+def map_to_full_player_choice(choice)
   if VALID_CHOICES.include?(choice.to_sym)
     VALID_CHOICES[choice.to_sym]
   elsif VALID_CHOICES.values.include?(choice)
@@ -107,31 +107,43 @@ def continue?
   gets.chomp
 end
 
-choice = ''
-counter = { player: 0, computer: 0 }
-winner = ''
-round = 1
+def print_intro
+  puts '============== ROCK PAPER SCISSORS LIZARD SPOCK ====================='
+  prompt 'This is a multi-round game. ' \
+         "The first player to win #{GAME_OVER_WINS} rounds wins."
+  prompt 'Press CTRL+C at any time to quit.'
+  prompt 'Press any key to continue.'
+  gets.chomp
+end
 
-puts '============== ROCK PAPER SCISSORS LIZARD SPOCK ====================='
-prompt 'This is a multi-round game. ' \
-       "The first player to win #{GAME_OVER_WINS} rounds wins."
-prompt 'Press CTRL+C at any time to quit.'
-prompt 'Press any key to continue.'
-gets.chomp
+def print_choose_message
+  prompt 'Choose one:'
+  print_choices
+  puts '====================================='
+end
 
-loop do
-  puts "============== Round #{round} =============="
+def player_choice_loop
+  choice = ''
   loop do
-    prompt 'Choose one:'
-    print_choices
-    puts '====================================='
+    print_choose_message
     choice = gets.chomp.downcase
     break if VALID_CHOICES.include?(choice.to_sym) ||
              VALID_CHOICES.values.include?(choice)
     prompt 'That is not a valid choice.'
   end
+  map_to_full_player_choice(choice)
+end
 
-  player_choice = get_player_choice(choice)
+counter = { player: 0, computer: 0 }
+winner = ''
+round = 1
+
+print_intro
+
+loop do
+  puts "============== Round #{round} =============="
+
+  player_choice = player_choice_loop
   computer_choice = VALID_CHOICES.values.sample
 
   prompt "You chose #{player_choice}; Computer chose: #{computer_choice}"
@@ -151,6 +163,7 @@ loop do
   system('clear') || system('cls')
   round = 1
   counter = { player: 0, computer: 0 }
+  print_intro
 end
 
 prompt 'Thank you for playing. Goodbye!'
