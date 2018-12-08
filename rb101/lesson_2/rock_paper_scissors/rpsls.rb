@@ -10,6 +10,8 @@ WINNING_COMBINATIONS = { rock: %w(scissors lizard),
                          spock: %w(scissors rock),
                          lizard: %w(paper spock) }.freeze
 
+GAME_OVER_WINS = 5
+
 def prompt(message)
   puts "=> #{message}"
 end
@@ -66,7 +68,7 @@ def display_counter(counter)
 end
 
 def grand_winner?(counter)
-  counter.key(counter.values.max).to_s if counter.values.max == 5
+  counter.key(counter.values.max).to_s if counter.values.max == GAME_OVER_WINS
 end
 
 def display_game_over(winner, counter)
@@ -101,8 +103,8 @@ def get_player_choice(choice)
 end
 
 def continue?
-  prompt "Press any key to continue. Press CTRL+C to quit."
-  input = gets.chomp
+  prompt 'Press any key to continue. Press CTRL+C to quit.'
+  gets.chomp
 end
 
 choice = ''
@@ -110,11 +112,12 @@ counter = { player: 0, computer: 0 }
 winner = ''
 round = 1
 
-puts "============== ROCK PAPER SCISSORS LIZARD SPOCK =============="
-prompt "This is a multi-round game. The first player to win 5 rounds wins."
-prompt "Press CTRL+C at any time to quit."
-prompt "Press any key to continue."
-input = gets.chomp
+puts '============== ROCK PAPER SCISSORS LIZARD SPOCK ====================='
+prompt "This is a multi-round game. " \
+       "The first player to win #{GAME_OVER_WINS} rounds wins."
+prompt 'Press CTRL+C at any time to quit.'
+prompt 'Press any key to continue.'
+gets.chomp
 
 loop do
   puts "============== Round #{round} =============="
@@ -141,7 +144,7 @@ loop do
   round += 1
 
   winner = grand_winner?(counter)
-  (winner)? display_game_over(winner, counter) : continue? 
+  winner ? display_game_over(winner, counter) : continue?
   next unless winner
 
   break unless play_again?
