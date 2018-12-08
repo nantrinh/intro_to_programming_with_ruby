@@ -92,7 +92,15 @@ def play_again?
   answer == 'Y' ? true : false
 end
 
-choice_abbrv = ''
+def get_player_choice(choice)
+  if VALID_CHOICES.include?(choice.to_sym)
+    VALID_CHOICES[choice.to_sym]
+  elsif VALID_CHOICES.values.include?(choice)
+    choice
+  end
+end
+
+choice = ''
 counter = { player: 0, computer: 0 }
 winner = ''
 round = 1
@@ -103,12 +111,13 @@ loop do
     prompt 'Choose one:'
     print_choices
     puts '====================================='
-    choice_abbrv = gets.chomp
-    break if VALID_CHOICES.keys.include?(choice_abbrv.to_sym)
+    choice = gets.chomp.downcase
+    break if VALID_CHOICES.include?(choice.to_sym) ||
+             VALID_CHOICES.values.include?(choice)
     prompt 'That is not a valid choice.'
   end
 
-  player_choice = VALID_CHOICES[choice_abbrv.to_sym]
+  player_choice = get_player_choice(choice)
   computer_choice = VALID_CHOICES.values.sample
 
   prompt "You chose #{player_choice}; Computer chose: #{computer_choice}"
