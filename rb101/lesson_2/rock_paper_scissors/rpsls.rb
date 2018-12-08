@@ -91,7 +91,7 @@ def play_again?
     break if %w(Y N).include?(answer)
     prompt 'Please enter Y or N.'
   end
-  answer == 'Y' ? true : false
+  answer == 'Y'
 end
 
 def get_player_choice(choice)
@@ -113,7 +113,7 @@ winner = ''
 round = 1
 
 puts '============== ROCK PAPER SCISSORS LIZARD SPOCK ====================='
-prompt "This is a multi-round game. " \
+prompt 'This is a multi-round game. ' \
        "The first player to win #{GAME_OVER_WINS} rounds wins."
 prompt 'Press CTRL+C at any time to quit.'
 prompt 'Press any key to continue.'
