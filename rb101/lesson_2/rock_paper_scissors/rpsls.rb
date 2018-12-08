@@ -100,10 +100,21 @@ def get_player_choice(choice)
   end
 end
 
+def continue?
+  prompt "Press any key to continue. Press CTRL+C to quit."
+  input = gets.chomp
+end
+
 choice = ''
 counter = { player: 0, computer: 0 }
 winner = ''
 round = 1
+
+puts "============== ROCK PAPER SCISSORS LIZARD SPOCK =============="
+prompt "This is a multi-round game. The first player to win 5 rounds wins."
+prompt "Press CTRL+C at any time to quit."
+prompt "Press any key to continue."
+input = gets.chomp
 
 loop do
   puts "============== Round #{round} =============="
@@ -130,9 +141,8 @@ loop do
   round += 1
 
   winner = grand_winner?(counter)
+  (winner)? display_game_over(winner, counter) : continue? 
   next unless winner
-
-  display_game_over(winner, counter)
 
   break unless play_again?
   system('clear')
