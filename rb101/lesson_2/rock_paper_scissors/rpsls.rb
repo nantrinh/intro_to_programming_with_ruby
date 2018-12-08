@@ -148,7 +148,7 @@ loop do
   next unless winner
 
   break unless play_again?
-  system('clear')
+  system('clear') || system('cls')
   round = 1
   counter = { player: 0, computer: 0 }
 end
