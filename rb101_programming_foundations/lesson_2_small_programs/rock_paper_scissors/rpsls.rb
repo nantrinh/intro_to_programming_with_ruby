@@ -1,5 +1,3 @@
-require 'pry'
-
 VALID_CHOICES = { r: 'rock',
                   p: 'paper',
                   s: 'scissors',
