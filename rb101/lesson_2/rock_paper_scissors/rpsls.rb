@@ -103,7 +103,7 @@ def map_to_full_player_choice(choice)
 end
 
 def continue?
-  prompt 'Press any key to continue. Press CTRL+C to quit.'
+  prompt 'Press ENTER to continue. Press CTRL+C to quit.'
   gets.chomp
 end
 
@@ -111,9 +111,7 @@ def print_intro
   puts '============== ROCK PAPER SCISSORS LIZARD SPOCK ====================='
   prompt 'This is a multi-round game. ' \
          "The first player to win #{GAME_OVER_WINS} rounds wins."
-  prompt 'Press CTRL+C at any time to quit.'
-  prompt 'Press any key to continue.'
-  gets.chomp
+  continue?
 end
 
 def print_choose_message
