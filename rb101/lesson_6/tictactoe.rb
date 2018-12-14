@@ -20,6 +20,7 @@ def prompt(message)
 end
 
 def display_board(board)
+  system('clear') || system('cls')
   puts ""
   puts "     |     |"
   puts "  #{board[1]}  |  #{board[2]}  |  #{board[3]}"
@@ -56,7 +57,25 @@ def player_places_piece!(board)
     board[square] = PLAYER_MARKER 
 end
 
+def computer_places_piece!(board)
+  square = empty_squares(board).sample
+  board[square] = COMPUTER_MARKER
+end
+
+def board_full?(board)
+  empty_squares(board).empty?
+end
+
+def someone_won?(board)
+
+end
+
 board = initialize_board
-display_board(board)
-player_places_piece!(board)
-display_board(board)
+loop do
+  display_board(board)
+  player_places_piece!(board)
+  display_board(board)
+  computer_places_piece!(board)
+  display_board(board)
+  break if someone_won?(board) || board_full?(board)
+end
