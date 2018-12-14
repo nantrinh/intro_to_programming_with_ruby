@@ -67,7 +67,17 @@ def board_full?(board)
 end
 
 def someone_won?(board)
+  !!detect_winner(board)
+end
 
+def detect_winner(board)
+  winning_combos = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
+                   [1, 4, 7], [2,5,8], [3,6,9],
+                   [1,5,9],[3,5,7]]
+  winning_combos.each do |combo|
+    if board[combo[0]]
+      # TODO Step 4 Video, 9:43 timestamp 
+  end
 end
 
 board = initialize_board
@@ -78,4 +88,10 @@ loop do
   computer_places_piece!(board)
   display_board(board)
   break if someone_won?(board) || board_full?(board)
+
+  if someone_won?(board)
+    prompt "#{detect_winner(board)} won!"
+  else
+    prompt "It's a tie!"
+
 end
