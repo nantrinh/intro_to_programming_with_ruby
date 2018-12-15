@@ -21,6 +21,8 @@ end
 
 def display_board(board)
   system('clear') || system('cls')
+  puts "You are a #{PLAYER_MARKER}. " \
+       "Computer is #{COMPUTER_MARKER}"
   puts ""
   puts "     |     |"
   puts "  #{board[1]}  |  #{board[2]}  |  #{board[3]}"
@@ -75,23 +77,47 @@ def detect_winner(board)
                    [1, 4, 7], [2,5,8], [3,6,9],
                    [1,5,9],[3,5,7]]
   winning_combos.each do |combo|
-    if board[combo[0]]
-      # TODO Step 4 Video, 9:43 timestamp 
+    if board[combo[0]] == PLAYER_MARKER &&
+       board[combo[1]] == PLAYER_MARKER &&
+       board[combo[2]] == PLAYER_MARKER
+      return 'Player'
+    elsif board[combo[0]] == COMPUTER_MARKER &&
+          board[combo[1]] == COMPUTER_MARKER &&
+          board[combo[2]] == COMPUTER_MARKER
+      return 'Computer'
+    end
   end
+  nil
 end
 
-board = initialize_board
 loop do
+  board = initialize_board
+  loop do
+    display_board(board)
+  
+    player_places_piece!(board)
+    break if someone_won?(board) || board_full?(board)
+  
+    computer_places_piece!(board)
+    break if someone_won?(board) || board_full?(board)
+  end
+  
   display_board(board)
-  player_places_piece!(board)
-  display_board(board)
-  computer_places_piece!(board)
-  display_board(board)
-  break if someone_won?(board) || board_full?(board)
-
+  
   if someone_won?(board)
     prompt "#{detect_winner(board)} won!"
   else
     prompt "It's a tie!"
+  end
 
+  prompt "Play again? (y/n)"
+  answer = ''
+  loop do 
+    answer = gets.chomp.downcase
+    break if %w(y n).include?(answer)
+    prompt "Please enter y or n."
+  end
+  break if answer == "n"
 end
+
+prompt "Thanks for playing!"
