@@ -59,7 +59,7 @@ end
 def player_places_piece!(board)
   square = ''
   loop do
-    prompt "Choose a square (#{empty_squares(board).join(', ')}):"
+    prompt "Choose a square (#{joinor(empty_squares(board))}):"
     square = gets.chomp.to_i
     break if empty_squares(board).include?(square)
     prompt 'That is not a valid choice.'
@@ -91,10 +91,10 @@ end
 
 def joinor(arr, sep = ', ', word = 'or')
   if arr.size == 2
-    puts "#{arr[0]} #{word} #{arr[1]}"
+    "#{arr[0]} #{word} #{arr[1]}"
   else
-    puts arr[0...-1].map(&:to_s).join(sep) \
-                    .concat("#{sep}#{word} #{arr[-1]}")
+    arr[0...-1].map(&:to_s).join(sep) \
+               .concat("#{sep}#{word} #{arr[-1]}")
   end
 end
 
