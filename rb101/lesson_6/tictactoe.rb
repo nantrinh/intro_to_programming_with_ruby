@@ -18,6 +18,7 @@ COMPUTER_MARKER = 'O'.freeze
 WINNING_COMBOS = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
                   [1, 4, 7], [2, 5, 8], [3, 6, 9],
                   [1, 5, 9], [3, 5, 7]].freeze
+WINNING_SCORE = 5
 
 def prompt(message)
   puts "=> #{message}"
@@ -89,6 +90,16 @@ def detect_winner(board)
   nil
 end
 
+def increment_score(winner, player_score, computer_score)
+ player_score += 1 if winner == 'Player' 
+ computer_score += 1 if winner == 'Computer'
+ # TODO this function is buggy
+end
+
+def someone_won_five_games?(player_score, computer_score)
+  player_score == WINNING_SCORE || computer_score == WINNING_SCORE
+end
+
 def joinor(arr, sep = ', ', word = 'or')
   if arr.size == 2
     "#{arr[0]} #{word} #{arr[1]}"
@@ -98,26 +109,7 @@ def joinor(arr, sep = ', ', word = 'or')
   end
 end
 
-loop do
-  board = initialize_board
-  loop do
-    display_board(board)
-
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-  end
-
-  display_board(board)
-
-  if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
-  else
-    prompt "It's a tie!"
-  end
-
+def play_again?
   prompt 'Play again? (y/n)'
   answer = ''
   loop do
@@ -125,7 +117,53 @@ loop do
     break if %w[y n].include?(answer)
     prompt 'Please enter y or n.'
   end
-  break if answer == 'n'
+  answer == 'y'
+end
+
+def display_score(player_score, computer_score)
+  prompt "Player: #{player_score} Computer: #{computer_score}"
+end
+
+loop do
+  prompt "Welcome to Tic-Tac-Toe. First player to win 5 rounds wins."
+  prompt "Press Enter to continue. Press CTRL+C to quit."
+  gets
+  player_score = 0
+  computer_score = 0
+
+  loop do
+    board = initialize_board
+    loop do
+      display_board(board)
+  
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+  
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
+  
+    display_board(board)
+  
+    if someone_won?(board)
+      winner = detect_winner(board)
+      increment_score(winner, player_score, computer_score)
+      prompt "#{winner} won!"
+      display_score(player_score, computer_score)
+      binding.pry
+    else
+      prompt "It's a tie!"
+      display_score(player_score, computer_score)
+    end
+
+    if someone_won_five_games?(player_score, computer_score)
+       prompt "#{winner} won 5 games!"
+       display_score(player_score, computer_score)
+       break
+    end
+    play_again? 
+  end
+  play_again?
 end
 
 prompt 'Thanks for playing!'
