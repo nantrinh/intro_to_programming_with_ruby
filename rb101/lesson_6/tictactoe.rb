@@ -26,8 +26,10 @@ end
 
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
-def display_board(board)
+def display_board(board, round, player_score, computer_score)
   system('clear') || system('cls')
+  puts "Round #{round}"
+  puts "Player: #{player_score} Computer: #{computer_score}"
   puts "You are a #{PLAYER_MARKER}. " \
        "Computer is #{COMPUTER_MARKER}"
   puts ''
@@ -90,12 +92,6 @@ def detect_winner(board)
   nil
 end
 
-def increment_score(winner, player_score, computer_score)
- player_score += 1 if winner == 'Player' 
- computer_score += 1 if winner == 'Computer'
- # TODO this function is buggy
-end
-
 def someone_won_five_games?(player_score, computer_score)
   player_score == WINNING_SCORE || computer_score == WINNING_SCORE
 end
@@ -109,6 +105,11 @@ def joinor(arr, sep = ', ', word = 'or')
   end
 end
 
+def play_next_round?
+  prompt 'Press Enter to play another round. Press CTRL+C to quit.'
+  gets
+end
+
 def play_again?
   prompt 'Play again? (y/n)'
   answer = ''
@@ -120,22 +121,25 @@ def play_again?
   answer == 'y'
 end
 
-def display_score(player_score, computer_score)
-  prompt "Player: #{player_score} Computer: #{computer_score}"
-end
-
-loop do
-  prompt "Welcome to Tic-Tac-Toe. First player to win 5 rounds wins."
+def display_welcome_prompt
+  prompt "Welcome to Tic-Tac-Toe." 
+  prompt "First player to win 5 rounds wins."
   prompt "Press Enter to continue. Press CTRL+C to quit."
   gets
+end
+
+display_welcome_prompt
+loop do
+  system('clear') || system('cls')
   player_score = 0
   computer_score = 0
+  round = 1
 
   loop do
     board = initialize_board
     loop do
-      display_board(board)
-  
+      display_board(board, round, player_score, computer_score)
+
       player_places_piece!(board)
       break if someone_won?(board) || board_full?(board)
   
@@ -143,27 +147,27 @@ loop do
       break if someone_won?(board) || board_full?(board)
     end
   
-    display_board(board)
+    display_board(board, round, player_score, computer_score)
   
     if someone_won?(board)
       winner = detect_winner(board)
-      increment_score(winner, player_score, computer_score)
+      player_score += 1 if winner == 'Player' 
+      computer_score += 1 if winner == 'Computer'
+      display_board(board, round, player_score, computer_score)
       prompt "#{winner} won!"
-      display_score(player_score, computer_score)
-      binding.pry
     else
       prompt "It's a tie!"
-      display_score(player_score, computer_score)
     end
 
     if someone_won_five_games?(player_score, computer_score)
        prompt "#{winner} won 5 games!"
-       display_score(player_score, computer_score)
        break
     end
-    play_again? 
+
+    round += 1
+    play_next_round? 
   end
-  play_again?
+  break unless play_again?
 end
 
 prompt 'Thanks for playing!'
