@@ -32,15 +32,15 @@ def display_board(board, round, player_score, computer_score)
        "Computer is #{COMPUTER_MARKER}"
   puts ''
   puts "BOARD MAPPING"
-  puts ' 1 | 2 | 3 '
+  puts ' 7 | 8 | 9 '
   puts '---+---+---'
   puts ' 4 | 5 | 6 '
   puts '---+---+---'
-  puts ' 7 | 8 | 9 '
+  puts ' 1 | 2 | 3 '
   puts ''
   puts 'GAME BOARD'
   puts '     |     |'
-  puts "  #{board[1]}  |  #{board[2]}  |  #{board[3]}"
+  puts "  #{board[7]}  |  #{board[8]}  |  #{board[9]}"
   puts '     |     |'
   puts '-----+-----+-----'
   puts '     |     |'
@@ -48,7 +48,7 @@ def display_board(board, round, player_score, computer_score)
   puts '     |     |'
   puts '-----+-----+-----'
   puts '     |     |'
-  puts "  #{board[7]}  |  #{board[8]}  |  #{board[9]}"
+  puts "  #{board[1]}  |  #{board[2]}  |  #{board[3]}"
   puts '     |     |'
   puts ''
 end
