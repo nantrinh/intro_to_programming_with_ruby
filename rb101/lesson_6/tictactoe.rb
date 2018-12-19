@@ -70,6 +70,7 @@ end
 def player_places_piece!(board)
   square = ''
   loop do
+    binding.pry # Todo prints (, or 7) if 7 is last square left
     prompt "Choose a square (#{joinor(empty_squares(board))}):"
     square = gets.chomp.to_i
     break if empty_squares(board).include?(square)
@@ -79,7 +80,13 @@ def player_places_piece!(board)
 end
 
 def computer_places_piece!(board)
-  square = empty_squares(board).sample
+  if immediate_threat?(board)
+    square = tackle_threat(board)
+    puts "Immediate threat detected!"
+  else
+    square = empty_squares(board).sample
+    puts "No immediate threat"
+  end
   board[square] = COMPUTER_MARKER
 end
 
@@ -134,6 +141,24 @@ def display_welcome_prompt
   prompt "First player to win 5 rounds wins."
   prompt "Press Enter to continue. Press CTRL+C to quit."
   gets
+end
+
+def immediate_threat?(board)
+  WINNING_COMBOS.each do |combo|
+    values = board.values_at(*combo)
+    return true if values.count { |x| x == PLAYER_MARKER } == 2
+  end
+  false 
+end
+
+def tackle_threat(board)
+  WINNING_COMBOS.each do |combo|
+    values = board.values_at(*combo)
+    if (values.count { |x| x == PLAYER_MARKER } == 2) &&
+       (values.count { |x| x == ' ' } == 1)
+      return combo[values.index(' ')]
+    end
+  end
 end
 
 display_welcome_prompt
