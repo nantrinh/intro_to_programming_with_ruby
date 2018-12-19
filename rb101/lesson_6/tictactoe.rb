@@ -70,7 +70,6 @@ end
 def player_places_piece!(board)
   square = ''
   loop do
-    binding.pry # Todo prints (, or 7) if 7 is last square left
     prompt "Choose a square (#{joinor(empty_squares(board))}):"
     square = gets.chomp.to_i
     break if empty_squares(board).include?(square)
@@ -112,7 +111,10 @@ def someone_won_five_games?(player_score, computer_score)
 end
 
 def joinor(arr, sep = ', ', word = 'or')
-  if arr.size == 2
+  case arr.size 
+  when 1
+    "#{arr[0]}" 
+  when 2
     "#{arr[0]} #{word} #{arr[1]}"
   else
     arr[0...-1].map(&:to_s).join(sep) \
