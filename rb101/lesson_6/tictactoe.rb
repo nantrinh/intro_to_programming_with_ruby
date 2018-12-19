@@ -24,8 +24,6 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
 def display_board(board, round, player_score, computer_score)
   system('clear') || system('cls')
   puts "Round #{round}"
@@ -54,8 +52,6 @@ def display_board(board, round, player_score, computer_score)
   puts '     |     |'
   puts ''
 end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize
 
 def initialize_board
   new_board = {}
@@ -79,10 +75,11 @@ def player_places_piece!(board)
 end
 
 def computer_places_piece!(board)
-  if immediate_threat?(board)
-    square = tackle_threat(board)
+  if square = one_more_move_to_win(board, 'Player')
     puts "Immediate threat detected!"
-  else
+  elsif square = one_more_move_to_win(board, 'Computer')
+    puts "Imminent win detected!"
+  else 
     square = empty_squares(board).sample
     puts "No immediate threat"
   end
@@ -145,25 +142,38 @@ def display_welcome_prompt
   gets
 end
 
-def immediate_threat?(board)
-  WINNING_COMBOS.each do |combo|
-    values = board.values_at(*combo)
-    return true if values.count { |x| x == PLAYER_MARKER } == 2
-  end
-  false 
-end
+# def immediate_threat?(board)
+#   WINNING_COMBOS.each do |combo|
+#     values = board.values_at(*combo)
+#     return true if values.count { |x| x == PLAYER_MARKER } == 2
+#   end
+#   false 
+# end
+# 
+# def tackle_threat(board)
+#   WINNING_COMBOS.each do |combo|
+#     values = board.values_at(*combo)
+#     if (values.count { |x| x == PLAYER_MARKER } == 2) &&
+#        (values.count { |x| x == ' ' } == 1)
+#       return combo[values.index(' ')]
+#     end
+#   end
+# end
 
-def tackle_threat(board)
+def one_more_move_to_win(board, player)
+  marker = (player == 'Player')? PLAYER_MARKER : COMPUTER_MARKER
   WINNING_COMBOS.each do |combo|
     values = board.values_at(*combo)
-    if (values.count { |x| x == PLAYER_MARKER } == 2) &&
+    if (values.count { |x| x == marker } == 2) &&
        (values.count { |x| x == ' ' } == 1)
-      return combo[values.index(' ')]
+      return combo[values.index(' ')] 
     end
   end
+  nil
 end
 
 display_welcome_prompt
+
 loop do
   system('clear') || system('cls')
   player_score = 0
@@ -172,6 +182,7 @@ loop do
 
   loop do
     board = initialize_board
+
     loop do
       display_board(board, round, player_score, computer_score)
 
