@@ -19,12 +19,14 @@ WINNING_COMBOS = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
                   [1, 4, 7], [2, 5, 8], [3, 6, 9],
                   [1, 5, 9], [3, 5, 7]].freeze
 WINNING_SCORE = 5
-CHOOSE_FIRST_MOVER = 'choose' # (player, computer, choose)
+CHOOSE_FIRST_MOVER = 'choose'.freeze # (player, computer, choose)
 
 def prompt(message)
   puts "=> #{message}"
 end
 
+# rubocop: disable Metrics/MethodLength
+# rubocop: disable Metrics/AbcSize
 def display_board(board, round, player_score, computer_score)
   system('clear') || system('cls')
   puts "Round #{round}"
@@ -32,7 +34,7 @@ def display_board(board, round, player_score, computer_score)
   puts "You are a #{PLAYER_MARKER}. " \
        "Computer is #{COMPUTER_MARKER}"
   puts ''
-  puts "BOARD MAPPING"
+  puts 'BOARD MAPPING'
   puts ' 7 | 8 | 9 '
   puts '---+---+---'
   puts ' 4 | 5 | 6 '
@@ -53,6 +55,8 @@ def display_board(board, round, player_score, computer_score)
   puts '     |     |'
   puts ''
 end
+# rubocop: enable Metrics/MethodLength
+# rubocop: enable Metrics/AbcSize
 
 def initialize_board
   new_board = {}
@@ -76,16 +80,15 @@ def player_places_piece!(board)
 end
 
 def computer_places_piece!(board)
-  if square = one_more_move_to_win(board, 'Computer')
-    puts "Imminent win detected!"
-  elsif square = one_more_move_to_win(board, 'Player')
-    puts "Immediate threat detected!"
-  elsif empty_squares(board).include?(5)
-    square = 5
-  else 
-    square = empty_squares(board).sample
-    puts "No immediate threat"
-  end
+  square = if one_more_move_to_win?(board, 'Computer')
+             winning_move(board, 'Computer')
+           elsif one_more_move_to_win?(board, 'Player')
+             winning_move(board, 'Player')
+           elsif empty_squares(board).include?(5)
+             5
+           else
+             empty_squares(board).sample
+           end
   board[square] = COMPUTER_MARKER
 end
 
@@ -111,9 +114,9 @@ def someone_won_five_games?(player_score, computer_score)
 end
 
 def joinor(arr, sep = ', ', word = 'or')
-  case arr.size 
+  case arr.size
   when 1
-    "#{arr[0]}" 
+    (arr[0]).to_s
   when 2
     "#{arr[0]} #{word} #{arr[1]}"
   else
@@ -132,33 +135,45 @@ def play_again?
   answer = ''
   loop do
     answer = gets.chomp.downcase
-    break if %w[y n].include?(answer)
+    break if %w(y n).include?(answer)
     prompt 'Please enter y or n.'
   end
   answer == 'y'
 end
 
 def display_welcome_prompt
-  prompt "Welcome to Tic-Tac-Toe." 
-  prompt "First player to win 5 rounds wins."
-  prompt "Press Enter to continue. Press CTRL+C to quit."
+  prompt 'Welcome to Tic-Tac-Toe.'
+  prompt 'First player to win 5 rounds wins.'
+  prompt 'Press Enter to continue. Press CTRL+C to quit.'
   gets
 end
 
-def one_more_move_to_win(board, player)
-  marker = (player == 'Player')? PLAYER_MARKER : COMPUTER_MARKER
+def one_more_move_to_win?(board, player)
+  marker = player == 'Player' ? PLAYER_MARKER : COMPUTER_MARKER
   WINNING_COMBOS.each do |combo|
     values = board.values_at(*combo)
     if (values.count { |x| x == marker } == 2) &&
        (values.count { |x| x == ' ' } == 1)
-      return combo[values.index(' ')] 
+      return true
+    end
+  end
+  false
+end
+
+def winning_move(board, player)
+  marker = player == 'Player' ? PLAYER_MARKER : COMPUTER_MARKER
+  WINNING_COMBOS.each do |combo|
+    values = board.values_at(*combo)
+    if (values.count { |x| x == marker } == 2) &&
+       (values.count { |x| x == ' ' } == 1)
+      return combo[values.index(' ')]
     end
   end
   nil
 end
 
 def place_piece!(board, current_player)
-  case current_player 
+  case current_player
   when 'player'
     player_places_piece!(board)
   when 'computer'
@@ -166,22 +181,27 @@ def place_piece!(board, current_player)
   end
 end
 
+def prompt_choose_player
+  prompt 'Who goes first? Choose player (p) or computer (c).'
+  player_acronym = ''
+  loop do
+    player_acronym = gets.chomp.downcase
+    break if %w(p w).include?(player_acronym)
+    prompt 'Please choose either player (p) or computer (c) to go first.'
+  end
+  player_acronym == 'p' ? 'player' : 'computer'
+end
+
 def identify_first_player
   if CHOOSE_FIRST_MOVER == 'choose'
-    prompt "Who goes first? Choose player (p) or computer (c)."
-    loop do
-      player_acronym = gets.chomp.downcase
-      return 'player' if player_acronym == 'p'
-      return 'computer' if player_acronym == 'c'
-      prompt "Please choose either player (p) or computer (c) to go first."
-    end
+    prompt_choose_player
   else
     CHOOSE_FIRST_MOVER
   end
 end
 
 def alternate_player(current_player)
-  (current_player == 'player')? 'computer' : 'player'
+  current_player == 'player' ? 'computer' : 'player'
 end
 
 system('clear') || system('cls')
@@ -203,10 +223,10 @@ loop do
       current_player = alternate_player(current_player)
       break if someone_won?(board) || board_full?(board)
     end
-  
+
     if someone_won?(board)
       winner = detect_winner(board)
-      player_score += 1 if winner == 'Player' 
+      player_score += 1 if winner == 'Player'
       computer_score += 1 if winner == 'Computer'
       display_board(board, round, player_score, computer_score)
       prompt "#{winner} won!"
@@ -215,12 +235,12 @@ loop do
     end
 
     if someone_won_five_games?(player_score, computer_score)
-       prompt "#{winner} won 5 games!"
-       break
+      prompt "#{winner} won 5 games!"
+      break
     end
 
     round += 1
-    play_next_round? 
+    play_next_round?
   end
   break unless play_again?
   current_player = identify_first_player
