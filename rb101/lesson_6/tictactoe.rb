@@ -19,6 +19,7 @@ WINNING_COMBOS = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
                   [1, 4, 7], [2, 5, 8], [3, 6, 9],
                   [1, 5, 9], [3, 5, 7]].freeze
 WINNING_SCORE = 5
+CHOOSE_FIRST_MOVER = 'choose' # (player, computer, choose)
 
 def prompt(message)
   puts "=> #{message}"
@@ -75,10 +76,12 @@ def player_places_piece!(board)
 end
 
 def computer_places_piece!(board)
-  if square = one_more_move_to_win(board, 'Player')
-    puts "Immediate threat detected!"
-  elsif square = one_more_move_to_win(board, 'Computer')
+  if square = one_more_move_to_win(board, 'Computer')
     puts "Imminent win detected!"
+  elsif square = one_more_move_to_win(board, 'Player')
+    puts "Immediate threat detected!"
+  elsif empty_squares(board).include?(5)
+    square = 5
   else 
     square = empty_squares(board).sample
     puts "No immediate threat"
@@ -142,24 +145,6 @@ def display_welcome_prompt
   gets
 end
 
-# def immediate_threat?(board)
-#   WINNING_COMBOS.each do |combo|
-#     values = board.values_at(*combo)
-#     return true if values.count { |x| x == PLAYER_MARKER } == 2
-#   end
-#   false 
-# end
-# 
-# def tackle_threat(board)
-#   WINNING_COMBOS.each do |combo|
-#     values = board.values_at(*combo)
-#     if (values.count { |x| x == PLAYER_MARKER } == 2) &&
-#        (values.count { |x| x == ' ' } == 1)
-#       return combo[values.index(' ')]
-#     end
-#   end
-# end
-
 def one_more_move_to_win(board, player)
   marker = (player == 'Player')? PLAYER_MARKER : COMPUTER_MARKER
   WINNING_COMBOS.each do |combo|
@@ -172,7 +157,33 @@ def one_more_move_to_win(board, player)
   nil
 end
 
+def make_move!(board, mover)
+  case mover 
+  when 'player'
+    player_places_piece!(board)
+  when 'computer'
+    computer_places_piece!(board)
+  end
+end
+
+def identify_first_mover
+  if CHOOSE_FIRST_MOVER == 'choose'
+    prompt "Who goes first? Choose player (p) or computer (c)."
+    loop do
+      mover_acronym = gets.chomp.downcase
+      return 'player' if mover_acronym == 'p'
+      return 'computer' if mover_acronym == 'c'
+      prompt "Please choose either player (p) or computer (c) to go first."
+    end
+  else
+    CHOOSE_FIRST_MOVER
+  end
+end
+
+system('clear') || system('cls')
 display_welcome_prompt
+first_mover = identify_first_mover
+second_mover = (first_mover == 'player')? 'computer' : 'player'
 
 loop do
   system('clear') || system('cls')
@@ -186,14 +197,15 @@ loop do
     loop do
       display_board(board, round, player_score, computer_score)
 
-      player_places_piece!(board)
+      make_move!(board, first_mover)
+      display_board(board, round, player_score, computer_score)
       break if someone_won?(board) || board_full?(board)
-  
-      computer_places_piece!(board)
+
+      make_move!(board, second_mover)
+      display_board(board, round, player_score, computer_score)
+
       break if someone_won?(board) || board_full?(board)
     end
-  
-    display_board(board, round, player_score, computer_score)
   
     if someone_won?(board)
       winner = detect_winner(board)
@@ -214,6 +226,7 @@ loop do
     play_next_round? 
   end
   break unless play_again?
+  mover = first_mover
 end
 
 prompt 'Thanks for playing!'
