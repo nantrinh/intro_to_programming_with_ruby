@@ -6,6 +6,7 @@ WINNING_COMBOS = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
                   [1, 5, 9], [3, 5, 7]].freeze
 WINNING_SCORE = 5
 CHOOSE_FIRST_MOVER = 'choose'.freeze # (player, computer, choose)
+BEST_SQUARE = 5
 
 def prompt(message)
   puts "=> #{message}"
@@ -70,8 +71,8 @@ def computer_places_piece!(board)
              winning_move(board, 'Computer')
            elsif one_more_move_to_win?(board, 'Player')
              winning_move(board, 'Player')
-           elsif empty_squares(board).include?(5)
-             5
+           elsif empty_squares(board).include?(BEST_SQUARE)
+             BEST_SQUARE 
            else
              empty_squares(board).sample
            end
@@ -83,7 +84,7 @@ def board_full?(board)
 end
 
 def someone_won?(board)
-  true if detect_winner(board)
+  detect_winner(board)
 end
 
 def detect_winner(board)
@@ -111,7 +112,7 @@ def joinor(arr, sep = ', ', word = 'or')
   end
 end
 
-def play_next_round?
+def display_play_next_round
   prompt 'Press Enter to play another round. Press CTRL+C to quit.'
   gets
 end
@@ -121,7 +122,7 @@ def play_again?
   answer = ''
   loop do
     answer = gets.chomp.downcase
-    break if %w(y n).include?(answer)
+    break if %w[y n].include?(answer)
     prompt 'Please enter y or n.'
   end
   answer == 'y'
@@ -172,7 +173,7 @@ def prompt_choose_player
   player_acronym = ''
   loop do
     player_acronym = gets.chomp.downcase
-    break if %w(p w).include?(player_acronym)
+    break if %w[p c].include?(player_acronym)
     prompt 'Please choose either player (p) or computer (c) to go first.'
   end
   player_acronym == 'p' ? 'player' : 'computer'
@@ -226,7 +227,7 @@ loop do
     end
 
     round += 1
-    play_next_round?
+    display_play_next_round
   end
   break unless play_again?
   current_player = identify_first_player
