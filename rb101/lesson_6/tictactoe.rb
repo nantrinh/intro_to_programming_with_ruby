@@ -157,8 +157,8 @@ def one_more_move_to_win(board, player)
   nil
 end
 
-def make_move!(board, mover)
-  case mover 
+def place_piece!(board, current_player)
+  case current_player 
   when 'player'
     player_places_piece!(board)
   when 'computer'
@@ -166,13 +166,13 @@ def make_move!(board, mover)
   end
 end
 
-def identify_first_mover
+def identify_first_player
   if CHOOSE_FIRST_MOVER == 'choose'
     prompt "Who goes first? Choose player (p) or computer (c)."
     loop do
-      mover_acronym = gets.chomp.downcase
-      return 'player' if mover_acronym == 'p'
-      return 'computer' if mover_acronym == 'c'
+      player_acronym = gets.chomp.downcase
+      return 'player' if player_acronym == 'p'
+      return 'computer' if player_acronym == 'c'
       prompt "Please choose either player (p) or computer (c) to go first."
     end
   else
@@ -180,10 +180,13 @@ def identify_first_mover
   end
 end
 
+def alternate_player(current_player)
+  (current_player == 'player')? 'computer' : 'player'
+end
+
 system('clear') || system('cls')
 display_welcome_prompt
-first_mover = identify_first_mover
-second_mover = (first_mover == 'player')? 'computer' : 'player'
+current_player = identify_first_player
 
 loop do
   system('clear') || system('cls')
@@ -196,14 +199,8 @@ loop do
 
     loop do
       display_board(board, round, player_score, computer_score)
-
-      make_move!(board, first_mover)
-      display_board(board, round, player_score, computer_score)
-      break if someone_won?(board) || board_full?(board)
-
-      make_move!(board, second_mover)
-      display_board(board, round, player_score, computer_score)
-
+      place_piece!(board, current_player)
+      current_player = alternate_player(current_player)
       break if someone_won?(board) || board_full?(board)
     end
   
