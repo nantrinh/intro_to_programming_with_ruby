@@ -223,7 +223,7 @@ loop do
     play_next_round? 
   end
   break unless play_again?
-  mover = first_mover
+  current_player = identify_first_player
 end
 
 prompt 'Thanks for playing!'
