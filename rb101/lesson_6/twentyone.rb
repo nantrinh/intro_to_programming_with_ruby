@@ -9,7 +9,8 @@
 # 7. Compare cards and declare winner.
 require "pry"
 
-CARD_VALUES = (2..10).to_a.concat(['Jack', 'Queen', 'King', 'Ace']).freeze
+VALUES_WORTH_10 = %w[Jack Queen King].freeze
+CARD_VALUES = (2..10).to_a.concat(VALUES_WORTH_10).append('Ace').freeze
 
 def prompt(message)
   puts "=> #{message}"
@@ -41,8 +42,22 @@ def joinand(arr, sep = ', ', word = 'and')
   end
 end
 
+def convert_hand(hand)
+  if hand.all? {|x| x.is_a? Numeric }
+    sum = hand.sum
+  else
+    temp_hand = hand.map{ |x| %w(king queen jack).include?(x) ? 10 : x }
+    if temp_hand.include?('Ace')
+      sum_without_ace = temp_hand.select { |x| x != 'Ace' }.sum 
+      if sum_without_ace > 21
+        sum = # TODO figure out how to calculate values with aces
+          # what if there are multiple aces?
+  end
+end
+
 def value(hand)
-  'TODO'
+  numeric_hand = convert_hand(hand)
+  binding.pry
 end
 
 def display_hand(hand, owner)
