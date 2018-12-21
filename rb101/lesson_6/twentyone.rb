@@ -7,10 +7,15 @@
 #   - repeat until total >= 17
 # 6. If dealer bust, player wins.
 # 7. Compare cards and declare winner.
-require "pry"
+require 'pry'
 
-VALUES_WORTH_10 = %w[Jack Queen King].freeze
-CARD_VALUES = (2..10).to_a.concat(VALUES_WORTH_10).append('Ace').freeze
+KQJ = %w[King Queen Jack].freeze
+KQJ_VALUE = 10
+CARD_VALUES = (2..10).to_a.concat(KQJ).append('Ace').freeze
+GOAL_VALUE = 21
+DEALER_MAX = 17
+ACE_LARGE_VALUE = 11
+ACE_SMALL_VALUE = 1
 
 def prompt(message)
   puts "=> #{message}"
@@ -27,7 +32,7 @@ def initialize_deck
 end
 
 def deal_cards!(deck, hands)
-  hands.each{|k,v| 2.times{ v << deck.delete_at(rand(deck.length)) } }
+  hands.each { |_k, v| 2.times { v << deck.delete_at(rand(deck.length)) } }
 end
 
 def joinand(arr, sep = ', ', word = 'and')
@@ -42,43 +47,62 @@ def joinand(arr, sep = ', ', word = 'and')
   end
 end
 
-def convert_hand(hand)
-  if hand.all? {|x| x.is_a? Numeric }
-    sum = hand.sum
-  else
-    temp_hand = hand.map{ |x| %w(king queen jack).include?(x) ? 10 : x }
-    if temp_hand.include?('Ace')
-      sum_without_ace = temp_hand.select { |x| x != 'Ace' }.sum 
-      if sum_without_ace > 21
-        sum = # TODO figure out how to calculate values with aces
-          # what if there are multiple aces?
+def score_of_hand_with_aces(hand)
+  sum_without_aces = hand.select { |x| x != 'Ace' }.sum
+  count_aces = hand.count('Ace')
+  sum = 1
+  (0..count_aces).reverse_each do |x|
+    sum = sum_without_aces + \
+          (ACE_LARGE_VALUE * x) + \
+          (ACE_SMALL_VALUE * (count_aces - x))
+    return sum if sum <= GOAL_VALUE
   end
+  sum
 end
 
-def value(hand)
-  numeric_hand = convert_hand(hand)
-  binding.pry
+def score(hand)
+  if hand.all? { |x| x.is_a? Numeric }
+    hand.sum
+  else
+    hand2 = hand.map { |x| KQJ.include?(x) ? KQJ_VALUE : x }
+    hand2.include?('Ace') ? score_of_hand_with_aces(hand2) : hand2.sum
+  end
 end
 
 def display_hand(hand, owner)
-  case owner 
+  case owner
   when 'player'
-    prompt "You have: #{joinand(hand)}. Value: #{value(hand)}"
+    prompt "You have: #{joinand(hand)}. (Score: #{score(hand)})"
   when 'dealer'
-    prompt "Dealer has: #{hand[0]} and unknown card"
+    prompt "Dealer has: #{hand[0]} and unknown card."
   end
 end
 
+def display_final_score(hands)
+  player_score = score(hands[:player])
+  dealer_score = score(hands[:dealer])
+  prompt '===== Final Score ======'
+  prompt "You: #{player_score} Dealer: #{dealer_score}"
+  if player_score > dealer_score
+    prompt 'Congratulations! You won!'
+  elsif player_score < dealer_score
+    prompt 'You lost.'
+  else
+    prompt 'You tied.'
+  end
+  prompt '========================'
+end
+
 def player_turn!(deck, player_hand)
-  prompt "Choose one: hit (h) or stay (s)?"
   choice = ''
   loop do
+    prompt 'Choose one: hit (h) or stay (s)?'
     loop do
-      choice = gets.chomp 
-      break if %[h s].include?(choice)
-      prompt "Please choose either hit (h) or stay (s)."
+      choice = gets.chomp
+      break if %(h s).include?(choice)
+      prompt 'Please choose either hit (h) or stay (s).'
     end
-    break if choice == 's'
+    break if choice == 's' || score(player_hand) >= GOAL_VALUE
     hit!(deck, player_hand)
     display_hand(player_hand, 'player')
   end
@@ -86,11 +110,11 @@ end
 
 def dealer_turn!(deck, dealer_hand)
   loop do
-    break if value(dealer_hand) >= 17
+    break if score(dealer_hand) >= DEALER_MAX
     hit!(deck, dealer_hand)
-    prompt "Dealer hits."
+    prompt "Dealer hits. (Score: #{score(dealer_hand)})"
   end
-  prompt "Dealer stays."
+  prompt 'Dealer stays.' if score(dealer_hand) <= GOAL_VALUE
 end
 
 def hit!(deck, hand)
@@ -106,18 +130,58 @@ def turn!(deck, hands, current_player)
   end
 end
 
-system('clear') || system('cls')
+def bust?(hands, current_player)
+  if current_player == 'player'
+    score(hands[:player]) > GOAL_VALUE
+  else
+    score(hands[:dealer]) > GOAL_VALUE
+  end
+end
+
+def play_again?
+  prompt 'Play again? (y/n)'
+  answer = ''
+  loop do
+    answer = gets.chomp.downcase
+    break if %w[y n].include?(answer)
+    prompt 'Please enter y or n.'
+  end
+  answer == 'y'
+end
+
+def clear_screen
+  system('clear') || system('cls')
+end
+
+def initialize_hands
+  { player: [], dealer: [] }
+end
+
+clear_screen
 display_welcome_prompt
-hands = {player: [], dealer: []}
-current_player = 'player'
 
 loop do
-  deck = initialize_deck
-  deal_cards!(deck, hands)
-  display_hand(hands[:player], 'player')
-  display_hand(hands[:dealer], 'dealer')
-  # turn!(deck, hands, current_player)
-  binding.pry
-  # current_player = alternate_player(current_player)
-  # break if someone_won?(hands) # TODO or you run out of cards?
+  clear_screen
+  loop do
+    hands = initialize_hands
+    deck = initialize_deck
+    deal_cards!(deck, hands)
+    display_hand(hands[:player], 'player')
+    display_hand(hands[:dealer], 'dealer')
+    turn!(deck, hands, 'player')
+    if bust?(hands, 'player')
+      prompt 'You went bust!'
+      break
+    end
+    turn!(deck, hands, 'dealer')
+    if bust?(hands, 'dealer')
+      prompt 'Dealer went bust!'
+      break
+    end
+    display_final_score(hands)
+    break
+  end
+  break unless play_again?
 end
+
+prompt 'Thank you for playing!'
