@@ -1,14 +1,3 @@
-# 1. Initialize deck
-# 2. Deal cards to player and dealer
-# 3. Player turn: hit or stay
-#   - repeat until bust or "stay"
-# 4. If player bust, dealer wins.
-# 5. Dealer turn: hit or stay
-#   - repeat until total >= 17
-# 6. If dealer bust, player wins.
-# 7. Compare cards and declare winner.
-require 'pry'
-
 KQJ = %w[King Queen Jack].freeze
 KQJ_VALUE = 10
 CARD_VALUES = (2..10).to_a.concat(KQJ).append('Ace').freeze
