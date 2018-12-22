@@ -1,6 +1,6 @@
 KQJ = %w[King Queen Jack].freeze
 KQJ_VALUE = 10
-CARD_VALUES = (2..10).to_a.concat(KQJ).append('Ace').freeze
+CARD_VALUES = [*2..10].concat(KQJ).push('Ace').freeze
 GOAL_VALUE = 21
 DEALER_MAX = 17
 ACE_LARGE_VALUE = 11
@@ -36,7 +36,7 @@ def joinand(arr, sep = ', ', word = 'and')
   end
 end
 
-def score_of_hand_with_aces(hand)
+def score_with_aces(hand)
   sum_without_aces = hand.select { |x| x != 'Ace' }.sum
   count_aces = hand.count('Ace')
   sum = 1
@@ -53,8 +53,8 @@ def score(hand)
   if hand.all? { |x| x.is_a? Numeric }
     hand.sum
   else
-    hand2 = hand.map { |x| KQJ.include?(x) ? KQJ_VALUE : x }
-    hand2.include?('Ace') ? score_of_hand_with_aces(hand2) : hand2.sum
+    temp_hand = hand.map { |x| KQJ.include?(x) ? KQJ_VALUE : x }
+    temp_hand.include?('Ace') ? score_with_aces(temp_hand) : temp_hand.sum
   end
 end
 
@@ -91,9 +91,10 @@ def player_turn!(deck, player_hand)
       break if %(h s).include?(choice)
       prompt 'Please choose either hit (h) or stay (s).'
     end
-    break if choice == 's' || score(player_hand) >= GOAL_VALUE
+    break if choice == 's'
     hit!(deck, player_hand)
     display_hand(player_hand, 'player')
+    break if score(player_hand) >= GOAL_VALUE
   end
 end
 
