@@ -3,33 +3,14 @@
 # should work with any integer input
 # may not use Date and Time classes
 
-def adjust_for_midnight(hour, min, positive)
-  if positive
-    new_hour = hour
-    new_min = min
-  else
-    new_hour = 23 - hour
-    new_min = 60 - min
-  end
-  [new_hour, new_min]
-end
-
-def remove_days(num)
-  _, rem = num.divmod(60 * 24)
-  rem.divmod(60)
-end
-
-def add_zeros(x)
-  x < 10 ? x.to_s.prepend('0') : x
-end
+MINUTES_PER_HOUR = 60
+HOURS_PER_DAY = 24
+MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
 
 def time_of_day(num)
-  return '00:00' if num.zero?
-  positive = (num > 0)
-  num = -num unless positive
-  hour, min = remove_days(num)
-  new_hour, new_min = adjust_for_midnight(hour, min, positive)
-  [new_hour, new_min].map { |x| add_zeros(x) }.join(':')
+  num = num % MINUTES_PER_DAY
+  hours, mins = num.divmod(MINUTES_PER_HOUR)
+  format('%02d:%02d', hours, mins)
 end
 
 puts time_of_day(0) == '00:00'
