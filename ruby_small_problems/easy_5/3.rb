@@ -9,14 +9,11 @@
 #
 # after
 # (60 * number of hours) + minutes
-require "pry"
-
 MIDNIGHT_HR = 24
 MINS_PER_HR = 60
 
 def before_midnight(time)
-  hours = time[0, 2].to_i
-  mins = time[3, 2].to_i
+  hours, mins = time.split(':').map(&:to_i)
   return 0 if hours.zero? && mins.zero?
   mins = MINS_PER_HR - mins unless mins.zero?
   hours += 1 unless mins.zero?
@@ -24,9 +21,8 @@ def before_midnight(time)
 end
 
 def after_midnight(time)
-  hours = time[0, 2].to_i
-  mins = time[3, 2].to_i
-  return 0 if hours == MIDNIGHT_HR 
+  hours, mins = time.split(':').map(&:to_i)
+  return 0 if hours == MIDNIGHT_HR
   [hours * MINS_PER_HR, mins].sum
 end
 
