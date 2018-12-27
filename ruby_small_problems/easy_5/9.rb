@@ -3,17 +3,18 @@
 #
 # split string into array of characters
 # initialize new empty string
-# initialzie empty hash
+# initialize local var `prev` to hold prev char, set the value to ''
 # walk through each character in character array, for each character
-# if hash has that char already, don't add it to new string
-# else add it to the new string, and add it to the hash
+# if `prev` == that char, next
+# else assign that char to `prev`
 
 def crunch(str)
   new_str = ''
-  str.chars.each_with_object({}) do |c, hsh|
-    next if hsh.key?(c)
-    hsh[c] = 1
+  prev = ''
+  str.chars.each do |c|
+    next if prev == c
     new_str << c
+    prev = c
   end
   new_str
 end
