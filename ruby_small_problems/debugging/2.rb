@@ -1,0 +1,1 @@
+# You are calling the #upcase! method on elements of the array of characters. The array of characters object is different from the string method `name` passed in as an argument. You can just do name.upcase! to modify the string.
