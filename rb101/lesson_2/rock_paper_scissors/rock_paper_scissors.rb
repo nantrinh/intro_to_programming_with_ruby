@@ -12,8 +12,6 @@ def win?(first, second)
   (first == 'scissors') && (second == 'paper')
 end
 
-binding.pry
-
 def display_result(player, computer)
   if win?(player, computer)
     prompt 'You won!'
