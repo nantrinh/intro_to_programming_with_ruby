@@ -101,6 +101,17 @@ class TodoList
     str << todos.map(&:to_s).join("\n")
     str
   end
+  
+  def each
+    todos.each {|x| yield x}
+    self
+  end
+
+  def select
+    new_tdl = TodoList.new(title)
+    each {|x| new_tdl << x if yield x}
+    new_tdl
+  end
 end
 
 todo1 = Todo.new("Buy milk")
@@ -110,25 +121,6 @@ list = TodoList.new("Today's Todos")
 list.add(todo1)
 list.add(todo2)
 list << todo3
-#list.add(1)
-p list.size == 3
-p list.first == todo1
-p list.last == todo3
-p list.to_a == [todo1, todo2, todo3]
-p list.done? == false
-#list.item_at
-p list.item_at(1) == todo2
-# p list.item_at(100)
-# list.mark_done_at
-list.mark_done_at(1)
-p list.item_at(1).done? == true
-# list.mark_done_at(100)
-list.mark_undone_at(1)
-p list.item_at(1).done? == false 
-list.done!
-puts "all items done?"
-list.to_a.each {|x| p x.done? }
-puts list
-list.mark_undone_at(0)
-list.mark_undone_at(2)
-puts list
+todo1.done!
+results = list.select {|x| x.done?}
+puts results.inspect
