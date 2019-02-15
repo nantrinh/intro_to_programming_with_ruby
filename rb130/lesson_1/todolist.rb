@@ -76,24 +76,20 @@ class TodoList
     todos.pop
   end
 
-  def remove_at(idx)
-    raise IndexError if idx > size
-    todos.delete_at(idx)
+  def item_at(idx)
+    todos.fetch(idx)
   end
 
-  def item_at(idx)
-    raise IndexError if idx > size 
-    todos[idx]
+  def remove_at(idx)
+    todos.delete(item_at(idx))
   end
 
   def mark_done_at(idx)
-    raise IndexError if idx > size 
-    todos[idx].done!
+    item_at(idx).done!
   end
 
   def mark_undone_at(idx)
-    raise IndexError if idx > size 
-    todos[idx].undone!
+    item_at(idx).undone!
   end
 
   def done!
@@ -101,8 +97,9 @@ class TodoList
   end
 
   def to_s
-    puts "---- #{title} ----"
-    todos.each {|x| puts x}
+    str = "---- #{title} ----\n"
+    str << todos.map(&:to_s).join("\n")
+    str
   end
 end
 
@@ -131,7 +128,7 @@ p list.item_at(1).done? == false
 list.done!
 puts "all items done?"
 list.to_a.each {|x| p x.done? }
-list.to_s
+puts list
 list.mark_undone_at(0)
 list.mark_undone_at(2)
-list.to_s
+puts list
