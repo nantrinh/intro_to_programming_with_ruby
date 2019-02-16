@@ -112,6 +112,30 @@ class TodoList
     each {|x| new_tdl << x if yield x}
     new_tdl
   end
+
+  def find_by_title(str)
+    each {|x| return x if x.title == str}
+  end
+  
+  def all_done
+    select {|x| x.done?}
+  end
+
+  def all_not_done
+    select {|x| !x.done?}
+  end
+
+  def mark_done(str)
+    find_by_title(str).done!
+  end
+  
+  def mark_all_done
+    each {|x| x.done!}
+  end
+
+  def mark_all_undone
+    each {|x| x.undone!}
+  end
 end
 
 todo1 = Todo.new("Buy milk")
@@ -121,6 +145,10 @@ list = TodoList.new("Today's Todos")
 list.add(todo1)
 list.add(todo2)
 list << todo3
-todo1.done!
-results = list.select {|x| x.done?}
-puts results.inspect
+list.mark_done("Clean room")
+puts list
+puts "\nDone\n"
+puts list.all_done
+puts "\nNot done\n"
+puts list.all_not_done
+
