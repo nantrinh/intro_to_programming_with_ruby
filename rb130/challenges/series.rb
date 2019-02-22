@@ -9,11 +9,12 @@ class Series
 
   def slices(n) 
     raise ArgumentError if n > str.size
-    res = []
-    int_arr = str.chars.map(&:to_i)
-    int_arr[0..-n].each_with_index do |x, idx|
-      res << int_arr[idx, n] 
-    end
-    res
+    # res = []
+    # int_arr = str.chars.map(&:to_i)
+    # int_arr[0..-n].each_with_index do |x, idx|
+    #   res << int_arr[idx, n] 
+    # end
+    # res
+    str.chars.map(&:to_i).each_cons(n).to_a
   end
 end
