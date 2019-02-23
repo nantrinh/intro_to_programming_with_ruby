@@ -1,5 +1,3 @@
-require 'pry'
-
 class Series
   attr_accessor :str
 
@@ -7,14 +5,12 @@ class Series
     @str = str
   end
 
-  def slices(n) 
+  def slices(n)
+    # return array of consecutive slices of string
+    # split into chars, map to integer, each_cons
     raise ArgumentError if n > str.size
-    # res = []
-    # int_arr = str.chars.map(&:to_i)
-    # int_arr[0..-n].each_with_index do |x, idx|
-    #   res << int_arr[idx, n] 
-    # end
-    # res
-    str.chars.map(&:to_i).each_cons(n).to_a
+    res = []
+    str.chars.map(&:to_i).each_cons(n) {|x| res << x}
+    res
   end
 end
