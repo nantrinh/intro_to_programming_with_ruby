@@ -1,43 +1,30 @@
-require 'pry'
 class Sieve
-  attr_accessor :n, :arr, :marked
-
   def initialize(n)
     @n = n
-    @arr = (2..n).to_a
-    # initialize way to keep track of markings
-    @marked = {}
-    arr.each do |x|
-      @marked[x] = false
-    end
-    p marked 
   end
 
   def primes
-
+    # initalize data structure with all array elements marked
     # take the next available unmarked number in your list
-    idx = 0
-    while idx < arr.size
-      num = arr[idx]
-      mark_all_multiples(num) unless marked[num] 
-      idx += 1
+    # mark all multiples of that number (NOT that number itself)
+    # repeat until you have iterated through all elements in your list
+    iterate_through = (2..@n).to_a
+    @marked = {}
+    iterate_through.each {|x| @marked[x] = false}  # all are unmarked
+    iterate_through.each do |x|
+      # if it is already marked leave it alone
+      # if it is unmarked, mark all multiples
+      mark_all_multiples(x) if !@marked[x]
     end
-    marked.select {|k,v| !v}.keys
+    # return array of the elements that are unmarked
+    @marked.reject {|k,v| v}.keys
   end
 
-  def mark_all_multiples(num)
-    multiples = []
-
-    mult = num + num
-    while mult <= n
-      multiples << mult
-      mult += num
-    end
-
-    multiples.each do |x|
-      if !marked[x]
-        marked[x] = true
-      end
+  def mark_all_multiples(x)
+    curr = x * 2
+    while curr <= @n
+      @marked[curr] = true
+      curr += x
     end
   end
 end
