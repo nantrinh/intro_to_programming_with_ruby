@@ -1,6 +1,6 @@
 require 'pry'
 
-class InvalidCodonError < RuntimeError; end
+class InvalidCodonError < StandardError; end
 
 class Translation
   CODONS = {
@@ -24,17 +24,14 @@ class Translation
   }
 
   def self.of_codon(key)
-    CODONS[key.to_sym]
+    CODONS.fetch(key.to_sym) {fail InvalidCodonError}
   end
 
   def self.of_rna(strand)
-    res = []
-    strand.chars.each_slice(3) do |subarr|
-      key = subarr.join.to_sym
-      raise InvalidCodonError unless CODONS.keys.include?(key)
-      break if CODONS[key] == 'STOP'
-      res << CODONS[key]
+    strand.chars.each_slice(3).with_object([]) do |subarr, res|
+      aa = of_codon(subarr.join)
+      return res if aa == 'STOP' 
+      res << aa
     end
-    res
   end
 end
