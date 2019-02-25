@@ -1,6 +1,3 @@
-require 'pry'
-
-
 class CircularBuffer
   def initialize(n)
     @max_size = n
