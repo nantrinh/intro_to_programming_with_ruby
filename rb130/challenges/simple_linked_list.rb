@@ -2,12 +2,14 @@
 class Element
   attr_reader :value, :tail, :next
   alias datum value
-  alias tail? tail
 
   def initialize(value, next_element = nil)
     @value = value
-    @tail = true
     @next = next_element
+  end
+
+  def tail?
+    @next.nil?
   end
 end
 
