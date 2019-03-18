@@ -1,4 +1,4 @@
-# Set 1
+# The SQL Language
 1. SQL is a special-purpose language.
 2. data definition language, data manipulation language, data control language
 3. 'canoe', 'a long road', 'weren''t', '"No way!"'
@@ -7,14 +7,14 @@
 6. t, f
 7. SELECT trunc(4 * pi() * 26.3 ^ 2);
 
-# Set 2
+# PostgreSQL Data Types
 1. Both store text data. varchar enforces a character length that you have to define. Text columns do not have a limit to the number of characters they can hold.
 2. Integer stores real numbers. Real stores floating-point numbers. Decimal stores values to a defined level of precision.
 3. 2147483647
 4. timestamp stores date and time. date only stores date.
 5. No
 
-# Set 3
+# Working with a Single Table
 1.
 CREATE TABLE people (
     name varchar(20),
@@ -86,7 +86,7 @@ SELECT item, menu_price, ingredient_cost,
 FROM   menu_items
 ORDER  BY profit DESC;
 
-# Set 4
+# Loading Database Dumps
 1. 
 Drops the table "public.films" if it exists, then creates the table with fields title, year, and genre. Adds three rows to the table.
 The table does not exist in the database, skipping the command. Create table, insert 3 rows.
@@ -133,3 +133,102 @@ SELECT title
 FROM films
 ORDER BY duration DESC
 LIMIT 1;
+
+# More Single Table Queries
+1. createdb residents;
+2. psql residents < ~/Documents/launch_school/ls180/residents_with_data.sql
+3. 
+SELECT state, count(id) AS count_rows
+FROM   people
+GROUP  BY state
+ORDER  BY count_rows DESC
+LIMIT 10;
+4. 
+SELECT substr(email, strpos(email, '@') + 1) as domain, COUNT(id) 
+FROM   people 
+GROUP  BY domain 
+ORDER  BY count DESC;
+5. DELETE FROM people WHERE id = 3399;
+6. DELETE FROM people WHERE state = 'CA';
+7. 
+UPDATE people 
+SET    given_name = UPPER(given_name)
+WHERE  email LIKE '%teleworm.us';
+8. DELETE FROM people;
+
+# NOT NULL and Default Values
+1. NULL
+2.
+ALTER TABLE employees 
+ALTER COLUMN department SET DEFAULT 'unassigned',
+ALTER COLUMN department SET NOT NULL;
+3.
+CREATE TABLE temperatures (
+date date NOT NULL,
+low integer NOT NULL,
+high integer NOT NULL
+);
+4.
+INSERT INTO temperatures
+VALUES ('2016-03-01', 34, 43),
+       ('2016-03-02', 32, 44),
+etc.
+5. 
+SELECT date, ROUND((high + low) / 2.0, 1) as average
+FROM   temperatures
+WHERE  date BETWEEN '2016-03-02' AND '2016-03-08';
+6. ALTER TABLE temperatures ADD COLUMN rainfall integer DEFAULT 0;
+7.
+UPDATE temperatures
+SET rainfall = (high + low) / 2 - 35
+WHERE (high + low)/2 > 35;
+8.
+ALTER TABLE temperatures ALTER COLUMN rainfall TYPE numeric(6,3);
+UPDATE temperatures
+SET rainfall = rainfall * 0.0393701;
+9. ALTER TABLE temperatures RENAME TO weather;
+10. \d weather;
+11. 
+pg_dump -d sql_book -t weather --inserts > dump.sql
+
+# More Constraints
+1. psql sql_book < ~/Documents/launch_school/ls180/films2.sql
+2. 
+ALTER TABLE films 
+ALTER COLUMN title SET NOT NULL,
+ALTER COLUMN year SET NOT NULL,
+ALTER COLUMN genre SET NOT NULL,
+ALTER COLUMN director SET NOT NULL,
+ALTER COLUMN duration SET NOT NULL;
+3. not null will be displayed in the Nullable column
+4. ALTER TABLE films ADD CONSTRAINT unique_title UNIQUE(title);
+5. appears as an index
+6. ALTER TABLE films DROP CONSTRAINT unique_title;
+7. ALTER TABLE films ADD CONSTRAINT title_length CHECK (length(title) >= 1);
+8. 
+INSERT INTO films (title, year, genre, director, duration) 
+VALUES ('', 2019, 'abc', 'abc', 10);
+ERROR:  new row for relation "films" violates check constraint "title_length"
+DETAIL:  Failing row contains (, 2019, abc, abc, 10).
+9. under a label "Check constraints"
+Check constraints:
+    "title_length" CHECK (length(title::text) >= 1)
+10. ALTER TABLE films DROP CONSTRAINT title_length;
+11. ALTER TABLE films ADD CONSTRAINT year_range CHECK (year BETWEEN 1900 AND 2100);
+12.
+Check constraints:
+    "year_range" CHECK (year >= 1900 AND year <= 2100)
+13. 
+ALTER TABLE films 
+ADD CONSTRAINT director_name
+CHECK (length(director) >= 3 AND position(' ' in director) > 0);
+14.
+Check constraints:
+    "director_name" CHECK (length(director::text) >= 3 AND "position"(director::text, ' '::text) > 0)
+15.
+UPDATE films SET director = 'Johnny' WHERE title = 'Die Hard';
+ERROR:  new row for relation "films" violates check constraint "director_name"
+DETAIL:  Failing row contains (Die Hard, 1988, action, Johnny, 132).
+16. can set a NOT NULL constraint, can add Check constraint, data type
+
+# Using Keys
