@@ -232,3 +232,9 @@ DETAIL:  Failing row contains (Die Hard, 1988, action, Johnny, 132).
 16. can set a NOT NULL constraint, can add Check constraint, data type
 
 # Using Keys
+1. CREATE SEQUENCE counter;
+2. SELECT nextval('counter');
+3. DROP SEQUENCE counter;
+4. CREATE SEQUENCE counter INCREMENT BY 2 START WITH 2;
+5. regions_id_seq
+6. ALTER TABLE films ADD COLUMN id serial PRIMARY KEY;
