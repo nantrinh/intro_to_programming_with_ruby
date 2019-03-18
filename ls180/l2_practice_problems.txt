@@ -1,0 +1,42 @@
+# Set 1
+1. SQL is a special-purpose language.
+2. data definition language, data manipulation language, data control language
+3. 'canoe', 'a long road', 'weren''t', '"No way!"'
+4. ||
+5. lower; SELECT lower('HeLlO');
+6. t, f
+7. SELECT trunc(4 * pi() * 26.3 ^ 2);
+
+# Set 2
+1. Both store text data. varchar enforces a character length that you have to define. Text columns do not have a limit to the number of characters they can hold.
+2. Integer stores real numbers. Real stores floating-point numbers. Decimal stores values to a defined level of precision.
+3. 2147483647
+4. timestamp stores date and time. date only stores date.
+5. No
+
+# Set 3
+1.
+CREATE TABLE people (
+    name varchar(20),
+    age integer,
+    occupation varchar(50)
+);
+2.
+INSERT INTO people
+VALUES ('Abby',      34, 'biologist'),
+       ('Mu''nisah', 26, NULL),
+       ('Mirabelle', 40, 'contractor');
+3.
+SELECT * FROM people WHERE name = 'Mu''nisah';
+SELECT * FROM people WHERE age = 26;
+SELECT * FROM people WHERE occupation IS NULL;
+SELECT * FROM people LIMIT 1 OFFSET 1;
+
+4.
+CREATE TABLE birds (
+    name varchar(50),
+    length decimal(3, 1),
+    wingspan decimal (3, 1),
+    family varchar(50),
+    extinct boolean
+);

@@ -1,0 +1,16 @@
+1.
+DDL, data definition language, controls the schema.
+CREATE, ALTER, DROP
+
+DML, data manipulation language, controls the data.
+SELECT, INSERT, UPDATE, DELETE FROM
+
+2. DML
+3. DDL
+4. DDL
+5. DML
+6. DML
+7. None of the above; it is a psql console command 
+8. DML
+9. DDL and DML
+10. DDL

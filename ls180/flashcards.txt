@@ -1,0 +1,251 @@
+# Define a table in the context of a database.
+A list of individual but related data entries (the table rows), each of which store values for a set of defined, shared attributes (the table columns.
+
+# Define a row and a column in the context of a database.
+A row represents a single set of related data. A column represent a standardized way to store data for a particular attribute.
+
+# Define a relational database.
+A relational database is a database organized according to the relational model of data. In simple terms, the relational model defines a set of relations (which we can think of as analogous to tables) and describes the relationships, or connections, between them in order to determine how the data stored in them can interact.
+
+# Define a RDBMS.
+A relational database management system, or RDBMS, is essentially a software application, or system, for managing relational databases. An RDBMS allows a user, or another application, to interact with a database by issuing commands using syntax that conforms to a certain set of conventions or standards.
+
+# What does it mean when we say SQL is a declarative language?
+SQL is a declarative language; when you write an SQL statement you describe what needs to be done, but not exactly how to do it -- the exact details of how the query is executed are handled internally by the RDBMS you are using.
+
+# What are the two different types of commands you can issue from the psql console prompt?
+psql console meta-commands
+SQL queries using standard SQL syntax
+
+# What are the three SQL sub-languages?
+DDL: Data Definition Language. Used to define the structure of a database and the tables and columns within it.
+DML: Data Manipulation Language. Used to retrieve or modify data stored in a database. SELECT queries are part of DML.
+DCL: Data Control Language. Used to determine what various users are allowed to do when interacting with a database.
+
+# Explain the difference between schema and data.
+Schema is concerned with the structure of a database. This structure is defined by things such as the names of tables and table columns, the data types of those columns and any constraints that they may have.
+
+Data is concerned with the contents of a database. These are the actual values associated with specific rows and columns in a database table.
+
+# How do you create a database named sql_book?
+From the terminal, `createdb sql_book`
+
+# How do you connect to the sql_book database via the psql console?
+From the terminal, `psql -d sql_book`
+
+# How do you view a list of databases?
+From within the psql console, the meta-command `\list`
+
+# Utility functions are executed from the __________, while SQL statements are executed from within the ____________.
+terminal; psql console
+
+# What happens if you are connected to the `sql_book` database via a psql console, and you issue the command `\c`, passing it `another_database` as the `db_name` argument?
+You open a connection to `another_database` and close your connection with `sql_book`.
+
+# Do meta-commands have to be terminated with a semi-colon?
+No
+
+# How can you delete a database?
+Use the SQL command `DROP DATABASE`, followed by the name of hte database we want to delete, followed by a semi-colon.
+Or you can issue the command `dropdb` followed by the name of the database we want to delete, from the terminal.
+
+# What is a data type?
+A data type classifies particular values that are allowed for that column.
+
+# What is a serial data type?
+This data type is used to create identifier columns for a PostgreSQL database. These identifiers are integers, auto-incrementing, and cannot contain a null value.
+
+# What is a char(N) data type?
+This data type specifies that information stored in a column can contain strings of up to N characters in length. If a string less than length N is stored, then the remaining string length is filled with space characters.
+
+# What is a varchar(N) data type?
+This data type specifies that information stored in a column can contain strings of up to N characters in length. If a string less than length N is stored, then the remaining string length isn't used.
+
+# What is a boolean data type?
+This is a data type that can only contain two values "true" or "false". In PostgreSQL, boolean values are often displayed in a shorthand format, t or f
+
+# What is a integer or INT data type?
+An integer is simply a "whole number." An example might be 1 or 50, -50, or 792197 depending on what storage type is used.
+
+# What is a decimal(precision, scale) data type?
+The decimal type takes two arguments, one being the total number of digits in the entire number on both sides of the decimal point (the precision), the second is the number of the digits in the fractional part of the number to the right of the decimal point (the scale).
+
+# What is a timestamp data type?
+The timestamp type contains both a simple date and time in YYYY-MM-DD HH:MM:SS format.
+
+# What is a date data type?
+The date type contains a date but no time.
+
+# Are constraints a required part of a column definition?
+No, but data types are.
+
+# Why would you want to define keys and constraints as part of the database design process?
+To ensure that the data within the database is reliable and maintain its integrity.
+
+# What is the meaning of the following constraints? UNIQUE, NOT NULL, DEFAULT
+UNIQUE: The id column also has a UNIQUE constraint, which prevents any duplicate values from being entered into that column.
+
+NOT NULL: The id column also has a NOT NULL constraint, which essentially means that when adding data to the table a value MUST be specified for this column, it cannot be left empty.
+
+DEFAULT: The enabled column has an extra property DEFAULT with a value of TRUE. If no value is set in this field when a record is created then the value of TRUE is set in that field.
+
+# How do you view a list of all tables that exist in a database?
+Issue the meta-command `\dt` while connected to a database
+
+# How do you view more information on a particular table?
+`\d table_name`
+
+# Are the "security settings" determined by DCL also part of the database's schema?
+yes
+
+# An ALTER TABLE statement is part of which sub-language of SQL?
+DDL, data definition language
+
+# How do you rename a table `users` to `all_users`?
+ALTER TABLE users RENAME TO all_users;
+
+# How do you rename a column `username` to `full_name` within the table `all_users`?
+ALTER TABLE all_users RENAME COLUMN username TO full_name;
+
+# How do you change column `full_name`'s datatype from char(25) to varchar(25) in the table `all_users`?
+ALTER TABLE all_users ALTER COLUMN full_name TYPE VARCHAR(25);
+
+# How do you add a NOT NULL constraint to column `full_name` in table `all_users`?
+ALTER TABLE all_users ALTER COLUMN full_name SET NOT NULL;
+
+# How do you remove a DEFAULT contraint on column `id` in table `all_users`?
+ALTER TABLE all_users ALTER COLUMN id DROP DEFAULT;
+
+# How do you add a column `last_login` with a datatype of `timestamp`, a constraint NOT NULL, and a default value based on the function NOW(), to the table `all_users`?
+ALTER TABLE all_users ADD COLUMN last_login timestamp NOT NULL DEFAULT NOW();
+
+# How do you remove the column `enabled` from the table `all_users`?
+ALTER TABLE all_users DROP COLUMN enabled;
+
+# How do you delete the table `all_users`?
+DROP TABLE all_users;
+
+# What are the four different types of Data Manipulation Statements?
+INSERT statements - add new data into a database table
+SELECT statements - aka Queries; retrieve existing data from database tables.
+UPDATE statements - update existing data in a database table.
+DELETE statements - delete existing data from a database table.
+
+# What does the term CRUD mean in the database world?
+CREATE READ UPDATE DELETE, analogous to INSERT SELECT UPDATE DELETE
+
+# What are the three pieces of information we have to provide when using an INSERT statement?
+1. The table name we wish to store data in.
+2. The names of the columns we're adding data to.
+3. The values we wish to store in the columns listed directly after the table name.
+
+# Your INSERT statement was executed successfully and you got the following command tag back in response: `INSERT 0 1`. What is the meaning of the two digits after INSERT?
+oid, count of inserted rows
+
+# What are CHECK constraints?
+Check constraints limit the type of data that can be included in a column based on some condition we set in the constraint. Each time a new record is in the process of being added to a table, that constraint is first checked to ensure that data being added conforms to it.
+
+# How can you add a constraint that prevents empty strings to serve as values for `full_name`, in the table `users`?
+ALTER TABLE users ADD CHECK (full_name <> '');
+
+# What is the "Three State Boolean" or "Three Valued-logic" problem?
+When you have a boolean column but you allow NULLs as well. You end up with a column with values that could be either true, false, or NULL.
+
+# How are two rows ordered by when they have the same value for the column we are ordering by?
+arbitrary
+
+# When ordering by boolean values, what value comes first in ascending order?
+false
+
+# What does normalization refer to in the launch school sql book? What is the rea
+Arranging data across multiple tables and creating relationships between them, to reduce redundancy and improve data integrity.
+
+# What is an ERD?
+An ERD (Entity Relationship Diagram) is a graphical representation of entities and their relationships to each other.
+
+# How many primary keys can each table have?
+One
+
+# What is the purpose of a primary key? How can you set one?
+To uniquely identify a row of data. `ALTER TABLE users ADD PRIMARY KEY (id);`
+
+# What is the purpose of a foreign key? How can you set one?
+To associate a row in one table with a row in another table. It ensures the "referential integrity" of a relationship: PostgreSQL won't allow you to add a value to the Foreign Key column of a table if the Primary Key column of the table it is referencing does not already contain that value.
+You set a column in one table as a Foreign Key and have that column reference another table's Primary Key column. `FOREIGN KEY (fk_col_name) REFERENCES target_table_name (pk_col_name)`
+
+# Explain how a one-to-one relationship is implemented using primary keys and foreign keys.
+The id that is the primary key of table_1 is used both as the foreign key and primary key of table_2.
+Example: A user can have only one address, and an address belongs to only one user.
+```
+CREATE TABLE addresses (
+  user_id int, -- Both a primary and foreign key
+  street varchar(30) NOT NULL,
+  city varchar(30) NOT NULL,
+  state varchar(30) NOT NULL,
+  PRIMARY KEY (user_id),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+```
+You cannot add an address without an associated user but you can have users without an associated address.
+
+# What does the ON DELETE CASCADE clause mean? What are two alternatives to CASCADE?
+If the row being referenced is deleted, the row referencing it is also deleted. Two alternatives are SET NULL and SET DEFAULT.
+
+# Why is it important to determine what to do in situations where you delete a row that is referenced by another row?
+It is part of the concept of maintaining referential integrity. If you don't set such clauses you leave the decision of what to do up the RDBMS we are using. In the case of PostgreSQL, if we try to delete a row that is being referenced by a row in another table and we have no ON DELETE clause for that reference, then an error will be thrown.
+
+# Explain how a one-to-many relationship is implemented using primary keys and foreign keys.
+A one-to-many relationship exists between two entities if an entity instance in one of the tables can be associated with multiple records (entity instances) in the other table. The opposite relationship does not exist; that is, each entity instance in the second table can only be associated with one entity instance in the first table.
+
+Example: A book has many reviews. A review belongs to only one book.
+```
+CREATE TABLE books (
+  id serial,
+  title varchar(100) NOT NULL,
+  author varchar(100) NOT NULL,
+  published_date timestamp NOT NULL,
+  isbn char(12),
+  PRIMARY KEY (id),
+  UNIQUE (isbn)
+);
+
+/*
+ one to many: Book has many reviews
+*/
+
+CREATE TABLE reviews (
+  id serial,
+  book_id integer NOT NULL,
+  reviewer_name varchar(255),
+  content varchar(255),
+  rating integer,
+  published_date timestamp DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+```
+
+# Explain how a many-to-many relationship is implemented using primary keys and foreign keys.
+A many-to-many relationship exists between two entities if for one entity instance there may be multiple records in the other table, and vice versa.
+Example: A user can check out many books. A book can be checked out by many users (over time).
+This setup involves a cross-reference table. This table holds the relationship between the two entities, by having two FOREIGN KEYs, each of which references the PRIMARY KEY of one of the tables for which we want to create this relationship. 
+```
+CREATE TABLE checkouts (
+  id serial,
+  user_id int NOT NULL,
+  book_id int NOT NULL,
+  checkout_date timestamp,
+  return_date timestamp,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+```
+
+# As a general rule, which is faster, JOINs or subqueries?
+JOINs
+
+# When reading PostgreSQL documentation, what does the following mean: (1) terms in square brackets, (2) terms in curly braces, (3) terms in bold and italicized?
+(1) optional
+(2) have to choose one of the options
+(3) there is more information available on this term somewhere on the page later
