@@ -249,3 +249,15 @@ JOINs
 (1) optional
 (2) have to choose one of the options
 (3) there is more information available on this term somewhere on the page later
+
+# What happens when PostgreSQL executes a SELECT query? List all steps.
+- Rows are collected into a virtual derived table.
+- Rows are filtered using WHERE conditions.
+- Rows are divided into groups. (GROUP BY)
+- Groups are filtered using HAVING conditions.
+- Compute values to return using select list.
+- Sort results. (ORDER BY)
+- Limit results. (LIMIT, OFFSET)
+
+
+
