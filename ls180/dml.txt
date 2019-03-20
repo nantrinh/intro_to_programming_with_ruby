@@ -57,4 +57,13 @@ ORDER  BY devices.name ASC;
 SELECT part_number, device_id FROM parts WHERE device_id IS NOT NULL;
 SELECT part_number, device_id FROM parts WHERE device_id IS NULL;
 
+# 8
+SELECT name FROM devices ORDER BY created_at ASC LIMIT 1;
 
+# 9
+UPDATE parts SET device_id = 1
+WHERE  part_number IN (14, 15);
+
+# 10
+DELETE FROM devices WHERE name = 'Accelerometer';
+DELETE FROM parts WHERE device_id = 1;
