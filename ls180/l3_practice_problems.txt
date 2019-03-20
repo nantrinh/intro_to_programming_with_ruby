@@ -1,0 +1,75 @@
+# Working with Multiple Tables
+2. SELECT COUNT(*) FROM tickets; 
+3. SELECT COUNT(DISTINCT customer_id) FROM tickets; 
+4. 
+SELECT (COUNT(DISTINCT tickets.customer_id) / COUNT(DISTINCT customers.id)::float) AS percent_purchasers
+FROM   customers
+LEFT   OUTER JOIN tickets
+ON     customers.id = tickets.customer_id;
+5.
+SELECT events.name AS event_name, COUNT(tickets.id) AS tickets_sold
+FROM   events
+       INNER JOIN tickets
+       ON events.id = tickets.event_id
+GROUP  BY event_name 
+ORDER  BY tickets_sold DESC;
+6.
+SELECT c.id as user_id, c.email, COUNT(DISTINCT t.event_id) as count_events
+FROM   customers AS c
+       INNER JOIN tickets AS t
+       ON t.customer_id = c.id 
+GROUP  BY user_id, email
+HAVING COUNT(DISTINCT t.event_id) = 3;
+7.
+SELECT e.name AS event_name, e.starts_at, sections.name AS section_name, seats.row, seats.number AS seat_number
+FROM   events AS e
+       INNER JOIN tickets AS t
+       ON t.event_id = e.id
+
+       INNER JOIN customers AS c
+       ON t.customer_id = c.id
+
+       INNER JOIN seats
+       ON seats.id = t.seat_id 
+
+       INNER JOIN sections
+       ON seats.section_id = sections.id
+WHERE  c.email = 'gennaro.rath@mcdermott.co';
+
+# Using Foreign Keys
+ALTER TABLE orders ADD CONSTRAINT orders_product_id_fkey FOREIGN KEY (product_id) REFERENCES products(id);
+
+INSERT INTO products (name)
+VALUES ('small bolt'),
+       ('large bolt');
+
+INSERT INTO orders (product_id, quantity)
+VALUES (1, 10),
+       (1, 25),
+       (2, 15);
+
+SELECT orders.quantity, products.name
+FROM   orders
+       INNER JOIN products
+       ON orders.product_id = products.id;
+
+Yes.
+INSERT INTO orders (quantity) VALUES (1);
+
+Have to delete the row first.
+ALTER TABLE orders ALTER COLUMN product_id SET NOT NULL;
+
+DELETE FROM orders WHERE product_id IS NULL;
+
+CREATE TABLE reviews (
+  id serial PRIMARY KEY,
+  product_id integer NOT NULL REFERENCES products(id),
+  review text NOT NULL
+);
+
+INSERT INTO reviews (product_id, review)
+VALUES (1, 'a little small'),
+       (1, 'very round!'),
+       (2, 'could have been smaller');
+
+False
