@@ -36,7 +36,3 @@ Determines if the relationship is required (1) or optional (0). Lower bound on h
 
 # True or False: A foreign key constraint prevents NULL values from being stored in a column.
 False. Foreign key columns allow NULL values.
-
-
-
-
