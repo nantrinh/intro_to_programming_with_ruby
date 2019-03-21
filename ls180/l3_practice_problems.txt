@@ -73,3 +73,105 @@ VALUES (1, 'a little small'),
        (2, 'could have been smaller');
 
 False
+
+# One to Many Relationships
+INSERT INTO calls ("when", duration, contact_id)
+VALUES ('2016-01-18 14:47:00', 632, 6);	
+
+SELECT "when", duration, first_name
+FROM   calls
+       INNER JOIN contacts
+       on calls.contact_id = contacts.id
+WHERE  contacts.id != 6; 
+
+INSERT INTO contacts (first_name, last_name, number)
+VALUES ('Merve', 'Elk', 6343511126),
+       ('Sawa', 'Fyodorov', 6125594874);
+
+INSERT INTO calls ("when", duration, contact_id)
+VALUES ('2016-01-17 11:52:00', 175, 26),
+       ('2016-01-18 21:22:00', 79, 27);
+
+ALTER TABLE contacts ADD CONSTRAINT number_unique UNIQUE (number);
+
+INSERT INTO contacts (first_name, last_name, number)
+VALUES ('Hello', 'World', 7204890809);
+ERROR:  duplicate key value violates unique constraint "number_unique"
+DETAIL:  Key (number)=(7204890809) already exists.
+
+"when" is a SQL keyword
+
+# Many to Many Relationships
+SELECT b.id, b.author, string_agg(c.name, ', ') AS categories 
+FROM   books AS b
+       INNER JOIN books_categories AS bc
+       ON b.id = bc.book_id
+       
+       INNER JOIN categories AS c
+       ON c.id = bc.category_id
+GROUP  BY b.id, b.author;
+
+INSERT INTO categories (name)
+VALUES ('Space Exploration'), 
+       ('Cookbook'),
+       ('South Asia');
+
+ALTER TABLE books ALTER COLUMN title TYPE varchar(100);
+
+INSERT INTO books (title, author)
+VALUES ('Sally Ride: America''s First Woman in Space', 'Lynn Sherr'),
+       ('Jane Eyre', 'Charlotte Bronte'),
+       ('Vij''s: Elegant and Inspired Indian Cuisine', 'Meeru Dhalwala and Vikram Vij');
+
+INSERT INTO books_categories (book_id, category_id)
+VALUES (4, 1), (4, 5), (4, 7), (5, 2), (5, 4), (6, 8), (6, 1), (6, 9);
+
+ALTER TABLE books_categories ADD UNIQUE (book_id, category_id);
+
+SELECT c.name, COUNT(b.id) AS book_count, string_agg(b.title, ', ') AS book_titles
+FROM   categories AS c
+       INNER JOIN books_categories AS bc
+       ON bc.category_id = c.id
+       INNER JOIN books AS b
+       ON bc.book_id = b.id
+GROUP  BY c.name
+ORDER  BY c.name ASC;
+
+# Converting a 1:M Relationship to a M:M Relationship
+CREATE TABLE directors_films (
+  id serial PRIMARY KEY,
+  director_id integer NOT NULL REFERENCES directors(id),
+  film_id integer NOT NULL REFERENCES films(id)
+);
+
+INSERT INTO directors_films (film_id, director_id)
+VALUES (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 3), (8, 7), (9, 8), (10, 4);
+
+ALTER TABLE films DROP COLUMN director_id;
+
+SELECT title, name
+FROM   films
+       INNER JOIN directors_films AS df
+       ON df.film_id = films.id
+       INNER JOIN directors
+       ON df.director_id = directors.id
+ORDER  BY title ASC;
+
+INSERT INTO directors (name)
+VALUES ('Joel Coen'), ('Ethan Coen'), ('Frank Miller'), ('Robert Rodriguez');
+
+INSERT INTO films (title, year, genre, duration)
+VALUES ('Fargo', 1996, 'comedy', 98),
+       ('No Country for Old Men', 2007, 'western', 122),
+       ('Sin City', 2005, 'crime', 124),
+       ('Spy Kids', 2001, 'scifi', 88);
+
+INSERT INTO directors_films (film_id, director_id)
+VALUES (11, 9), (12, 9), (12, 10), (13, 11), (13, 12), (14, 12);
+
+SELECT d.name, COUNT(DISTINCT df.film_id) AS films
+FROM   directors AS d
+       INNER JOIN directors_films AS df
+       ON d.id = df.director_id
+GROUP  BY d.name
+ORDER  BY films DESC, name ASC;
