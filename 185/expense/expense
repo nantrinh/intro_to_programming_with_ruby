@@ -37,9 +37,9 @@ def add_expenses
     memo = ARGV[2]
     statement = <<~SQL 
       INSERT INTO expenses (amount, memo) 
-      VALUES (#{amount}, '#{memo}')
+      VALUES ($1, $2)
     SQL
-    CONNECTION.exec(statement)
+    CONNECTION.exec_params(statement, [amount, memo])
   end
 end
 
