@@ -10,12 +10,7 @@ class ExpenseData
 
   def list_expenses
     result = @connection.exec('SELECT * FROM expenses')
-    result.each do |row|
-      puts [row['id'].rjust(3), 
-            row['created_on'], 
-            row['amount'].rjust(12),
-            row['memo']].join(' | ')
-    end
+    display_expenses(result)
   end
   
   def add_expenses(amount, memo)
@@ -24,6 +19,23 @@ class ExpenseData
         VALUES ($1, $2)
       SQL
       @connection.exec_params(statement, [amount, memo])
+  end
+
+  def search_expenses(term)
+    statement = 'SELECT * FROM expenses WHERE memo ILIKE $1'
+    result = @connection.exec_params(statement, ["%#{term}%"])
+    display_expenses(result)
+  end
+
+  private
+
+  def display_expenses(result)
+    result.each do |row|
+      puts [row['id'].rjust(3), 
+            row['created_on'], 
+            row['amount'].rjust(12),
+            row['memo']].join(' | ')
+    end
   end
 end
 
@@ -41,6 +53,8 @@ class CLI
     when 'add'
       abort "You must provide an amount and memo" unless arguments.size == 3
       @app.add_expenses(arguments[1], arguments[2])
+    when 'search'
+      @app.search_expenses(arguments[1])
     else
       display_help
     end
