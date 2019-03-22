@@ -1,0 +1,13 @@
+What are some ways to guard against XSS?
+What is the difference between a web server and an application server?
+What is the difference between HTTP and TCP/IP?
+What are the required components of an HTTP request? What are the additional optional components?
+What are the required components of an HTTP response? What are the additional optional components?
+What determines whether a request should use GET or POST as its HTTP method?
+What kind of protocol is HTTP under the list of OSI protocols?
+Under which two OSI protocol layers does TCP/IP fall?
+How might we go about simulating a "stateful" application?
+A browser typically operates over two different ports, depending on whether we choose to encrypt communications (via HTTPS). What ports does the browser use for each of these communication types?
+What are the commonly used encodings for spaces in search terms?
+Server-side infrastructure is typically made up of three main pieces. What are those pieces?
+The term “server” is severely overloaded; it has a multitude of meanings. What kind of server handles complex HTTP requests and contains business logic?
