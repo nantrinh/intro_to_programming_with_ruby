@@ -1,0 +1,14 @@
+# What are some things that JavaScript can do?
+Create drag and drop user interfaces; submit forms using methods other than GET and POST; perform actions without needing to reload the entire page.
+
+# Which of the following are alternative names for XHR? Select all that apply. XMLHttpRequest; XML; jQuery; AJAX
+XMLHttpRequest and AJAX
+
+# What is the status code that tells the client the request was successful and the response does not have a body?
+204
+
+# Tell me some things about unique identifiers in a web application.
+Unique identifiers never change, are independent of the position they have in a list, and are the same on the front-end and back-end. Unique identifiers are not necessarily sequential.
+
+# Tell me some things about using index numbers as identifiers in a web application.
+Index numbers change when items in the list change position. Index numbers are sequential, can change dynamically, and their use can lead to bugs.

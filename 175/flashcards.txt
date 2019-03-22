@@ -1,0 +1,59 @@
+# What is state?
+Data that persists over time
+
+# What does it mean for a URL to be resource-based?
+the name of the thing we are modifying is in the URL
+
+# Why do we want to render a page when there is some sort of error, instead of redirecting?
+If there is an error, we want to be able to go back and fix it. It may be useful to have access to our parameters and any instance variables set in the current route in that case. If we redirect to the new list page, then we'll lose access to data related to the current request.
+
+# Why should you set and use explicit values in requests?
+To avoid problems that may occur if your data changes between the time you view it and the time you change it. You want to make your interactions as stateless as possible instead of relying on information that is subject to change.
+e.g., POST /todos/1?state=true instead of POST /todos/1/toggle
+
+# When should you define a method in a helpers block instead of by itself in the ruby application file?
+You should define a method in the helpers block if you are going to use it in your views. If the method provides common functionality only to other code within the ruby application file, then do not put it in the helpers block.
+
+# Is using POST as the HTTP method for a request more secure than GET? Why or why not?
+No. Any request sent as plain text, regardless of the HTTP method used, is equally vulnerable to being seen while in transit on the network.
+
+Data sent using GET is visible in the URL. Data sent using POST is visible in the body of the request.
+
+# How can a web application be secured so that any data being sent between the client and server can not be viewed by other parties?
+Serving the application over HTTPS is the only way to protect a user's data.
+
+# How do you set the configure do..end block in your application to escape view template content?
+configure do
+  set :html, :escape => true
+end
+
+# Why is it important to escape user input within a web application?
+Prevent users from altering data within your application.
+Protect users from someone stealing their credentials.
+
+# Which method can a Sinatra application use to escape inline HTML?
+Rack::Utils.escape_html
+
+# Consider an application that you've configured to escape all HTML rendering with erb view templates. This configuration is in place, but you only want to escape user input, not all erb view content. Which action can you take so that the application only escapes user input?
+Change <%= yield %> in your layout.erb file to <%== yield %>
+
+# Input validation is important in your application; it helps ensure that your application handles invalid data appropriately, which makes for a smooth-running application. Where do you typically store validation methods within a Sinatra application?
+In the top level scope of the main application file. This makes them available to your routing methods where most input validation takes place.
+
+Your application has a form that the client uses to send a GET HTTP request. Where in the request will the client put the form input values?
+In the request line as the query parameters.
+
+# Which protocol should we use to send encrypted requests and responses between the client and the server?
+HTTPS
+
+# If you redirect in Sinatra from a POST route, the response will return a ____ status code, and if you redirect in Sinatra from a GET route, then the response will return a ____.
+302; 303
+
+# What is whitelisting?
+Explicitly defining what to allow.
+
+# What are some security guidleines to keep in mind when developing web applications?
+Avoid using parameters to construct file paths if at all possible.
+Use whitelisting to explicitly define what is allowed.
+Try to think like a person that is attempting to alter the behavior of your software. Is it possible to introduce an unexpected value into the system through expected means such as parameters?
+
