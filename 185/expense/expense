@@ -2,6 +2,7 @@
 
 require 'pry'
 require 'pg'
+require 'io/console'
 
 class ExpenseData
   def initialize
@@ -37,6 +38,11 @@ class ExpenseData
     display_expenses(result)
   end
 
+  def delete_all_expenses
+    @connection.exec_params('DELETE FROM expenses')
+    puts "All expenses have been deleted."
+  end
+
   private
 
   def display_expenses(result)
@@ -67,6 +73,10 @@ class CLI
       @app.search_expenses(arguments[1])
     when 'delete'
       @app.delete_expense(arguments[1])
+    when 'clear'
+      puts "This will remove all expenses. Are you sure? (y/n)"
+      response = $stdin.getch
+      @app.delete_all_expenses if response == "y"
     else
       display_help
     end
