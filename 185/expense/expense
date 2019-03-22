@@ -14,16 +14,26 @@ class ExpenseData
   end
   
   def add_expenses(amount, memo)
-      statement = <<~SQL 
+      sql = <<~SQL 
         INSERT INTO expenses (amount, memo) 
         VALUES ($1, $2)
       SQL
-      @connection.exec_params(statement, [amount, memo])
+      @connection.exec_params(sql, [amount, memo])
   end
 
   def search_expenses(term)
-    statement = 'SELECT * FROM expenses WHERE memo ILIKE $1'
-    result = @connection.exec_params(statement, ["%#{term}%"])
+    sql = 'SELECT * FROM expenses WHERE memo ILIKE $1'
+    result = @connection.exec_params(sql, ["%#{term}%"])
+    display_expenses(result)
+  end
+
+  def delete_expense(id)
+    sql = 'SELECT * FROM expenses WHERE id = $1'
+    result = @connection.exec_params(sql, [id])
+
+    abort "There is no expense with the id '#{id}'." unless result.ntuples >= 1 
+    @connection.exec_params('DELETE FROM expenses WHERE id = $1', [id])
+    puts "The following expense has been deleted:"
     display_expenses(result)
   end
 
@@ -55,6 +65,8 @@ class CLI
       @app.add_expenses(arguments[1], arguments[2])
     when 'search'
       @app.search_expenses(arguments[1])
+    when 'delete'
+      @app.delete_expense(arguments[1])
     else
       display_help
     end
