@@ -1,0 +1,5 @@
+A closure is a function whose body references a variable that is declared in a parent scope.
+
+Lexical scoping says that whichever assignment to a variable that is the closest gets that value. The value of a variable x is given by the innermost statement that declares x. The area in a program where a variable maintains a value is called the scope of that variable.
+
+A free variable is a variable that is defined in a parent scope.
