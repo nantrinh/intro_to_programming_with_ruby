@@ -1,0 +1,48 @@
+# SQL
+INNER JOIN: returns only rows where there is a match between the values in the two columns used in the condition
+LEFT OUTER JOIN: always returns the rows from the first table, even if there are no matching rows in the table it is joined with 
+RIGHT OUTER JOIN: always returns the rows from the second table, even if there are no matching rows in the table it is joined with 
+
+Data Definition Language (schema, e.g., CREATE, DROP, ALTER)
+Data Manipulation Language (data, e.g., INSERT, UPDATE, DELETE)
+Data Control Language (permissions, e.g. GRANT)
+
+# PostgreSQL
+A sequence generates numbers in a predetermined order. It never returns the same number twice.
+CREATE SEQUENCE colors_id_seq;
+CREATE TABLE colors(
+  id integer NOT NULL DEFAULT nextval('colors_id_seq');
+  name DEFAULT 'John Smith',
+);
+A primary key is a unique, not null field used to identify of data in a table.
+A foreign key is a field in one table that refers to another field in a different table.
+A natural key is an existing field that is used to identify a row of data in a table.
+A surrogate key is a field created for the purpose of identifying a row of data in a table.
+
+CREATE TABLE items (
+  price numeric(10,2) CHECK (price > 0.0 AND price < 100.0)
+);
+ALTER TABLE table_name ADD CONSTRAINT constraint_name CHECK (col_name > 0);
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+
+CREATE TABLE books (
+  id serial PRIMARY KEY,
+  user_id integer NOT NULL REFERENCES users(id);
+);
+ALTER TABLE books ADD COLUMN baby_id integer REFERENCES babies(id);
+ALTER TABLE books DROP COLUMN baby_id;
+
+# Database Diagrams
+Cardinality: number of entities on each side of a relationship (1:1, 1:M, M:M) 
+Modality: whether a relationship is required or optional 
+
+A ticket must have an event.
+A ticket must have a seat.
+A ticket must have a customer.
+
+An event can have 0 tickets.
+A seat can have 0 tickets.
+A customer can have 0 tickets.
+
+A section must have a seat.
+A seat must have a section.

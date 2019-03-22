@@ -1,0 +1,54 @@
+CREATE TABLE bidders (
+  id serial PRIMARY KEY,
+  name text NOT NULL
+);
+
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  initial_price DECIMAL(6,2) NOT NULL CHECK(initial_price BETWEEN 0.01 AND 1000.00),
+  sales_price DECIMAL(6,2) CHECK(sales_price BETWEEN 0.01 AND 1000.00)
+);
+
+CREATE TABLE bids (
+  id serial PRIMARY KEY,
+  bidder_id integer NOT NULL REFERENCES bidders(id) ON DELETE CASCADE,
+  item_id integer NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  amount DECIMAL(6,2) NOT NULL CHECK(amount BETWEEN 0.01 AND 1000.00)
+);
+
+CREATE INDEX ON bids (bidder_id, item_id);
+
+\copy bidders FROM 'bidders.csv' WITH HEADER CSV;
+\copy items FROM 'items.csv' WITH HEADER CSV;
+\copy bids FROM 'bids.csv' WITH HEADER CSV;
+
+SELECT items.name AS "Bid on Items"
+FROM   items
+WHERE  items.id IN (SELECT item_id FROM bids);
+
+SELECT items.name AS "Not Bid On"
+FROM   items
+WHERE  items.id NOT IN (SELECT item_id FROM bids);
+
+SELECT name 
+FROM   bidders
+WHERE  EXISTS (SELECT 1 FROM bids WHERE bids.bidder_id = bidders.id);
+
+SELECT name as "Bids Less Than 100 Dollars"
+FROM   items
+WHERE  100.00 > ANY (SELECT amount FROM bids WHERE item_id = items.id);
+
+SELECT name as "Bids Less Than 100 Dollars"
+FROM   items
+WHERE  100.00 > ALL (SELECT amount FROM bids WHERE item_id = items.id);
+
+SELECT MAX(count_bids) AS max FROM
+(
+  SELECT bidders.name AS bidder_name, COUNT(bids.id) AS count_bids 
+  FROM   bidders INNER JOIN bids ON bids.bidder_id = bidders.id
+  GROUP  BY bidders.name
+) AS max_bids_by_bidder;
+
+SELECT name, (SELECT COUNT(item_id) FROM bids WHERE item_id = items.id)
+FROM items;

@@ -1,0 +1,38 @@
+# What is a relation?
+Usually another way to say "table." Tables (sets of columns and rows of data), sequences, and views. If you can use something in the FROM clause in a SELECT statement, it is probably a relation.
+
+# What is a relationship?
+An association between data stored in relations. A connection between entities (rows of data), usually resulting from what those entities represent and how they are related to one another. For example, a customers table has a relationship with a table called orders.
+
+# What is a functional definition of relational data?
+Working with more than one table at a time.
+
+# What are the three levels of schema/abstraction?
+(less detail) Conceptual, Logical, Physical (more detail)
+Conceptual: higher level concepts. Phone has contacts. Contacts have phone numbers and names.
+Logical: not specific to an actual database. Not common to work with this leel.
+Physical: Data types, entities, attributes. Implementation of conceptual schema in a specific database.
+
+# Define conceptual schema.
+High-level design focused on identifying entities and their relationships. (Entity-relationship model)
+
+# Define physical schema.
+Low-level database-specific design focused on implementation.
+
+# When there is a one-to-many relationship, you know that on the "one" side you have a ____ key and on the "many" side, you have a ______ key.
+primary; foreign
+
+# Whenever you have a _____-to-_____ relationship, there is always going to be an extra table that represents that relationship. These extra tables are also called ______ tables.
+many; many; join 
+
+# True or False: The number of entities in a high-level conceptual schema always matches the number of tables you have in a low-level physical schema.
+False
+
+# What is cardinality?
+The number of objects on each side of the relationship (1:1, 1:M, M:M)
+
+# What is modality?
+Determines if the relationship is required (1) or optional (0). Lower bound on how many instances there can be in a relationship.
+
+# True or False: A foreign key constraint prevents NULL values from being stored in a column.
+False. Foreign key columns allow NULL values.
