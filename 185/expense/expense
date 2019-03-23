@@ -11,6 +11,7 @@ class ExpenseData
 
   def list_expenses
     result = @connection.exec('SELECT * FROM expenses')
+    display_count(result)
     display_expenses(result)
   end
   
@@ -25,6 +26,7 @@ class ExpenseData
   def search_expenses(term)
     sql = 'SELECT * FROM expenses WHERE memo ILIKE $1'
     result = @connection.exec_params(sql, ["%#{term}%"])
+    display_count(result)
     display_expenses(result)
   end
 
@@ -45,6 +47,11 @@ class ExpenseData
 
   private
 
+  def display_count(result)
+    abort "There are no expenses." if result.ntuples.zero?
+    puts "There are #{result.ntuples} expenses."
+  end
+
   def display_expenses(result)
     result.each do |row|
       puts [row['id'].rjust(3), 
@@ -52,6 +59,9 @@ class ExpenseData
             row['amount'].rjust(12),
             row['memo']].join(' | ')
     end
+    puts '-' * 50
+    total_amount = result.field_values('amount').map(&:to_f).sum 
+    puts "Total #{sprintf('%.2f', total_amount).rjust(25)}"
   end
 end
 
