@@ -115,3 +115,6 @@ of the style or appearance of that content.
 # Should extended quotations be wrapped with <address> or <blockquote>?
 `<blockquote>`. `<address>` identifies contact information.
 
+# Why is it preferable to use external CSS?
+It lets you share CSS between multiple pages, makes maintenance of the CSS code separate from that of the HTML, and browsers can cache external CSS files, which
+can reduce page load times.

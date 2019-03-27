@@ -1,0 +1,21 @@
+1. 
+
+Semantic:
+<article>
+<footer>
+<aside>
+<h3>
+<strong>
+<header>
+<section>
+<b>
+
+Not Semantic:
+<span>
+<div>
+
+2. <article>
+
+3. <section>
+
+4. <aside>

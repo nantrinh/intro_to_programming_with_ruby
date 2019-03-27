@@ -1,0 +1,8 @@
+# What are the steps from high-level requirements to low-level implementation details?
+
+# How do you dynamically generate SQL?
+
+# What are the risks associated with dynamically generating SQL? How can this be done safely?
+A user can input sql like "'Robert'); DELETE FROM expenses; --" and delete your table.
+Use connection.exec_params instead of connection.exec
+

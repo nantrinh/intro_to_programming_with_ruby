@@ -1,0 +1,2 @@
+# What is an n + 1 query?
+The pattern where you are showing a list of items on the screen, and for each item in the list there is a query performed to load data on the screen. You are performing n queries, one for each item on the list, plus the original query to load the list.
