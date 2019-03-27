@@ -11,7 +11,6 @@ Not all elements consist of opening and closing tags. Some elements receive thei
 # Describe document type definition (DOCTYPE, DTD).
 The document type declaration, or `<!DOCTYPE html>`, informs web browsers which version of HTML is being used and is placed at the very beginning of the HTML document. `<!DOCTYPE HTML>` refers to the latest version of HTML.
 
-
 # Describe attributes.
 Attributes are properties used to provide additional information about an element. The most common attributes include the `id` attribute, which identifies an
 element; the `class` attribute, which classifies an element, the `src` attribute, which specifies a source for embeddable content, and the `href` attribute,
@@ -53,14 +52,27 @@ any external files, or any other beneficial metadata. The `<body>` element inclu
 `<a>`: anchor, links to other pages
 `<h1> - <h6>`: headings
 
-# Explain each of the following tags, and what they are used for: <em>, <strong>
-# Explain each of the following tags, and what they are used for: <header>, <main>, <article>, <section>, <aside>, <div>, <span>
-# Explain each of the following tags, and what they are used for: <article>, <section>, <aside>, <div>, <span>
+# Explain each of the following tags, and what they are used for: <strong>, <b>, <em>, <i>
+`<strong>` gives strong importance to text. 
+`<b>` is used to stylistically offset text.
+`<em>` places a stressed emphasis on text, i.e., something you would pronounce differently.
+`<i>` puts text in an "alternate voice", such as transliterated foreign words, technical terms, and typographically italicized text.
+
+# What are the following tags used for? <header>, <nav>, <article>, <section>, <aside>, <footer>
+These are structural elements introduced in HTML5. They are block-level elements and do not have any implied position or style. They may be used multiple times
+per page, so long as each use reflects the proper semantic meaning.
+`<header>`: identifies the top of a page, article, section, or other segment of a page. May include a heading, introductory text, and even navigation.
+`<nav>`: identifies a section of major navigational links on a page (e.g., global navigation, table of contents, previous/next links)
+`<article>`: identifies a section of independent, self-contained content that may be independently distributed or reused (e.g., blog posts, newspaper articles,
+user-submitted content). If the content within the element were removed from the context of the page and placed somewhere else (e.g., email), the content should
+still make sense.
+`<section>` identifies a thematic grouping of content, which generally, but not always, includes a heading.
+`<aside>` holds content that is tangentially related to the content surrounding it (e.g., sidebars, inserts, brief explanations).
+`<footer>` identifies the closing or end of a page, article, section, or other segment of a page.
 
 # Explain each of the following tags, and what they are used for: <div>, <span>
 These are HTML elements that act as containers solely for styling purposes. They can be extremely valuable in that they give us the ability to apply targeted
 styles to a contained set of content.
-
 A `<div>` is a block-level element commonly used to identify large groupings of content.
 A `<span>` is an inline-level element commonly used to identify smaller groupings of text within a block-level element.
 
@@ -69,8 +81,7 @@ Block-level elements begin on a new line, stacking one on top of the other, and 
 
 Inline-level elements do not begin on a new line. They fall into the normal flow of a document, lining up one after the other, and only maintain the width of their content. Inline-level elements may be nested inside one another; however, they cannot wrap block-level elements. We’ll usually see inline-level elements with smaller pieces of content, such as a few words.
 
-# When choosing values for `class` or `id` attributes, should we want to choose a value that refers to the content of an element, or the appearance of an
-element?
+# When choosing values for `class` or `id` attributes, should we want to choose a value that refers to the content of an element, or the appearance of an element?
 Content
 
 # How do you leave a comment in HTML? How do leave a comment in CSS?
@@ -100,4 +111,7 @@ of the style or appearance of that content.
 # What are several benefits of using semantic elements?
 - Enable computers, screen readers, search engines, and other devices to adequately read and understand the content on a web page.
 - Easier to manage and work with, since it shows clearly what each piece of content is about.
+
+# Should extended quotations be wrapped with <address> or <blockquote>?
+`<blockquote>`. `<address>` identifies contact information.
 
