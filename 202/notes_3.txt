@@ -1,0 +1,40 @@
+# What are the differences between jpg, png, and gif images? When do you use each image type?
+JPG: most common image format for iamges used in web documents. They use a lossy form of compression: they lose information in exchange for a file size reduction. If you edit a jpg, the resulting file has less detail than the original. If you edit it again, the result loses more detail. Low lossiness levels lead to better image quality but larger files. HIgher lossiness yields lower image quality but smaller files. As a rule of thumb, you should aim to reduce the size of the Jpg as much as possible without losing noticeable detail or introducing visible artifacts, which requires experimentation for every image.
+
+PNG: often the best choice for backgrounds and non-photographic images. Png compression is non-lossy. This means larger file sizes. Pngs also provide both single-color and alpha transparency, which lets you see the background behind an image while still viewing the image's main subject. This feature is useful with logos, icons, and line drawings. Single-color transparency allows part of an image to be entirely clear by reserving a single color - any pixel that matches that color in the png reveals the content (typically a background color) behind the image. Alpha transparency adds an alpha channel to images, which allows up to 65,536 different levels of transparency tinted by color. Pngs are ideal for images that need all their detail, transparency, or that must support more than 16.7 million colors.
+
+GIF: Suitable for small images used as user interface icons in an application. They have a limited color range (256 colors), but this allows for minuscule file sizes, which makes them perfect for images where size, detail, and a broad color palette aren't significant.
+
+# How do you add foreground and background images to a web page?
+You can add a foreground image using the `<img>` tag.
+You can add a background image by applying the `background` or `background-image` property. Background images appear behind the content for the element that requested the background and its descendants. Most background images apply to an entire page, so we use the body selector to specify them. However, you can apply backgrounds to any selector, such as a tag, class, or id selector. 
+```
+body {
+  background-image:
+    url("http://d3jtzah944tvom.cloudfront.net/202/images/lesson_3/gradient-background.png");
+}
+```
+You can modify the size of the image, positioning, repeat counts, etc., using other background properties (e.g., background-size).
+
+# How do you use figures and captions?
+```
+<figure>
+  <img src="masthead.jpg" alt="Sunset over the forest" />
+  <figcaption>The sun sets over the dense forest</figcaption>
+</figure>
+```
+Images used only for decoration do not need figure or figcaption tags.
+
+# How do you use images as links?
+Put an `img` tag inside an `a` tag. If the URLs are the same, the link acts as a way to see the image al by itself. Often, this single image is larger than the original.
+```
+<a href="url-of-link">
+  <img src="url-of-image" alt="alt-text" title="title-text"/>
+</a>
+```
+
+# What is the img tag? What are the two attributes you should always provide a value for? What is the attribute that yuo should provide a value for if you do not include an explicit caption with the image?
+`<img>` is a self-closing tag that tells the browser to load an image from a separate resource, such as a file on the server, and display it in the foreground of the page. 
+`src` is a required attribute. It tells the browser where to find the image.
+`alt` describes  the content of the image as an aid for users who cannot view the images. Search engines use `alt` to index images. If the iamge is not important enough to require an `alt` attribute, specify an empty string.
+`title` should be given a value when you do not include an explicit caption with the image.
