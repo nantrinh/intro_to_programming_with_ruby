@@ -1,0 +1,130 @@
+the box model
+  - box properties
+    - width and height
+    - padding and margins
+    - borders
+- visual display models
+    - block
+    - inline
+    - inline-block
+- box sizing model
+  - content-box
+  - border-box
+- dimensions
+  - absolute units 
+  - relative units
+- Do not try to memorize which HTML elements are block or inline.
+
+# Box Properties: WHat is the difference between width, height, padding, border, and margins? What is the display property?
+width and height: horizontal and vertical space needed for the content area of the box; may or may not include the padding and borders. In most cases, the browser can determine the width and height automatically.
+padding: an area that surrounds the content area of the box and separates the content from its border. It is typically opaque and hides anything that it overlays.
+border: a boundary that surrounds the padding.
+margin: a transparent area that lies outside the border and supplies separation between elements.
+display property: determines how the browser lays out an element relative to its neighbors. 
+
+# Box Properties: How do you specify all four sides at once for padding, borders, and margins?
+
+# Box Properties: How does the visual display model interact with margins, borders, and padding?
+
+# Visual Display Models: What are the differences between inline, block, and inline-block?
+Block elements take up the entire row in the container. This does not alter the width of the element -- excess pixels are left empty. Most elements are block elements by default. You can convert any element to a block element with the display: block CSS property. It's common to render links (a) and images (img) as block elements.
+
+For inline elements, browsers ignore the width and height properties except with te img element, but instead use values computed from the element content. Browsers also ignore top and bottom margins. They do not ignore borders or top/bottom padding. You can convert any element to an inline element with the display: inline CSS property. The most common reason to do so is to override a prior declaration. The main idea is that the left/right factors affect the flow, while the top and bottom do not.
+
+Inline-block elements act like block elements except they do not take up an entire row when the width property is less than the available width. Instead they flow in the same way that text and inline elements flow from one line to the next, which lets you place inlin-block elements side by side with other inline or inline-block elements. You can convert any element to an inline-block element with the display: inline-block CSS property. A useful application for this is to arrange the contents of a list horizontally instead of vertically; horizontal navigation bars often use list elements defined as inline-block.
+
+# Visual Display Models: Containers are almost always ____ (inline/block) elements, while non-containers are ______(inline/block).
+block; inline
+
+# Visual Display Models: How and when can you change an element's visual display model?
+
+# Box Sizing Models: What is the content-box sizing model? 
+The default setting for the box-sizing property for all elements in modern browsers. In this model, the width and height properties specify the size of the actual content area. You need to add padding and borders to get the size of the visible box.
+
+# Box Sizing Models: What is the border-box sizing model? 
+Causes the browser to interpret the width and height properties as the total width and height of the box excluding the margins. That is, the width and height include the content area as well as the padding and borders. This simplifies the math a front-end developer must do. For example, if we have a box with a width of 50% and padding of 12px; border-box ensures that it's precisely 50% of the container width, not 50% plus 24-pixels.
+
+# Box Sizing Models: How and when can you change the box-sizing model for an element?
+
+# Dimensions: What are the most important absolute and relative units in CSS?
+Absolute: pixel. However, pixel sizes and density are different on different devices. CSS distinguishes between a physical pixel (aka device pixel or display pixel) and the CSS reference pixel (aka CSS pixel or reference pixel). One reference pixel is the size of a pixel on a display that has 96 pixels per inch. CSS uses more pixels on high-resolution display, so images seem to be about the same size on both low- and high-resolution screens. CSS pixels also take into account the angular diameter of a pixel as viewed from the typical viewing distance for the display.
+Relative: em, rem, and percentages. Ems and rems are proportional to the calculated and root font sizes, respectively. The calculated font size is the height of the current font in pixels. The root font size is the height of the base font for the document: the font size designated for the html element. It is recommended to use rems instead of ems since rems are consistent. Ems compound. If you must support browsers that do not recognize rems, use a fallback unit assuming a 16px default font-size. You can use percentages to define dimesnions as a fraction of the container's width or height.
+
+# When your element has `box-sizing: content-box; display: block;`, what do you ignore?
+Nothing
+
+# When your element has `box-sizing: content-box; display: inline;`, what do you ignore?
+Width and height(where does it come from then...?), and top and bottom margins. 
+
+# When your element has `box-sizing: content-box; display: inline-block;`, what do you ignore?
+Nothing
+
+# When your element has `box-sizing: border-box; display: block;`, what do you ignore?
+
+# When your element has `box-sizing: border-box; display: inline;`, what do you ignore?
+padding and border, because it is border-box. width and height, and top and bottom margins, because it is inline.
+
+# When your element has `box-sizing: border-box; display: inline-block;`, what do you ignore?
+padding and border, because it is border-box.
+
+# Dimensions: What does auto do?
+You can use auto to let the browser determine a width or height for you.
+- As a width or height, it tells the browser to try to fit the entire element (including its margins) in its container.
+- As a left or right margin value on a block element, it tells the browser to push the element all the way right or left (note the reversal!) inside its container. You can center a block element by setting both left and right margins to auto. See below.
+- As a top or bottom margin value, auto is equivalent to 0.
+- Padding does not accept auto values.
+
+# Dimensions: Are auto and 100% the same?
+No. For example, if you use width: auto, the browser tries to put the entire element, including its margins, border, and padding within the container. If you use width: 100% instead, the browser won't consider the margins when it calculates the required element size. Thus, the element may extend beyond the bounds of the container. Furthermore, if you use the content-box box-sizing model, the browser won't consider the border and padding when determining the required size. 
+
+# Dimensions: As a general guideline, should you use absolute units more, or relative units?
+Relative.
+- Use rems for fonts, possibly with a fallback to ems or pixels. The root font should use pixels.
+- If you must use ems instead of rems, try to avoid compounding font sizes.
+- Use rems, ems, or pixels for left and right margins and padding.
+- Use % for measurements that are proportional to the container element's width or height. Percentages work best for container dimensions and come in handy when you want certain areas of the page to grow and shrink as the width of the browser window changes.
+- Use auto with width and height to let the browser calculate an appropriate value.
+- Use auto with left and right margins to left, center, or right justify a block element within its container.
+If you have to use absolute units, use pixels. Pixels work well for:
+- the root font size
+- image widths and heights
+- top and bottom margins and padding, sometimes useful with left and right margins and padding
+- width or height of fixed-width/fixed-height containers such as navigation sidebars
+- border widths
+
+# Dimensions: Why do we need to talk about CSS reference pixels and physical pixels?
+
+# Dimensions: How can you use auto margins to center block elements horizontally?
+`margin: XXX auto;` where XXX is the size of the top and bottom margins, and auto applies to the left and right margins.
+
+# What is the display property?
+
+# What is the box-sizing property?
+Usable values are content-box and border-box.
+
+# What is the "CSS box model" or "box model"?
+How the broswer calculates the box size for any given element
+
+# What code can you add to your CSS to use border-box everywhere?
+```
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+```
+
+# What is the difference between padding and margins?
+Padding lies inside the border. Margins lie outside of it. Padding is typically opaque while margins are typically transparent.
+Padding is part of the visible and clickable bounds of an element, while a margin is spacing between adjacent elements.
+If you put two blocks one above the other, the margin between them collapses to the larger of the two margins in question. Padding does not collapse.
+A general guideline is to use margins for spacing between elements, and padding to affect the visible or clickable area of an element.
+Within a container, use padding for horizontal separation between its edges and content, and margins for vertical distance.
+Another strategy is to use margins everywhere except when:
+- You want to change the height or width of a border.
+- You want to adjust how much background is visible around an element.
+- You want to alter the amount of clickable area.
+- You want to avoid margin collapse.
+- You want some horizontal spacing to the left or right of an inline element.
