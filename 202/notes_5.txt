@@ -1,0 +1,44 @@
+# Give an example of how to use a checkbox. 
+# Give an example of how to use a radio button. 
+# Give an example of how to use a selection list.
+# Give an example of how to use the `input` text tag.
+# Give an example of how to use the `textarea` text tag.
+
+# What are several values you can set for the `type` attribute on  `input` tags?
+- checkbox, radio
+- text, email, tel, password
+- submit, reset
+- hidden
+
+# Give an example of how to construct a `select` list.
+
+# Give an example of how to use labels in a form with both `container` and `for` formats.
+
+# How can you use description lists to help format forms?
+
+# What are forms used for?
+To gather information from users. 
+A form displays information to the user, solicits updates, performs some optional rudimentary validation, and then sends the form data to the server.
+A form does NOT update information on the server. Back-end software does that.
+
+# What are the most important attributes of a `form` tag?
+`action`: the URL to which the browser sends requests. Individual action items (`button` and `input type="submit"` elements) in a form can override the form's `action` value by using the `formaction` attribute.
+`method`: tells the browser whether to use the GET or POST method when sending the data to the server. Use `method="get"` when requesting information from the server and `method="post"` when updating data on the server. HTTP supports other methods but HTML limits you to GET or POST. You can use JavaScript or a backend application to use the other methods.
+
+# What tags does a form need to be useful?
+At least one of these tags: `input`, `textarea`, or `select`.
+
+# What is the `fieldset` tag?
+An optional tag within `form` tags that groups together form content as a set of related data. Most browsers will draw a border around the content. While it's common to remove that border with CSS, fieldset still provides useful semantic data to the browser, and developers can reference it in their CSS for layout and styling purposes. Forms can have multiple `fieldset` tags.
+```
+<form action="/login" method="post">
+  <fieldset>
+    <input type="text" name="username" />
+    <input type="password" name="password" />
+  </fieldset>
+  <fieldset>
+    <input type="submit" name="Save" />
+    <input type="submit" name="Forgot Password" formaction="/forgot" />
+  </fieldset>
+</form>
+```
