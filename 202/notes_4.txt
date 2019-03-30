@@ -52,7 +52,7 @@ A single heading. The first cell in a row or column is typically a heading, but 
 <thead>, <tbody>, and <tfoot> each define a set of one or more rows that comprise the header, body, and footer rows of a table.
 
 # How can you use the scope attribute?
-To identify th elements as row (scope="row") or column (scope="col") headings.
+To identify th elements as row (scope="row") or column (scope="col") headings. You can select tags based on their scope using the following syntax: `[scope="col"] {...}`
 
 # What pseudo-class can you use in CSS to select a row based on its order?
 `:nth-child(n)`
