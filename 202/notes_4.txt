@@ -1,9 +1,20 @@
-# How do you construct a simple list?
-
-# How do you construct a nested list?
+# Can you only nest lists of the same type within each other, or can you mix and match? 
 You can nest any list within another list, regardless of type (you can mix and match).
 
 # How do you create a horizontal list?
+```
+ul {
+  font-size: 0;
+  width: 100%;
+}
+
+li {
+  display: inline-block;
+  font-size: 1rem;
+  width: XXX%; /* XXX = 100 / number_of_elements */
+}
+```
+OPTIONAL: you may also want to set `padding-left: 0;` for `ul` and `text-align: center;` for `li`.
 
 # How do you use the pseudo-classes `:hover` and `:focus`?
 The `:hover` CSS pseudo-class matches when the user interacts with an element with a pointing device, but does not necessarily activate it. It is generally triggered when the user hovers over an element with the cursor (mouse pointer). 
@@ -17,6 +28,9 @@ nav a:focus {
 }
 ```
 
+# Should you use tables for layout?
+No, use tables for tabular data.
+
 # How do you construct simple tables with headers, body, and footers?
 
 # What is the difference between ordered, unordered, and description lists? When do you use each type of list?
@@ -27,3 +41,19 @@ Description `<dl> (list), <dt> (term), <dd> (definition)`: They contain a list o
 # What is the difference between columns, rows, and cells?
 
 # What are the differences between table headers, row headings, and column headings?
+
+# What are the tags to specify table, row, cell, and a single heading row?
+Table: <table>
+A single row: <tr>
+A single cell. Each row contains zero or more cells: <td>
+A single heading. The first cell in a row or column is typically a heading, but this is not required: <th>
+
+# What are the tags to specify the table headers, body, and footer?
+<thead>, <tbody>, and <tfoot> each define a set of one or more rows that comprise the header, body, and footer rows of a table.
+
+# How can you use the scope attribute?
+To identify th elements as row (scope="row") or column (scope="col") headings.
+
+# What pseudo-class can you use in CSS to select a row based on its order?
+`:nth-child(n)`
+Sample usage to select 2nd row: `tr:nth-child(2) {...}`
