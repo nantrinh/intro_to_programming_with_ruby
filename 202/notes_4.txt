@@ -1,0 +1,29 @@
+# How do you construct a simple list?
+
+# How do you construct a nested list?
+You can nest any list within another list, regardless of type (you can mix and match).
+
+# How do you create a horizontal list?
+
+# How do you use the pseudo-classes `:hover` and `:focus`?
+The `:hover` CSS pseudo-class matches when the user interacts with an element with a pointing device, but does not necessarily activate it. It is generally triggered when the user hovers over an element with the cursor (mouse pointer). 
+The `:focus` CSS pseudo-class represents an element (such as a form input) that has received focus. It is generally triggered when the user clicks or taps on an element or selects it with the keyboard's "tab" key.
+The following code changes the color of any `<a>` element nested in a `<nav>` element when the user hovers over or clicks on it. 
+```
+nav a:hover,
+nav a:focus {
+ background-color: blue;
+ color: white;
+}
+```
+
+# How do you construct simple tables with headers, body, and footers?
+
+# What is the difference between ordered, unordered, and description lists? When do you use each type of list?
+Ordered `<ol>, <li>`: By default, most browsers render a vertical list of numbered items. You can use roman numerals or alphabetic letters instead, including foreign alphabets.
+Unordered `<ul>, <li>`: There is no visual numbering or naming system for the items in the list. By default, browsers render unordered lists vertically, each preceded by a bullet. You can choose a horizontal display and hide the bullets, or use custom bullets.
+Description `<dl> (list), <dt> (term), <dd> (definition)`: They contain a list of terms and definitions. Each item in the list includes one or more terms and one or more definitions. Examples of description lists include dictionaries, bibliographies, and the phone book.
+
+# What is the difference between columns, rows, and cells?
+
+# What are the differences between table headers, row headings, and column headings?
