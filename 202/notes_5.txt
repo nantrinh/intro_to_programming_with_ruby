@@ -1,9 +1,49 @@
-# Give an example of how to use a checkbox. 
-# Give an example of how to use a radio button. 
-# Give an example of how to use a selection list.
-# Give an example of how to use the `input` text tag.
-# Give an example of how to use the `textarea` text tag.
+# Explain the `select` element.
+select creates a drop-down list of options from which the user can select zero or more options. It has two possible child elements, the option and optgroup elements (LS does not discuss optgroup). select uses the name attribute like other form elements, but it uses the option elements within it to describe the values shown to the user and sent to the server (which may be different).
+An option defines one of the choices a user can make in a select tag. A select element is useless without its option elements. Each option represents a possible value for the select, and they use the value attribute as the value sent as the value of the select element's name. If an option does not have a value attribute, the browser uses the text contained by the option element instead.
 
+select elements often have a placeholder option that says something like Choose one and has a value of an empty string, as well as a disabled and selected attribute. This option works something like the placeholder attribute on text boxes: the user can see some helpful text, but she cannot select that text.
+
+By default, select lets the user choose precisely one option or leave the option unselected if it contains a disabled selected option as shown above. If you add the multiple attribute, the user can select more than one option. You can supply the `size` attribute if you use `multiple`, to specify how many options to display at once in the selection box.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label>
+      Choose Your Favorite Movies
+      <select name="favorites" multiple size="4">
+        <option value="" disabled selected>Select One or More</option>
+        <option>2001: A Space Odyssey</option>
+        <option>Arrival</option>
+        <option>Close Encounters of the Third Kind</option>
+        <option>District 9</option>
+        <option>Guardians of the Galaxy</option>
+        <option>Interstellar</option>
+        <option>Serenity</option>
+        <option>Silent Running</option>
+      </select>
+    </label>
+  </fieldset>
+</form>
+```
+
+# Explain the `textarea` element.
+textarea lets the user input multiple lines of text. Unlike text-type inputs, which ignore carriage returns, newlines, and other whitespace characters, textarea elements retain them and use them to format the text into lines and paragraphs. Unlike other controls, though, the value of the textarea doesn't use the value attribute to provide a value for the element. Instead, you need to contain the text between the opening and closing tags.
+
+Since textarea preserves whitespace, its common practice to code the open and close tags on the same line unless the initial text content contains newlines.
+
+textarea uses the rows and cols attributes to control the height and width of the text box; rows is the height in lines, while cols is the width in characters. As with the size attribute on some input tags, neither measurement is precise - the browser may choose to display more or fewer lines or columns than requested. The CSS height and width properties will also override these attributes. Furthermore, the rows value is not a maximum for the number of lines of input allowed; instead, it's the number of visible lines. The text box enables vertical scrolling when the content exceeds the rows count.
+
+Most browsers today let the user resize the textarea box by dragging and dropping a small triangle that appears in the lower-right corner of the text box. You can disable this feature with the CSS `resize` property.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label>
+      Comment
+      <textarea name="tweet" rows="5" cols="40">I got 20% off my first purchase at joesburgers.com! You can too!</textarea>
+    </label>
+  </fieldset>
+</form>
+```
 # What are several values you can set for the `type` attribute on  `input` tags?
 - checkbox, radio
 - text, email, tel, password
@@ -212,3 +252,33 @@ Creates a button that the user can click to reset the contents of a form to its 
 </form>
 ```
  
+# What is the meaning of the `value` attribute inside an `input` tag?
+The meaning varies with the `type`. For text-based types such as text, email, and number, the value assigns a default value for the control. If you don't supply a default value, the browser uses an empty string.
+
+`checkbox` and `radio` types use the value attribute to set the value that the form submits for the indicated checkbox or radio group element. `radio` input types require the `value` attribute. It is optional for `checkbox`. If the `value` attribute is omitted from a `checkbox` element, the browser sends a value of `name=on` when the user selects the box with the specified `name`.
+
+Button types, such as `submit`, `reset`, and the `button` type use the value attribute for the label that appears on the button. Note that you should consider using the `button` element instead of the `button` type.
+
+# What is the meaning of the `size` and `maxlength` attributes inside an `input` tag?
+These attributes applies to most text-based input types. The size attribute lets you control the size of an input element in characters. You can also specify the width with the CSS width property, but it does not support character measurements. `maxlength` limits the maximum length of input values. This value can be more or less than the `size` value.
+size is an approximation for the width of the input box. The HTML5 standard requires that "the user agent should ensure that at least that many characters are visible"; in practice, you will see both more and fewer characters displayed. The CSS width overrides the size attribute in CSS-enabled browsers.
+
+# What is the meaning of the `placeholder` attribute inside an `input` tag?
+The placeholder attribute lets you display some text when a field is empty to help describe the expected input; it applies to most of the text-based input types. Most browsers display placeholder text using a grayed-out format, and they erase the placeholder text as soon as you start typing. Do not use placeholders as a substitute for labels because it breaks screen readers. If you're forced to use placeholders, include the labels too, but hide them using CSS. This hack works well since most screen readers will read the hidden text.
+
+# What is the meaning of the `disabled` attribute inside an `input` tag?
+It lets you disable `input` elements. The browser will render the element but won't let the user interact with it. The rendering looks different from enabled attributes, often by using a gray or lighter color. disabled also turns on the :disabled CSS pseudo-class. (Non-disabled elements set the :enabled pseudo-class.)
+Most web applications handle the disabled attribute programmatically, either at the time the application generates the HTML or dynamically with JavaScript. 
+
+# What is the meaning of the `required` attribute inside an `input` tag?
+The required attribute marks an input as required; the browser won't let you submit the form until the user completes all required fields. required also turns on the :required CSS pseudo-class.
+
+
+# What is the meaning of the `autocomplete` attribute inside an `input` tag?
+Prevents the browser from storing and using data for later reuse by the browser's autocomplete functionality. YOu can set it on or off explicitly on any given field.
+
+# What is the meaning of the `autocapitalize` attribute inside an `input` tag?
+Some browsers recognize autocapitalize to turn autocapitalization on and off for the first letter of words or sentences. Browsers that recognize this tag default to sentences. Use autocapitalize="none" when expecting input that you don't want to capitalize. You can also specify autocapitalize="words" or autocapitalize="characters".
+
+# What is the meaning of the `autocorrect` attribute inside an `input` tag?
+Some browsers recognize autocorrect to turn autocorrect (spelling correction) on and off. You can disable this feature with autocorrect="off" when accepting input where spelling correction may be a problem, such as with names, addresses, etc.
