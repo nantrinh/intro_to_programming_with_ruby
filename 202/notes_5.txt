@@ -282,3 +282,12 @@ Some browsers recognize autocapitalize to turn autocapitalization on and off for
 
 # What is the meaning of the `autocorrect` attribute inside an `input` tag?
 Some browsers recognize autocorrect to turn autocorrect (spelling correction) on and off. You can disable this feature with autocorrect="off" when accepting input where spelling correction may be a problem, such as with names, addresses, etc.
+
+# What does the `border-radius` property do?
+Applies rounded corners to any element with a border.
+
+# What does the `appearance` property do?
+Lets you turn off the browser-specific default appearance of a widget.
+
+# What value should you set the `action` attribute to, instead of an empty string, if you want your code to pass W3C validation?
+"#"
