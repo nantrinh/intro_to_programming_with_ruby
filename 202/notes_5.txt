@@ -42,3 +42,173 @@ An optional tag within `form` tags that groups together form content as a set of
   </fieldset>
 </form>
 ```
+
+# What is the `input` tag?
+The input tag is a self-closing tag that describes a control or widget: a mechanism that lets the user supply information or a request to the application on the server. Each input requires a type attribute, which has a large number of valid values, most of which are new in HTML5; each value indicates the type of widget required. For instance, type="text" provides space for the user to enter some text, while type="submit" provides a button that submits the form to the server.
+Most input controls require a name attribute to specify the name of each item. The browser uses these names to identify each data item in the form, while the back-end application looks for that name to find the appropriate value.
+```
+<input type="text" name="city" />
+<input type="password" name="password" />
+<input type="submit" value="Save" />
+```
+
+# What is the `label` tag?
+The label tag provides a way to associate some identifying text with an input field. Here we associate the label `Phone` with the field named `phone_number`:
+```
+<label for="phone">Phone</label>
+<input type="text" id="phone" name="phone_number" />
+```
+The browser uses the for attribute in the label tag and the id attribute in the input tag to associate the two items. One advantage of this association is that the user can click on the label to make the cursor jump to the desired field.
+You can also use `label` tags as containers. The "container" syntax eliminates the need for the for and id attributes, so it's easier to use. However, styling can be more difficult with the container syntax, and there are times when you must use a `for` attribute, so learn both variants.
+```
+<label>
+  Phone
+  <input type="text" name="phone" />
+</label>
+```
+
+# What is in this form?
+```
+<form action="#" method="post">
+  <fieldset>
+    <h1>Log In</h1>
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" />
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" />
+
+    <input type="submit" value="Log In" />
+    <input type="submit" value="Delete account"
+           formaction="/account/delete" />
+    <input type="submit" value="Forgot password"
+           formaction="/account/password" />
+    <input type="reset" value="Reset" />
+  </fieldset>
+</form>
+```
+Two input fields (username and password), each with a label.
+4 buttons: log in, delete account, forgot password, and reset.
+They will all show up on the same line, if there is room. To section it out better, use `fieldset`.
+
+# What does `type="text"` do, when placed inside an `input` tag? 
+Creates a simple entry text. You can set the `maxlength` attribute in CSS to specify the input's maximum length.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label>
+      First Name
+      <input type="text" name="first_name" value="Tom Thumb" />
+    </label>
+  </fieldset>
+</form>
+```
+
+# What does `type="password"` do, when placed inside an `input` tag? 
+Creates a single-line text field with an obscured value. You can set the `maxlength` attribute in CSS to specify the input's maximum length.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password"
+           value="" size="35" />
+  </fieldset>
+</form>
+```
+
+# What does `type="email"` do, when placed inside an `input` tag? 
+Allows entry of an email address in the form username@domain.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label>
+      Email
+      <input type="email" name="email" placeholder="username@domain" />
+    </label>
+  </fieldset>
+</form>
+```
+
+# What does `type="tel"` do, when placed inside an `input` tag? 
+Allows entry of a telephone number.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label>
+      Phone
+      <input type="tel" name="phone" placeholder="(###) ###-####" />
+    </label>
+  </fieldset>
+</form>
+```
+
+# What does `type="checkbox"` do, when placed inside an `input` tag? 
+Lets the user choose one or more items from a series of yes/no-type options. Use the value attribute to give the value the form sends to the server when the user selects that checkbox. Use the checked attribute to pre-select checkboxes. Use the name attribute to name a set of related checkboxes. The user can select zero or more items in each set of checkboxes.
+
+The browser will send a name=value pair for each selected box, and no value for the unselected boxes. In the example below, the browser will send choice=google and choice=recent to the server.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label>
+      <input type="checkbox" name="choice" value="search" />
+      Sort search results
+    </label>
+
+    <label>
+      <input type="checkbox" name="choice" value="google" checked />
+      Search on Google
+    </label>
+
+    <label>
+      <input type="checkbox" name="choice" value="recent" checked />
+      Recent results (within last year)
+    </label>
+  </fieldset>
+</form>
+```
+You can also use the `name` attribute without a value attribute. In the example below, the browser will send `google=on` and `recent=on` to the server. In most cases it is easiest to use separate values for  `name`.
+```
+<form action="#" method="post">
+  <fieldset>
+    <label>
+      <input type="checkbox" name="search" />
+      Sort search results
+    </label>
+
+    <label>
+      <input type="checkbox" name="google" checked />
+      Search on Google
+    </label>
+
+    <label>
+      <input type="checkbox" name="recent" checked />
+      Recent results (within last year)
+    </label>
+  </fieldset>
+</form>
+```
+
+
+# What does `type="radio"` do, when placed inside an `input` tag? 
+Lets the user choose zero or one item from a list of options. If you pre-select an item with the `checked` attribute or the `:checked` pseudo-class in CSS, then the user must either go with the selected choice or select another. Use radio buttons up to 5-8 items, after which you should use the `select` list control.
+
+# What does `type="submit"` do, when placed inside an `input` tag? 
+Creates a button that the user can click to submit the contents of a form to the server. The action attribute on the form tag typically provides the URL of the server, but you can override that by using the formaction attribute with this tag.
+```
+<form action="#" method="post">
+  <fieldset>
+    <input type="submit" value="Save" />
+  </fieldset>
+</form>
+```
+
+# What does `type="reset"` do, when placed inside an `input` tag? 
+Creates a button that the user can click to reset the contents of a form to its default values. Clicking a reset button does not send a request to the server.
+```
+<form action="#" method="post">
+  <fieldset>
+    <input type="reset" value="Clear Form" />
+  </fieldset>
+</form>
+```
+ 
