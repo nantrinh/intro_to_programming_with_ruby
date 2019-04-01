@@ -3,43 +3,35 @@
   <head>
     <title>Contact Form</title>
     <meta charset="utf-8">
-    <link href="contact_form_styles.css" rel="stylesheet"/>
+    <link href="tweak_contact_form_styles.css" rel="stylesheet"/>
   </head>
   <body>
     <form action="#" method="post">
       <fieldset>
+        <dl class="partial one_half left">
+          <dt><label for="first_name">First Name</label></dt>
+          <dd><input type="text" name="first_name" id="first_name"/></dd>
+        </dl><!--
+        --><dl class="partial one_half right">
+          <dt><label for="last_name">Last Name</label></dt>
+          <dd><input type="text" name="last_name" id="last_name"/></dd>
+        </dl>
+
         <dl>
-          <dt>
-            <label for="first_name">First Name</label>
-          </dt>
-          <dd>
-            <input type="text" name="first_name" id="first_name"/>
-          </dd>
-
-          <dt>
-            <label for="last_name">Last Name</label>
-          </dt>
-          <dd>
-            <input type="text" name="last_name" id="last_name"/>
-          </dd>
-
           <dt>
             <label for="email">Email Address</label>
           </dt>
           <dd>
             <input type="email" name="email" id="email"/>
           </dd>
+        </dl>
 
-          <dt>
-            <label for="city">City</label>
-          </dt>
-          <dd>
-            <input type="text" name="city" id="city"/>
-          </dd>
-
-          <dt>
-            <label for="state">State</label>
-          </dt>
+        <dl class="partial one_half left">
+          <dt><label for="city">City</label></dt>
+          <dd><input type="text" name="city" id="city"/></dd>
+        </dl><!--
+        --><dl class="partial ten_percent middle">
+          <dt><label for="state">State</label></dt>
           <dd>
             <select name="state">
               <option>AK</option>
@@ -95,13 +87,10 @@
               <option>WY</option>
             </select>
           </dd>
-
-          <dt>
-            <label for="zip">Zip</label>
-          </dt>
-          <dd>
-          <input type="text" name="zip" id="zip" pattern="[0-9]{5}"/>
-          </dd>
+        </dl><!--
+        --><dl class="partial forty_percent right">
+          <dt><label for="zip">Zip</label></dt>
+          <dd><input type="text" name="zip" id="zip" pattern="[0-9]{5}"/></dd>
         </dl>
 
         <p>Which of these colors do you like best?</p>
@@ -147,12 +136,14 @@
           </li>
         </ul>
 
+<input type="password" name="secret_word" />
+
        <label for="comments">Comments</label>
        <textarea name="comments" id="comments" 
                  rows="6" cols="80"></textarea>
        <input type="hidden" value="2019-03-31" name="timestamp"/>
-       <input type="submit" value="Send"/>
-       <input type="reset"/>
+       <input class="partial" type="submit" value="Send"/>
+       <input class="partial" type="reset"/>
       </fieldset>
     </form>
   </body>
