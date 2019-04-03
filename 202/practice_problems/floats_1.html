@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Floats 1</title>
+    <meta charset="utf-8">
+    <style>
+
+      body, section, article, aside {
+        margin: 0; 
+        padding: 0;
+      }
+
+      body {
+        background-color: gray;
+      }
+
+      section {
+        background-color: white;
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+
+      footer {
+        clear: both;
+        padding: 1rem;
+        background-color: red;
+      }
+
+      .column {
+        box-sizing: border-box;
+        padding: 1rem;
+      }
+      
+      article {
+        background-color: orange;
+        float: left;
+        width: 500px; 
+      }
+
+      aside {
+        background-color: green;
+        float: none;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <article class="column">
+        <p>Aliquam ullamcorper elit nec nunc dictum volutpat aliquet id orci. Vivamus lacinia nibh vestibulum ullamcorper mollis. Duis nec nibh facilisis, condimentum lectus et, tincidunt ligula. Cras egestas massa id nunc tincidunt bibendum. Donec consequat, nunc et bibendum tristique, est ligula sagittis sapien, id rhoncus risus nulla pharetra urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam consequat risus at hendrerit lobortis. Fusce euismod lacinia est in tincidunt.</p>
+        <p>Aenean elementum mauris ligula, id efficitur dolor faucibus sit amet. Praesent massa ligula, pulvinar nec arcu sit amet, tincidunt imperdiet tellus. Aliquam volutpat nibh diam, sed tristique neque euismod sed. Sed vitae elit dapibus, posuere mauris vel, eleifend enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi nulla eros, facilisis ut arcu at, scelerisque blandit felis. Etiam tempor est ac libero luctus, suscipit hendrerit quam elementum.</p>
+        <p>Praesent eu odio a arcu luctus venenatis. Quisque a interdum est, sed porta metus. Maecenas orci magna, egestas dictum ante et, ullamcorper vehicula est. Aenean auctor finibus nisl, eget aliquet erat hendrerit at. Proin tempor elit vulputate metus semper rhoncus. Donec quis fermentum magna, ac commodo ipsum. Cras rutrum dictum placerat. Nullam cursus sem eu eros commodo, finibus elementum nunc sollicitudin. Pellentesque eu risus eu mauris congue venenatis. Sed ac viverra felis. Vivamus egestas, ex non pellentesque feugiat, est mauris volutpat ipsum, et pharetra dui neque eu tortor.</p>
+      </article>
+
+      <aside class="column">
+        <p>Maecenas mauris neque, maximus ac eros ut, venenatis viverra metus. Morbi tincidunt commodo tortor, eget lacinia leo pulvinar vitae.</p>
+        <p>Fusce quis elementum lectus. Morbi ullamcorper at erat dignissim gravida. Aliquam erat volutpat. Sed odio ante, facilisis sit amet nisl vel, scelerisque vehicula libero. In dignissim posuere condimentum. Vivamus molestie, velit nec mollis pulvinar, lectus tortor scelerisque tortor, non tempor dui magna non dolor. Aliquam semper in dui vitae egestas. Phasellus dictum faucibus vulputate.</p>
+      </aside>
+    <footer>
+        <p>Fusce quis elementum lectus. Morbi ullamcorper at erat dignissim gravida. Aliquam erat volutpat. Sed odio ante, facilisis sit amet nisl vel, scelerisque vehicula libero. In dignissim posuere condimentum. Vivamus molestie, velit nec mollis pulvinar, lectus tortor scelerisque tortor, non tempor dui magna non dolor. Aliquam semper in dui vitae egestas. Phasellus dictum faucibus vulputate.</p>
+    </footer>
+    </section>
+  </body>
+</html>
