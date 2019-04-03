@@ -1,0 +1,60 @@
+Know how to use the following in simple projects and problem sets:
+- floated elements, including how to clear floats
+- positioning with position: absolute
+- basic media queries
+- liquid and fluid layouts
+
+# What are floated elements?
+THey tell the browser to move it as far to the `left` or right as possible but to leave the remaining space available for additional content.
+Elements float within their immediate container, which puts a limit on how far the browser can move the floated element. If you float two elements in a row in the same direction, their vertical edges (counting their margins) will touch, providing they fit in the same row. Any whitespace (other than margins and padding) that would otherwise appear between the elements will collapse.
+Keep things simple when using floats: make sure all floats in a group have the same height and direction (`left` or right), so they will wrap logically. You can also mix `left` and right floats with predictable results if you're careful, again provided the heights are consistent. Better yet, use Flex, Grid, or a Frameworks package.
+
+# Why would you want to use the `overflow` property on a floated element's parent?
+The browser removes floats from the normal document flow, and that means the container no longer contains the floated items. Hence, the browser cannot determine the container's height, so it can't render the container correctly.
+Floated elements and absolute or fixed position elements (we'll discuss those soon) typically don't affect the dimensions of their parents. Since the browser removes the content from the flow, the rendering engine no longer cares about them. The floated or positioned elements can overwrite other content. To fix this problem, we must add an overflow option to the floated element's container or wrap it in a clearfix.
+overflow: hidden (or overflow: auto) is the simplest way to clear a floated element. Apply the property to the container element and watch it expand to wrap your floated elements.
+#parent { overflow: hidden; }
+The overflow ensures that the parent container properly envelops the two columns.
+
+# What are two edge cases that Launch School says we should be aware about when using `overflow`?
+- overflow: hidden can cut off (clip) content that exceeds the allocated space for the text if the container has a set height or width
+- overflow: auto can add unwanted scrollbars, which is a browser specific behavior.
+If you experience either problem, you can use the clearfix approach.
+
+# Why does `overflow` work?
+`overflow` creates a block formatting context which contains everything inside the element to which it applies, and that includes floats. For now, that's all we need to know.
+
+# What is clearfix?
+A clearfix is a standard pattern that developers use to ensure a container doesn't lose its floated children. It employs an invisible block element as the last child element of the container and the clear property.
+```
+#parent::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+```
+The clearfix ensures that the parent container wraps the floated children.
+The ::after pseudo-element creates a child element at the end of the selected element(s); here, we put it at the end of our container. We define this child as a block element, which means it must be on a line by itself. The content: "" property sets the content of the child element: an empty string. Thus, the clearfix child is invisible. Lastly, we use clear: both to "clear" the floats inside the container, which forces the invisible child directly below the floated content. The final result is similar to that of using overflow: the container can see the clearfix, so all it needs to do is stretch itself to enclose the clearfix and the floated content as well.
+
+# What values does the `clear`property take?
+`clear` takes values of `right`, `left`, or both. `right` and `left` refer to the type of floated element it will `clear`, while both `clear`s any floated element that it finds. You can use any of these values with `clear`, but you should use `clear`: both unless you find that you need `clear`: `left` or `clear`: `right` for some reason.
+
+# What are the offset properties? What do they do?
+`top`, `right`, `bottom`, and `left`
+They work with `position` to determine what direction you want to move an element and how far.
+Each offset measures the inward distance from the side of the container named by the offset property. For instance, `bottom: 50px` indicates a position 50px inward from (above) the bottom edge of the container. *The offset is always inward when working with positive offset values.* Negative offsets cause the browser to push the edges outward from the container.
+
+# What does the `position` property do? What values can you set for it?
+The `position` property tells the browser how to position the selected elements.
+`static`: default. Statically positioned items are part of the page flow. They appear in the same order they appear in the markup. The offset properties do not affect static elements.
+
+`relative`: move an element to a new position relative to where the browser would otherwise put it. For instance, if you include left: 50px and bottom: 100px with position: relative, the browser will shift the element 50px inward from the left edge and 100px upward from the bottom edge from where the browser would place it otherwise.
+Relative positioning does not remove an item from the document flow. The browser positions the next element as though the previous one still occupied its pre-offset location.
+
+`absolute`: causes the browser to move the element to a new position within a container element. By default, the container is the nearest ancestor element that has a relative, absolute, or sticky position (LS does not discuss sticky positioning in this course). If no such ancestor is present, the browser uses the initial containing block (the body); that is, the browser positions the element at an absolute position on the page.
+Absolute positioning removes elements from the normal document flow. No matter where you position it, the browser won't treat that space as occupied space. 
+
+`fixed`: does not move if the user scrolls the page.
+
+# What is the viewport?
+The visible area within the browser. If you are on a web page that is too long to fit within the initial window, you have to scroll to the bottom of the page to see the page bottom within the viewport. The top part would be outside of the viewport.
