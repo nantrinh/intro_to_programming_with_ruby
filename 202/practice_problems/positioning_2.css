@@ -13,9 +13,13 @@ section {
   max-width: 1000px;
 }
 
-h1, h2 {
+h1, h2, h3 {
   color: rgb(192, 123, 119);
 }
+
+h1 { font-size: 1.8rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
 
 .dashed-border {
   border: 1px dashed rgb(198, 193, 184);
@@ -95,6 +99,56 @@ p {
   width: 180px;
 }
 
-.float-block-no-width-or-height div:first-of-type {
+.fl-1 {
   background-color: blue; 
+  color: white;
+  float: left;
+}
+
+.fl-2 {
+  background-color: darkred; 
+  color: white;
+  float: right;
+}
+
+.fl-3 {
+  background-color: darkred; 
+  color: white;
+  float: left;
+  padding: 20px 0;
+  text-align: center;
+  width: 40%;
+}
+
+.fl-4 {
+  background-color: blue; 
+  color: white;
+  float: right;
+  padding: 20px 0;
+  text-align: center;
+  width: 50%;
+}
+
+.inline-to-block a {
+  background-color: blue; 
+  color: white;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+nav {
+  text-align: center;
+}
+
+
+nav a {
+  background-color: blue; 
+  box-sizing: border-box;
+  color: white;
+  display: inline-block;
+  margin: 20px 8px 25px;
+  padding: 20px 30px;
+  width: 20%;
 }
