@@ -32,7 +32,6 @@
     In the above example, we requested a margin of 30px on all sides. However, the browser ignored the top and bottom margins.
     </p> 
     <h2>What about padding?</h2>
-    </p>
     <div class="dashed-border inline boxed"> 
       <a href="#">Home</a>
       <a href="#">Portfolio</a>
@@ -130,68 +129,81 @@
     <p>
     We achieved similar results when we floated the anchor elements. It's as though you get two elements in one: you have the flow properties of inline elements combined with most properties of block elements.
     </p> 
-    Floats and Positioning Elements
-    
-    Floats
-    
+
+    <h1 class="border-top centered">Floats and Positioning Elements</h1>
+    <h2>Floats</h2>
+    <p> 
     The browser removes floated elements from the normal flow. Floated elements automatically become block-level elements with change: two or more floated elements can fit on the same line.
-    
-    Example
-    
-      Box 1
-      Box-2
-      Box-3
-    
+    </p>
+    <h2>Example</h2>
+    <div> 
+      <div class="flp-1">Box-1</div>
+      <div class="flp-2">Box-2</div>
+      <div class="flp-3">Box-3</div>
+    </div>
+    <p> 
     Elements that follow a floated element wrap around it. However, we don't want this behavior above, so we applied clear:both` property to the third `div`. There are two other values for `clear`, `left` and `right`, but we typically want `both.
-    
+    </p>
+    <p> 
     There are other ways to clear floats. One technique is the clearfix method:
-    
-      elementName::after {
-        content: " ";
-        display:block;
-        clear: both;
+    </p>
+    <code>
+      elementName::after {<br/>
+        content: " ";<br/>
+        display:block;<br/>
+        clear: both;<br/>
       }
-    
+    </code> 
+    <p>
     Here we append the ::after pseudo-element to the parent element's selector.
-    
-    Positioning
-    
+    </p>
+    <h2>Positioning</h2>
+    <p> 
     We sometimes want to position elements at specific locations on the page. The normal page flow and floats can't do this with the precision we often want. We can use CSS positioning in this case. There are four positioning types:
-    
-      Static
-      Fixed
-      Relative
-      Absolute
-    
-    Static Positioning
-    
-    The element renders at its normal position on the page. That is, the browser uses the standard page flow. All elements default tom static positioning.
-    
-    Fixed Positioning
-    
-    Lets you place an element at a fixed position in the browser window; it will remain in place even when you scroll the page. You need the top`, `bottom`, `right`, and `left properties to position the element.
-    
+    </p>
+    <ul> 
+      <li><i>Static</i></li>
+      <li><i>Fixed</i></li>
+      <li><i>Relative</i></li>
+      <li><i>Absolute</i></li>
+    </ul> 
+    <h3>Static Positioning</h3>
+    <p> 
+    The element renders at its normal position on the page. That is, the browser uses the standard page flow. All elements default to static positioning.
+    </p>
+    <h3>Fixed Positioning</h3>
+    <p> 
+    Lets you place an element at a fixed position in the browser window; it will remain in place even when you scroll the page. You need the <code>top</code>, <code>bottom</code>, <code>right</code>, and <code>left</code> properties to position the element.
+    </p>
+    <p> 
     The browser removes elements with fixed positioning from the page flow. It does not leave a gap in the location where the browser would have positioned it otherwise.
-    
+    </p>
+    <p> 
     The blue box on the bottom-left corner of the page is a fixed position element.
-    
+    </p>
+    <div class="fixed-1">
     I use fixed positioning.
-    
-    Relative Positioning
-    
+    </div>
+    <h3>Relative Positioning</h3>
+    <p> 
     Relative positioning positions an element at a location relative to its normal position. Unlike fixed positioning, relative positioning does not remove an element from the page flow; in fact, you can observe a gap in the flow indicating the original position.
-    
+    </p>
+    <div class="relative-1">
     I use relative positioning.
-    
+    </div>
+    <p> 
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non cumque repellat sapiente vitae nihil debitis accusamus, odit, tempore id reiciendis consequatur necessitatibus veritatis, distinctio vel, cum repellendus numquam blanditiis perferendis?
-    
-    Absolute Positioning
-    
-    Absolute positioning removes an element from the normal page flow and positions it at an absolute position relative to its parent element. If the parent element is the `<body>`, the position is absolute relative to the complete page.
-    
+    </p>
+    <h3>Absolute Positioning</h3>
+    <p class="absolute"> 
+    Absolute positioning removes an element from the normal page flow and positions it at an absolute position relative to its parent element. If the parent element is the <code>&lt;body&gt;</code>, the position is absolute relative to the complete page.
+    </p>
+    <p class="absolute">
     The green box shows uses absolute positioning.
-    
-    I use absolute positioning.
+    </p> 
+    <div class="absolute"> 
+      <div id="absolute-example">I use absolute positioning.</div>
+    </div>
   </section>
   </body>
 </html>
