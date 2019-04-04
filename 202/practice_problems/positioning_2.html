@@ -37,15 +37,16 @@
       <a href="#">Home</a>
       <a href="#">Portfolio</a>
       <a href="#">Contact</a>
-    </div>    <p>
+    </div>
+    <p>
     Inline elements accept padding on all sides.
     </p> 
     <h2>Floating Inline Elements</h2>
-    <p> 
-      Home
-      Portfolio
-      Contact
-    </p> 
+    <div class="dashed-border float boxed cf"> 
+      <a href="#">Home</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Contact</a>
+    </div>
     <p> 
     Floating an inline element changes its display value to block, which makes it subject to all block-level characteristics. Thus, floated inline elements can take margins, padding, heights, and widths.
     </p> 
@@ -57,34 +58,36 @@
     <p> 
     `div` elements are block-level.
     </p>
-    <div> 
+    <div class="blue-background"> 
     This div has no explicit width or height.
     </div>
     <p> 
     Without an explicit width or height, the box fills the entire width and uses as much height as it needs to fit the content.
     <p> 
-    <div>
-    This div has no explicit width but a height of 60px; it also has both padding and margins of 20px on all sides.
+    <div class="green-box-centered cf">
+    <p>This div has no explicit width but a height of 60px; it also has both padding and margins of 20px on all sides.</p>
     </div> 
     <p>
     With an explicit height of 60px plus margins and padding, the box still fills the entire width (including the padding and margins), but now requires the requested height.
     </p> 
-    <div>
+    <div class="brown-box-left">
     This div has a width of 90px and no explicit height.
     </div>
-    
+    <p>   
     With an explicit width of 90px, the box collapses down to 90px width but expands the height to ensure the text still fits.
-    
-    This div has a width of 180px and a height of 120px; it also has both padding and margins of 20px on all sides.
-    
+    </p>
+    <div class="explicit-height-and-width"> 
+    <p>This div has a width of 180px and a height of 120px; it also has both padding and margins of 20px on all sides.</p>
+    </div>
+    <p> 
     With an explicit width of 180px and height of 120px, the box takes on the requested dimensions. However, the content can overflow the box as it does here.
-    
-    Floating Block Elements
-    
-    Floating block elements with no width or height
-    
-    Box - 1 - Floated Left
-    Box - 2 - Floated Right
+    </p>
+    <h2>Floating Block Elements</h2>
+    <h3>Floating block elements with no width or height</h3>
+    <div class="float-block-no-width-or-height"> 
+      <div>Box - 1 - Floated Left</div>
+      <div>Box - 2 - Floated Right</div>
+    </div>
     
     Floated block-level elements that don't have a width collapse down to the width required by the content. Thus, multiple floated blocks can fit on the same line as shown above where we float one item left and the other right.
     
