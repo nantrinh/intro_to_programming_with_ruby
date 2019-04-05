@@ -1,0 +1,108 @@
+# What is Flex?
+CSS Flexible Box Layout Module.
+Flex is a one-dimensional layout tool; you can layout a single row or column with a single flexbox. You can create two-dimensional formats by using multiple flexboxes, but Grid works better for two-dimensional work.
+
+# What is Grid?
+Grid is a two-dimensional layout tool; you can place elements in a grid (rows and columns) format at the same time. It's also possible to do a single row or a single column, but that's merely a degenerate form of a grid; Flex is often better for such cases.
+
+# How do you set the three children of a parent container to have equal width, using FlexBox?
+```
+.parent { display: flex; }
+.child { flex: 1; }
+```
+
+# With FlexBox, how do you get the children to have equal height columns even though they have different amounts of content?
+It's the default.
+```
+.parent { display: flex; }
+.child { flex: 1; }
+```
+
+# With FlexBox, how do you get the height of each child to vary based on the amount of content they contain?
+```
+.parent {
+  display: flex;
+  align-items: flex-start;
+}
+.child { flex: 1; }
+```
+`align-items: flex-end;` aligns at bottom.
+`align-items: flex-end;` aligns at center.
+It is set to `stretch` by default, which makes the heights equal.
+
+# Using FlexBox, how would you set each column in a 3-column setup to have a width of 30%, and having the rest of the space used as margin?
+```
+.parent {
+  display: flex;
+  justify: space-between;
+}
+.child {
+  flex-basis: 30%;
+}
+```
+`justify: flex-start;` justifies to left
+`justify: flex-end;` justifies to right 
+`justify: center;` justifies to center 
+It is set to `flex-start` by default.
+
+# How do you use a media query to specify layout changes for different screen sizes?
+@media (min-width: 900px) {
+  .parent {
+    /* code here that only applies to larger screens*/
+  }
+}
+
+# How do you tell FlexBox it is ok to have multiple rows of items (for example, when the screen width decreases, and you want items to maintain a set width)?
+`.parent { flex-wrap: wrap; }` This property is set to `nowrap` by default.
+
+# How do you center dynamic content inside a container?
+.parent { display: flex; }
+.child { margin: auto; }
+
+# How do you get items to share vertical space?
+```
+.parent {
+  display: flex;
+  flex-direction: column;
+}
+```
+`flex-direction: row;` is the default.
+
+# What is a grid container?
+Element containing a grid, defined by setting `display: grid;`
+
+# What is a grid item?
+Element that is a direct descendant of the grid container.
+
+# What is a grid line?
+Horizontal (row) or vertical (column) line separating the grid into sections.
+Grid lines are referenced by number, starting and ending with the outer borders of the grid. 
+
+# What is a grid cell?
+The intersection between a grid row and a grid column. Effectively the same as a table cell.
+
+# What is a grid area?
+Rectangular area between four specified grid lines. Grid areas can cover one or more cells.
+
+# What is a grid track?
+The space between two or more adjacent grid lines. Row tracks are horizontal. Column tracks are vertical.
+
+# What is a grid gap?
+Empty space between grid tracks. Commonly called gutters.
+
+# Are grids inherited by child elements? 
+Grids are not inherited by child elements. Instead we create nested grids.
+Allow you to work on a component level.
+
+# How can you use a feature query to test for grid support in the current browser? 
+@supports (display: grid) {...}
+
+# What does Morten Rand-Hendriksen suggest, for dealing with old browsers?
+Use the mobile version. Accessible mobile-first layouts work well on all screen widths. 
+
+# What does Morten Rand-Hendriksen suggest as a practical approach for CSS Grid?
+1. Build accessible mobile-first layout without grid. (Baseline)
+2. Use mobile-first layout as fallback for all browsers.
+3. Use @supports to detect grid support.
+4. At the appropriate breakpoint, create layout with grid and grid-areas.
+5. Explore new layouts as viewport widens.
