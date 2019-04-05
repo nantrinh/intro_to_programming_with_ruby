@@ -1,0 +1,4 @@
+- remove padding and margins globally
+- make nav horizontal
+- 3 column, 3 rows
+- footer: shrink image, put copyright next to it 

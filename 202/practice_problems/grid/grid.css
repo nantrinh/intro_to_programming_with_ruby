@@ -1,0 +1,123 @@
+html {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  background-color: navy;
+  color: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-template-areas:
+  "header header header"
+  "nav nav nav"
+  "sidebar1 article1 sidebar2"
+  "sidebar3 article2 article2 "
+  "footer footer footer";
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+header, h1 {
+  background-color: #FF851B;
+  color: black;
+}
+
+header {
+  padding: 1rem;
+  text-align: center;
+  grid-area: header;
+}
+
+nav {
+  background-color: gray;
+  grid-area: nav;
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  list-style-type: none;
+}
+
+li {
+  text-align: center;
+  width: auto;
+}
+
+a {
+  box-sizing: border-box;
+  color: white;
+  display: inline-block;
+  padding: 1rem 0;
+  text-decoration: none;
+  width: 100%;
+}
+
+a:focus,
+a:hover {
+  background-color: blue;
+  color: yellow;
+}
+
+article,
+aside {
+  padding: 0 1rem;
+  color: black;
+}
+
+aside {
+  background-color: lightgreen;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+footer {
+  background-color: yellow;
+  color: black;
+  grid-area: footer;
+  display: grid;
+  grid-template-areas: "logo copyright";
+  grid-template-columns: 1fr 3fr;
+}
+
+img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+#copyright {
+  align-self: center;
+  grid-area: copyright;
+  margin-right: 1rem;
+  justify-self: end;
+}
+
+#logo {
+  background-color: orange;
+  grid-area: logo;
+}
+
+#article-1 { 
+  color: white;
+  grid-area: article1; 
+}
+
+#article-2 { 
+  background-color: skyblue;
+  grid-area: article2; 
+}
+
+#aside-1 { grid-area: sidebar1; }
+#aside-2 { grid-area: sidebar2; }
+#aside-3 {
+  background-color: maroon;
+  color: white;
+  grid-area: sidebar3;
+}

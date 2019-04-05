@@ -1,0 +1,17 @@
+h1 {
+ width 100%
+ fill up top header
+}
+
+nav {
+  make horizontal
+  space evenly
+}
+
+main {
+  parent container, flex horizontally
+}
+
+footer {
+  parent, flex horizontally
+} 
