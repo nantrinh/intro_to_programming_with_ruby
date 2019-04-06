@@ -1,0 +1,41 @@
+# Are frameworks a fundamental skill?
+No, because most have a short or dynamic lifespan. With a strong background in CSS fundamentals, you can learn any frameworks package with comparative ease.
+
+# What is the basic idea behind CSS frameworks?
+They create a grid system using classes, and your HTML uses those classes to handle the layout part of your site. Beyond that, they also provide "responsive design" capabilities to your site, which lets your site work well on all devices from the smallest to the largest.
+
+# What is the role of CSS media queries?
+To define styles that change based on the current size of the browser window.
+
+# Give an example of how to use a media query.
+```
+a { color: red; }
+
+@media (max-width: 480px) {
+  a { color: orange; }
+}
+```
+This sets the color of links to orange when the screen width is less than or equal to 480px. Otherwise, the color of links is set to red.
+
+# Give an example of how to specify a media type in a media query.
+```
+@media screen and (max-width: 1600px) {
+  /* CSS for 1600px (or smaller) screens */
+}
+```
+Other values for type are: all, print, and speech
+
+# Which approach is considered to be best-practice: mobile-first or desktop-first?
+Mobile-first. This approach frequently results in faster downloads on mobile devices, while the desktop-first approach results in slower downloads.
+
+# What tag should you include in the `<head>` part of your `<html>` if your app has responsiveness traits or is a dedicated mobile site? What does each part of the tag mean?
+`<meta name="viewport" content="width=device-width, initial-scale=1">`
+
+`<meta name="viewport" content="width=device-width>` tells the browser that your website adapts to the browser's width. If used on a non-responsive site, the website will zoom to the top left corner, forcing the users to zoom out (just to understand where they are) and zoom in to the see the details.
+
+`initial-scale=1` sets 1 CSS pixel equal to 1 viewport pixel, for the initial zoom level. 
+
+# What are fluid and liquid layouts?
+Liquid layouts often employ percentage values for widths to maintain the same width ratios for content areas as the browser width changes. Liquid layouts ordinarily take up the entire width of the browser window, no matter how big it gets. 
+
+Fluid layouts expand and collapse like a liquid layout to a point, then become fixed once the browser width reaches a specific size.
