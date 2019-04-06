@@ -1,0 +1,90 @@
+html {
+  background-color: black;
+  color: #f0f0f0;
+  font: 16px Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: teal;/*#151515;*/
+  max-width: 1000px;
+}
+
+header {
+  padding: 2rem 0 1rem 0;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+figure {
+  margin: 0 1rem 0 1rem;
+}
+
+figure img {
+  border: 20px solid white;
+}
+
+figure figcaption {
+  margin: 1rem 0 1rem 0;
+}
+
+img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+div.bottom {
+  display: grid;
+  grid-template-areas: "img1 img2 img3 img4";
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  margin: 0 1rem 0 1rem;
+  padding: 1rem 0 2rem 0;
+}
+
+@media (max-width: 899px) {
+  div.bottom {
+    grid-template-areas:
+      "img1 img2 img3"
+      "img4 img5 img6";
+  }
+}
+
+@media (max-width: 599px) {
+  div.bottom {
+    grid-template-areas:
+      "img1 img2"
+      "img3 img4"
+      "img5 img6";
+  }
+}
+
+.bottom img {
+  border: 5px solid white;
+  max-width: 100%;
+}
+
+#img1 {
+  grid-area: img1;
+}
+
+#img2 {
+  grid-area: img2;
+}
+
+#img3 {
+  grid-area: img3;
+}
+
+#img4 {
+  grid-area: img4;
+}
