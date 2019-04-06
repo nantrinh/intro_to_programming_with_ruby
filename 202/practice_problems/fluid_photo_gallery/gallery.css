@@ -10,25 +10,25 @@ html {
   padding: 0;
 }
 
-section {
+body {
   background-color: teal;/*#151515;*/
   min-width: 500px;
   max-width: 1000px;
-  display: grid;
-  grid-template-areas:
-  "h1 h1 h1 h1"
-  "central central central central"
-  "img1 img2 img3 img4";
+}
+
+header {
+  padding: 2rem 0 1rem 0;
 }
 
 h1 {
-  grid-area: h1;
+  font-size: 2rem;
+  text-align: center;
 }
 
 figure {
   grid-area: central;
   border: 2px solid red;
-  margin: 0;
+  margin: 0 1rem 0 1rem;
 }
 
 figure img {
