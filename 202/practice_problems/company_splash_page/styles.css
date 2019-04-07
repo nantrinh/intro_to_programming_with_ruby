@@ -1,0 +1,28 @@
+body {
+  background-image: url("bg_body.gif"); 
+  background-repeat: repeat;
+  color: #45494d;
+  font: 20px "Nunito", sans-serif;
+}
+
+header {
+  text-align: center;
+}
+
+main, footer {
+  max-width: 1000px; 
+  margin: 0 auto;
+  text-align: center;
+}
+
+main {
+  background-color: white;
+}
+
+main h2 {
+  color: #3e98b2;
+}
+
+footer {
+  background-color: #e7e7e7;
+}
