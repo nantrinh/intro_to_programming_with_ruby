@@ -1,0 +1,15 @@
+# How do you use a PSD or PNG design file as the basis for converting a design to an actual web page?
+
+# What do PSD files require?
+Adobe Photoshop or a strongly compatible alternative program. They give you a lot of power and flexibility in copying a design.
+
+# What is a CSS reset?
+A bit of CSS that "resets" your CSS to a known state in a variety of different browsers. It does this by removing or overriding most browser styling defaults.
+
+# Why might you want to use CSS Resets?
+The browser assigns default styles to HTML. When you use CSS to style documents, you probably don't want the browswer to interfere with your design. Since different browsers have different default styling, your page may degrade -- or worse, break entirely -- when someone uses it in a browser that you didn't test.
+
+# What are some drawbacks to using PNG files for design?
+- There is no way to examine and measure fonts.
+- It is hard to measure colors when the color patch is less than 5-10 pixels thick, such as line drawings and text.
+- Extracting images is tedious. If it has curved, jagged, or fuzzy edges, obtaining a clean result may be almost impossible.
