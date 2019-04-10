@@ -43,9 +43,13 @@ nav a {
 /* Main */
 main {
   margin: 0 auto;
-  max-width: 850px;
+  max-width: 1000px;
   padding-top: 100px;
   padding-bottom: 30px;
+}
+
+main img {
+  margin-bottom: 1.8rem;
 }
 
 main h1 {
@@ -71,6 +75,10 @@ main h2 {
 
 main section {
   margin-bottom: 3rem;
+}
+
+main p {
+  margin: 0 100px 0 100px;
 }
 
 /* Footer */
