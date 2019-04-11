@@ -81,6 +81,26 @@ main p {
   margin: 0 100px 0 100px;
 }
 
+main ul.team {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5rem auto 8rem auto;
+  width: 800px;
+}
+
+main ul.team li {
+  flex: 1fr;
+}
+
+main ul.team li img {
+  display: block;
+}
+
+main ul.team a {
+  color: blue;
+  text-decoration: none;
+}
+
 /* Footer */
 footer {
   background: lightgray;
