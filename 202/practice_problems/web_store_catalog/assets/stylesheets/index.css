@@ -34,12 +34,41 @@ main h1 {
   margin-bottom: 2rem;
 }
 
-main a {
-  color: #fbf7f1;
+h2 {
+  font-size: 1.2rem;
+  text-transform: capitalize;
 }
 
-main section {
+h3 {
+  font-size: 1rem;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+a {
+  color: black;
+}
+
+section {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
   padding-bottom: 3rem;
+}
+
+ul {
+  display: grid;
+  grid-gap: 17px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+li {
+  background-color: white;
+  padding: 15px;
+}
+
+img {
+  display: block;
+  height: 140px;
+  margin: 0 auto;
+  padding-bottom: 1rem;
 }
