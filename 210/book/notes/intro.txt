@@ -1,0 +1,59 @@
+# What is JavaScript?
+---
+a scripting language
+
+# What is Node.js?
+---
+An open-source cross-platform runtime environment that provides a way to run JavaScript code from outside a browser.
+
+# What does abstraction mean?
+---
+Users are far removed from what is happening "under the hood".
+
+# Is JavaScript and libraries and frameworks (e..g, jQuery and React) at different levels of abstraction?
+---
+Yes, the tools are built with JavaScript. Understanding lower levels of abstraction help you make better use of tools with higher abstraction levels. 
+
+# What is a runtime environment?
+---
+The execution environment provided to an application program by the operating system. In other words, the runtime environment turns an application from a set of instructions into something that performs actual work.
+
+It lets the application access system resources and provides the tools the application needs to operate. In some cases, these tools let the application interact with the outside world. In others, they let the operating system interpret and understand what the application is doing.
+
+The compiler and the operating system's API together make up a runtime environment: they provide the tools an application needs to run.
+
+# What is a programming language?
+---
+A set of syntactic and semantic rules that describe a formal language and must be able to express the steps that a machine needs to perform to convert some input to an output. 
+
+# What are two common JavaScript runtime environments? What functions does the language perform in each?
+---
+- Browser
+  - The original JavaScript runtime environment, and still the most dominant.
+  - Almost every browser has a JavaScript engine built into it.
+  - Functions
+    - Programmatically alter web pages based on user actions. The DOM (Document Object Model) API lets you manipulate the structure and appearance of a HTML page.
+    - Exchange messages with a server over a network. The XHR (XMLHttpRequest) interface and the Fetch API lets you communicate with a server.
+- Node.js
+  - Chrome V8 JavaScript engine with added APIs and tools required for desktop and server computing.
+  - Functions: general-purpose programming
+    - read and write files (disk I/O)
+    - read and write via the terminal (standard I/O)
+    - send and receive messages over a network (network I/O)
+    - ability to interact with a database
+
+# What is the difference between instance methods and static methods?
+You apply instance methods to a value of the type that the constructor represents (e.g., 'Hello '.concat('Rose') => 'Hello Rose'), while you use the constructor name to call a static method (e.g., String.fromCharCode(97) => 'a').
+
+static method is like a class method in Ruby.
+instance methods are also known as "prototype" methods
+
+# What style should variables be written in?
+camelCase
+
+# What style should functions be written in?
+camelCase
+constructor functions can use PascalCase names
+
+# What style should const values be written in?
+uppercase with underscores

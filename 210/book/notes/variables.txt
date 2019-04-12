@@ -1,0 +1,26 @@
+# Give an example of declaring and initializing a variable on the same line.
+---
+let firstName = 'Adam'
+
+# Give an example of declaring and initialzing a constant on the same line.
+---
+const INTEREST_RATE = 2.20
+
+# What scope do variables declared with the `let` or `const` keywords have?
+---
+Block scope. A block is a related set of JavaScript statements and expressions between a pair of opening and closing curly braces. 
+
+# Should you always declare your variables?
+---
+Yes. All undeclared variables have global scope, and you don't want that to happen by accident.
+
+# How can you accept user input via the terminal?
+---
+You can use the readline-sync library `npm install readline-sync`
+Sample usage:
+```
+let rlSync = require('readline-sync');
+let name = rlSync.question("What's your name?\n");
+console.log(`Good Morning, ${name}!`);
+```
+The `question` method returns a String, so if you want to work with the input as numbers, you must coerce them explicitly.
