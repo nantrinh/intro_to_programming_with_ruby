@@ -1,0 +1,2 @@
+1.
+`1`. The `bar` declared and initialized on line 1 is a local variable, as is the `bar` on line 3. As such, they are limited to their respective scopes. The `console.log` function is invoked in the same scope as the first `bar`, so the value of that first `bar` gets printed out. Namely, `1`.

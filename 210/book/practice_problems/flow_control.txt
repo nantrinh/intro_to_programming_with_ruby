@@ -1,0 +1,59 @@
+1.
+false, true, 3, 3, false, true, false, false, false, true, false, true
+
+2.
+function evenOrOdd(integer) {
+  if (integer % 2 === 0) {
+    console.log('even');
+  } else {
+    console.log('odd');
+  }
+}
+
+3.
+function evenOrOdd(integer) {
+  if !(Number.isInteger(value)) { 
+    console.log("Value must be an integer");
+    return;
+  }
+
+  if (integer % 2 === 0) {
+    console.log('even');
+  } else {
+    console.log('odd');
+  }
+}
+
+4.
+Product2; Product3; Product not found;
+If there isn't a break statement with the case clause, after the clause is executed, execution continues at the next case clause.
+
+5. 
+if foo() {
+  return 'bar';
+} else {
+  return qux();
+}
+
+6.
+function capsLong(string) {
+  return string.length > 10 ? string.toUpperCase() : string;
+}
+console.log(capsLong("Sue Smith"));     // 'Sue Smith'
+console.log(capsLong("Sue Robertson")); // 'SUE ROBERTSON'
+console.log(capsLong("Joe Thomas"));    // 'Joe Thomas'
+console.log(capsLong("Joe Stevens"));   // 'JOE STEVENSs'
+
+7.
+function numberRange(number) {
+  if (number < 0) {
+    console.log(`${number} is less than 0`);
+  } else if (number <= 50) {
+    console.log(`${number} is between 0 and 50`);
+  } else if (number <= 100) {
+    console.log(`${number} is between 50 and 100`);
+  } else {
+    console.log(`${number} is greater than 100`);
+  }
+}
+}

@@ -1,0 +1,61 @@
+# What does JavaScript treat as falsey?
+---
+false, the number 0, an empty string, undefined, null, NaN
+
+# What are the return values when using && and ||?
+---
+The value of the operand evaluated last. Recall that the && and || operators use short-circuit evaluation.
+
+# What are the return values of the following expressions?
+3 && 'foo';
+'foo' && 3;
+0 && 'foo';
+'foo' && 0;
+---
+'foo'; 3; 0; 0
+
+# What are the return values of the following expressions?
+3 || 'foo';
+'foo' || 3;
+0 || 'foo';
+'foo' || 0;
+'' || 0;
+---
+3; ; 'foo'; 'foo'; 'foo'; 0;
+
+# Does an if/else statement have a return value?
+---
+No
+
+# Does the ternary operator have a return value?
+---
+Yes
+
+# Give an example of JavaScript's ternary operator.
+---
+condition ? 'this is true' : 'this is false'
+
+# Give an example of JavaScript's `switch` statement.
+---
+It is equivalent to Ruby's `case` statement.
+```
+let a = 5;
+
+switch (a) {
+case 5:
+  console.log('a is 5');
+  break;
+case 6:
+  console.log('a is 6');
+  break;
+default:
+  console.log('a is neither 5, nor 6');
+  break;
+}
+
+// logs "a is 5" to the console
+```
+
+# Is the `break` statement in each `case` essential to a `switch` statement?
+---
+Yes, otherwise, execution will "fall through" to the next `case` clause.

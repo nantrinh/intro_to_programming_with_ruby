@@ -1,0 +1,128 @@
+# How do you define a function?
+---
+function function_name(parameters) {
+  //function content
+}
+
+# What is the difference between parameters and arguments?
+---
+Parameters act as placeholders, and arguments are the values that get stored in the placeholders.
+
+# Are left, right, 3, and 6 arguments or parameters in the following code?
+function add(left, right) { // left & right are ______ 
+  return left + right;      // left & right are ______ 
+}
+
+let sum = add(3, 6);        // 3 and 6 are ______ 
+---
+parameters, arguments, arguments
+
+# Can you reassign global variables from inside a function?
+---
+Yes.
+```
+let name = 'Gerald';
+function changeName(newName) {
+  name = newName;
+}
+changeName('Victor');
+console.log(name); // 'Victor'
+```
+
+# When should you use global variables? What is a general guideline for using global variables?
+---
+They can be useful for application-wide configuration, but in general you should limit the scope of your variables as much as possible, to limit the risk that they will be misused.
+
+# Is line 2 required in the following code?
+```
+function greetPeople(greetingMessage) {
+  let greetingMessage = greetingMessage;
+  console.log(greetingMessage);
+}
+greetPeople('Good Morning');
+```
+---
+No, it is redundant. Parameters are local variables that are initialized from the argument passed to the function at function invocation.
+
+# In JavaScript, is there a difference between functions and methods?
+---
+Yes, functions are invoked like functionName(obj) while methods are invoked like obj.methodName()
+
+# Is JavaScript pass-by-value, pass-by-reference, or both?
+---
+Both. It uses pass-by-value for primitive values, and pass-by-reference for objects (hashes) and arrays.
+
+# What is function composition?
+---
+A process by which a function call can be used as an argument to another function. (e.g., function1(function2(args));
+
+# Can you call a function before you declare it?
+Yes.
+
+# What is the difference between a function expression and a function declaration? Give an example of each.
+---
+You can invoke a function before declaring it, but you cannot invoke a function expression before it appears in your program.
+This works:
+```
+greetPeople();
+
+function greetPeople() {
+  console.log('Good Morning');
+}
+```
+and this works:
+```
+let greetPeople = function() {
+   console.log('Good Morning');
+};
+
+greetPeople();
+```
+but this doesn't:
+```
+greetPeople();
+
+let greetPeople = function() {
+   console.log('Good Morning');
+};
+```
+
+# Give an example of arrow function syntax.
+---
+let add = (a, b) => a + b;
+
+# When can you omit a `return` statement from your function?
+---
+In arrow functions, when the function body only contains one expression. If the body contains two or more expressions or statements, you must use an explicit `return` to return a value, and you must also use curly braces.
+
+# What is the strict identity operator, or identity operator?
+---
+===
+Returns true when the operands have the same type and value, false otherwise.
+
+# What is the strict inequality operator?
+---
+!==
+Returns false when the operands have the same type and value, true otherwise.
+
+#  What is the non-strict equality operator, or loose equality operator?
+---
+==
+When the operands have different types, == coerces one of the operands to the other operand's type before it compares them. The result is true when the final values are the same, false otherwise. Avoid using this operator.
+
+# What is the non-strict inequality operator, or loose inequality operator?
+---
+!=
+When the operands have different types, != coerces one of the operands to the other operand's type before it compares them. The result is false when the final values are the same, true otherwise. Avoid using this operator.
+
+# What are the logical operators for AND, OR, and NOT?
+---
+&&, ||, !
+
+# What does !! do in JavaScript?
+---
+Same as in Ruby: coerces non-boolean values into boolean values.
+
+# Does JavaScript short-circuit?
+---
+Yes
