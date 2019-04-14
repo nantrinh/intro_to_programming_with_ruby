@@ -1,0 +1,46 @@
+1.
+4 
+5, [1, undefined, undefined, undefined, undefined]
+0, because you are setting an array property
+3, [1, 2, 3]
+101, [undefined, undefined, ..., 3]
+
+2.
+myArray.filter((num) => (num % 2 === 0)).forEach((num) => console.log(num));
+
+3.
+myArray.forEach( function(subarray) {
+  subarray.forEach( function(num) {
+    if (num % 2 === 0) {
+      console.log(num); 
+    } 
+  });
+});
+
+4.
+myArray.map( function(num) {
+  return (num % 2 === 0) ? 'even' : 'odd';
+});
+
+5.
+function removeNonInteger(array) {
+  return array.filter( value => Number.isInteger(value));
+}
+
+or 
+
+function removeNonInteger(array) {
+  return array.filter(Number.isInteger);
+}
+
+6.
+function oddLengths(array) {
+ return array.map( value => value.length).filter(value => value % 2 != 0);
+};
+
+7.
+numbers1.includes(3);
+numbers2.includes(3);
+numbers3.includes(3);
+
+8. arr[1][2];

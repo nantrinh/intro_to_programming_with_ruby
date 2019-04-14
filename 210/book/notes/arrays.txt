@@ -1,0 +1,63 @@
+# Which of the following methods mutate their caller? push, pop, concat, splice
+---
+push, pop, and splice
+
+# What is a callback function?
+---
+A function that you pass to another function as an argument. The called function subsequently invokes the callback function at certain times while it runs.
+
+# Give an example of using forEach().
+---
+```
+let array = [1, 2, 3];
+array.forEach((num) => console.log(num + 2));
+```
+
+# Give an example of using map().
+---
+```
+let numbers = [1, 2, 3, 4]
+let squares = numbers.map((num) => num * num);
+```
+
+# What is the JavaScript equivalent of Ruby's `select` method?
+---
+filter
+```
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2]
+numbers.filter((num) => num > 4); // [ 5, 6, 7, 8, 9, 10 ]
+```
+
+# What happens when you change an array's `length` property to a new, larger value?
+---
+The array expands to the new size and the new elements get initialized to undefined.
+
+# What happens when you change an array's `length` property to a new, smaller value?
+---
+The array gets truncated and JavaScript removes all elements beyond the new final element.
+
+# What happens when you do the following?
+```
+arr = [1, 2, 3];
+arr[-3] = 4;
+arr.cat == 'Fluffy'
+```
+---
+You are setting properties on the array object. They do not count towards the length of the array.
+The new array is now `[ 1, 2, 3, '-3': 4, cat: 'Fluffy' ]`
+
+# What does this statement evaluate to? `[1, 2, 3] === [1, 2, 3]`
+---
+false
+
+# What does the final statement below evaluate to?
+```
+let a = [1, 2, 3];
+let b = a;
+a === b;
+```
+true. JavaScript treats two arrays as equal when they are the same array: they must occupy the same spot in memory. This rule holds for JavaScript objects in general; objects must be the same object. Note that this rule does NOT apply to JavaScript primitive values.
+
+# What method does `includes` use internally to compare elements of the array with the argument?
+---
+===, which means you cannot use `includes` to check the existence of a nested array or an object

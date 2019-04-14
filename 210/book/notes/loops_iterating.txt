@@ -1,0 +1,71 @@
+# What is meant by iteration?
+---
+Processing one element at a time, in sequence from the first to last element.
+
+# What is the difference between a do/while loop and a while loop?
+---
+A do/while always executes the code in the block at least once.
+
+# Give an example of using a while loop.
+---
+```
+ctr = 1
+while ctr <= 10 {
+  console.log(ctr);
+  ctr += 1;
+}
+```
+
+# Give an example of using a do/while loop.
+---
+```
+let ctr = 100;
+do {
+  console.log('Hello at least once!');
+} while (ctr < 10);
+```
+
+# What is the syntax of a for loop? Which components are required?
+---
+```
+for (initialization; condition; increment) {
+  // loop body
+}
+```
+All 3 components (initialization, condition, increment) are optional.
+
+# What are `continue` and `break` used for?
+`continue` can be used like `next` in Ruby: start a new iteration of the loop. `break` terminates a loop.
+
+# Give an example of using the forEach method.
+---
+```
+let names = ['Chris', 'Kevin', 'Naveed', 'Pete', 'Victor'];
+
+names.forEach(function (name) {
+  console.log(name);
+});
+```
+
+# What is meant by first-class functions?
+---
+Functions are values: you can assign them to variables, pass them around as arguments to other functions, and even use them as return values in other functions. You can pass an anonymous function as an argument to forEach, as in the example below:
+```
+let names = ['Chris', 'Kevin', 'Naveed', 'Pete', 'Victor'];
+
+names.forEach(function (name) {
+  console.log(name);
+});
+
+// you can also do this
+names.forEach((name) => console.log(name));
+```
+
+# What are recursive functions?
+---
+Functions that call themselves.
+
+# What are the elements of a recursive function?
+---
+- A baseline condition that marks the end of the recursion. In most cases, the baseline condition returns a concrete value that gets reused as the code "unwinds" the recursive calls. Each unwind step uses the previous return value(s) to calculate an intermediate result that gets returned in the next step. 
+- Some code that recursively calls the function with a new argument.
