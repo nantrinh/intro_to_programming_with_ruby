@@ -1,0 +1,60 @@
+# Does JavaScript distinguish between references and pointers?
+---
+No
+
+# Give an example of using regex.
+---
+/c/.test('cat') // => true
+/c/.test('dog') // => false 
+
+# Give an example for using the `match` method.
+```
+// No match
+"bobcat".match(/x/) // = null
+
+// Global match
+"bobcat".match(/[bct]/g) // = [ 'b', 'b', 'c', 't' ]
+
+// Singular match with groups
+"bobcat".match(/b((o)b)/) // = [ 'bob', 'ob', 'o', index: 0, input: 'bobcat', groups: undefined ]
+```
+When a match occurs with a regex that contains the /g flag—a global match—it returns an array that contains each matching substring.
+When /g isn't present, the return value for a successful match is also an array, but it includes some additional properties:
+- index: the index within the string where the match begins
+- input: a copy of the original string
+- groups: used for "named groups" (we don't discuss named groups in this book)
+The array elements are also a bit different when /g isn't present. In particular, the first element (bob in the above example) represents the entire matched part of the string. Additional elements (ob and b in the example) represent capture group matches. Parentheses inside a regex define capture groups.
+
+# Which is more efficient, `match` or `test`?
+---
+`test` is, because `match` must generate information beyond a boolean value.
+
+# When should you use regex instead of `indexOf` or `includes`?
+---
+When it would yield simpler and more understandable solutions.
+
+# What is the basic structure of a try/catch statement?
+---
+```
+try {
+  // perform an operation that may produce an error
+} catch {
+  // an error has occurred. do something about it here.
+  // for example, log the error
+} finally {
+  // Optional 'finally' block; not used often
+  // Executes even if an exception occurs.
+}
+```
+
+# What is ES6?
+---
+ECMAScript6. A recent version of the language specification that added a variety of modern features. Also known as ES2015.
+
+# Did JavaScript have block scopes or arrow functions before ES6?
+---
+No
+
+# What is Babel?
+---
+A tool that lets you write code using the latest language features, and translates it so it is usable in a less current environment.

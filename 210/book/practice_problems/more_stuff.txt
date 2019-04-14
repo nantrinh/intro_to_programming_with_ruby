@@ -1,0 +1,19 @@
+1.
+[1, 4, 3]
+On line 2, the reference to array1 is assigned to array2. At this point, both array1 and array2 point to the same object.
+On line 3, the item at index 1 of array1 is reassigned value 4. Since array2 also points to this object, when we print out array2 to the console, we see that the value at index 1 has been updated to 4.
+
+3.
+console.log(Math.sqrt(37));
+
+4.
+arr.reduce((a,b) => Math.max(a,b));
+
+5.
+takes in a string, splits on the spaces, reverses the resulting array, then returns a new array containing the length of the string elements in the array.
+For example, if we called doSomething('Victor Fuzzbutt') we would get
+[8, 6].
+
+6. see logMatch.js
+
+7. Exception handling allows the programmer to try a piece of code and catch certain errors and handle them in whatever way s/he wants to.
