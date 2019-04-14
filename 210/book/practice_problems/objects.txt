@@ -1,0 +1,45 @@
+1.
+person.name;
+person['name'];
+
+2. All are valid keys though JavaScript coerces non-Strings to Strings
+
+3.
+let myArray = {
+  0: 10,
+  1: 20,
+  2: 30,
+  length: 3
+};
+
+for (let i = 0; i < myArray.length; i += 1) {
+  console.log(myArray[i]);
+}
+
+4.
+let obj = {
+  b: 2,
+  a: 1,
+  c: 3,
+};
+
+Object.keys(obj).map (value => value.toUpperCase());
+
+5.
+newObj = Object.create(myProtoObj);
+
+6.
+newObj.qux = 'foo';
+
+7.
+function copyObj(objToCopy, keys=Object.keys(objToCopy)) {
+  let newObj = {};
+  keys.forEach ( (key) => {
+    newObj[key] = objToCopy[key];
+  });
+  return newObj;
+};
+
+8.
+'hi', 'hello'
+objects are mutable, primitives are not.

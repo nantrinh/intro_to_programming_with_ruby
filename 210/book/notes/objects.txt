@@ -1,0 +1,96 @@
+# Given the following object, what are two ways to access the value for `name`? `let person = { name: 'Jane', age: 37, hobbies: ['photography', 'genealogy'] }`
+---
+dot notation: `person.name`
+bracket notation: `person['name']`
+
+# How do you delete a key-value pair from an object?
+---
+Use the `delete` keyword.
+e.g., `delete person.age`; `delete person['hobbies']`
+
+# What are two meanings of "property" when it comes to objects?
+---
+key-value pair, or key name. The meaning is usually clear from the context.
+
+# What is one difference between objects and primitives?
+---
+Objects are mutable. Primitives are not.
+
+# When object a inherits from object b, we say that b is the _______ of a. 
+---
+prototype
+
+# What does Object.create do?
+---
+Creates a new object and sets the prototype for that object to the object passed in as an argument. 
+Example:
+```
+let bob = { name: 'Bob', age: 22 };
+let studentBob = Object.create(bob);
+console.log(studentBob.name); // logs 'Bob'
+```
+# Give an example of using a for/in loop.
+---
+```
+let person = {
+  name: 'Bob',
+  age: 30,
+  height: '6 ft'
+};
+
+for (let k in person) {
+  console.log(person[k]);
+}
+
+// Bob
+// 30
+// 6 ft
+```
+
+# What method takes the name of a property and returns `true` if it is the name of one of the calling object's own properties (as opposed to properties it inherited), and `false` if it is not?
+---
+hasOwnProperty
+Example:
+```
+let obj1 = { a: 1, b: 2 }
+let obj2 = Object.create(obj1);
+obj2.c = 3;
+obj2.d = 4;
+
+for (let k in obj2) {
+  if (obj2.hasOwnProperty(k)) {
+    console.log(obj2[k]);
+  }
+}
+
+// 3
+// 4
+```
+
+# Does Object.keys(myObj) return (a) the object's own keys and inherited keys, or (b) only its own keys?
+---
+b, only its own keys
+
+# Does for (key in myObj) return (a) the object's own keys and inherited keys, or (b) only its own keys?
+---
+a
+
+
+# Is it safe to assume anything about the order JavaScript uses to iterate over an object's keys?
+---
+No
+
+# Which method returns an array of nested arrays, where each nested array has two elements: a key and a value?
+---
+Object.entries(hash);
+
+# How can you combine the key-value pairs from two objects into a single object? Does anything get mutated?
+---
+let objA = { a: 'foo' };
+let objB = { b: 'bar' };
+Object.assign({}, objA, objB); // returns a new object
+Object.assign(objA, objB); // mutates objA
+
+# What values can serve as JavaScript keys?
+---
+Strings. JavaScript coerces non-string key values to strings.
