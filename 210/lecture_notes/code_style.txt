@@ -1,0 +1,37 @@
+# True or False: JavaScript has only one type of variable.
+---
+True
+
+# What are idiomatic names?
+---
+Variable names that conform to convention.
+Examples of idiomatic names:
+```
+cat
+employee
+number1
+fizzBuzz
+validateUserInput
+tacoShack42
+MINUTES_PER_HOUR
+parseURL
+```
+Examples of non-idiomatic names:
+```
+_cat                   // starts with an underscore
+Employee               // starts with an uppercase letter
+number_1               // contains an underscore
+fizzBUZZ               // second word is all uppercase
+validate_User_Input    // contains underscores
+taco$hack42            // contains a `$`
+MINUTESPERHOUR         // 'constant' - missing underscores between words
+paRseURL               // contains an uppercase letter inside of a non-acronym word
+```
+
+# What style should we write "regular" variables and object properties in?
+---
+camelCase
+
+# Why would we want to write certain variable names in uppercase, separated by underscores?
+---
+To signify that they should be treated as constants. This can improve readability, but the functionality is the same, because JavaScript has only one type of variable. 

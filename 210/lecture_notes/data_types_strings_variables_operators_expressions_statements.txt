@@ -1,0 +1,62 @@
+# How does JavaScript represent numbers?
+---
+Double precision floats. This is unlike other programming languages that have distinct data types to represent integer, float, double, real, or decimal values.
+
+# What is the best practice for working with numbers?
+---
+Work at the smallest unit. For example, in cents instead of dollars, in seconds instead of hours. Avoid fractional numbers.
+
+# What are three special number values?
+---
+Infinity, -Infinity, NaN
+
+# Is there a functional distinction between single- and double-quoted Strings?
+---
+No
+
+# How do you access the nth character in a string?
+---
+'samplestring'[n]
+'samplestring'.charAt(n);
+
+# How does JavaScript's % operator differ from that of some other languages?
+---
+Javascript's modulo operator returns the remainder of an integer division. 
+
+With positive integers, there is no distinction: 10 % 3 returns 1 no matter if the language treats % as a remainder or modulo.
+
+However, if one of the numbers is negative, things change: 10 % -3 returns 1. In other languages where % performs modulo operations, 10 % -3 may return -2 instead. This is because in other languages, given (-n % x) or (n % -x), the RHS (right hand side) of the modulus operation must be multiplied by the negative integer closest to 0 that will get it past the number on the LHS (left hand side). Then the result is the difference between this number and the LHS. e.g., 
+-10 % 3 # => 2, because -10 - (3 * -4) = 2
+10 % -3 # => -2, because 10 - (-3 * -4) = -2
+whereas remainder calculation is
+-10 % 3 // => 1, because -10 / 3 = -3, remainder 1
+10 % -3 // => 1, because 10 / -3 = -3, remainder 1
+Source: http://tinyurl.com/y24byghu
+
+# How are strings compared in JavaScript?
+---
+Unicode lexicographical ordering
+
+# How do the logical operators && and || work with non-boolean operands?
+---
+It returns the value of the last evaluated operand (recall that these operators short-circuit).
+
+
+# How do the logical operator ! work with non-boolean operands?
+---
+Returns either true or false, always.
+
+# What is the difference between an expression and a statement?
+Expressions resolve to a value.
+Examples:
+```
+'hello';   // a single string is an expression
+10 + 13;   // arithmetic operations are expressions
+sum = 10;  // assignments are expressions
+```
+Statements do not resolve to a value. Variable assignments are expressions, but variable declarations are statements. Other statements use `if...else`, `switch`, `while`, and `for`.
+
+# Does ++ and -- work in JavaScript? Should you use them?
+---
+They work, but avoid using them. According to the airbnb style guide:
+> Per the eslint documentation, unary increment and decrement statements are subject to automatic semicolon insertion and can cause silent errors with incrementing or decrementing values within an application. It is also more expressive to mutate your values with statements like num += 1 instead of num++ or num ++. Disallowing unary increment and decrement statements also prevents you from pre-incrementing/pre-decrementing values unintentionally which can also cause unexpected behavior in your programs.

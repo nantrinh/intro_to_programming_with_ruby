@@ -1,0 +1,34 @@
+# Do JavaScript coercions (aka conversions) actually convert primitive values?
+---
+No, it returns a new value of the proper type. Primitive values are immutable.
+
+# How do you convert strings that contain a numeric value into a number? What is returned if the string cannot be converted to a number?
+---
+Number('1');      // 1
+Number('abc123'); // NaN
+
+# How do you convert strings to integers? to floats?
+---
+The second argument is `radix`, representing the base in mathematical numeral systems. It is recommended to always specify this parameter to avoid reader confusion and to have more predictable behavior.
+parseInt('123', 10);     // 123
+parseInt('123.12', 10);  // 123
+parseInt('123.12');      // 123
+parseFloat('123.12');    // 123.12
+
+# How do you convert numbers into strings?
+---
+String(123);             // "123"
+String(1.23);            // "1.23"
+(123).toString();        // "123"
+(123.12).toString();     // "123.12"
+
+# How do you convert boolean values into strings?
+---
+String(true);            // "true"
+String(false);           // "false"
+true.toString();         // "true"
+false.toString();        // "false"
+
+# How do you convert any value into a boolean value based on the truthy and falsy rules in JavaScript?
+---
+`Boolean(value);` or `!!(value);`

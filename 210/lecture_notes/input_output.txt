@@ -1,0 +1,14 @@
+# How do you solicit user text input when running JavaScript in the browser?
+---
+Use prompt() to display a dialog box.
+```
+let some_input = prompt();
+let name = prompt("What is your name?");
+```
+If the user clicks `OK`, `prompt()` returns the input as a string. 
+If the user clicks `Cancel`, `prompt()` returns `null`. 
+
+# How do you display a dialog box to the user with an OK button to dismiss it? This is good for emssages that do not need any input from the user.
+---
+alert();
+alert("Hello world");

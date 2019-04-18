@@ -1,0 +1,96 @@
+# Should you use implicit type conversions?
+---
+No, because they make bugs likelier.
+
+# What does +() do? 
+---
+```
++() converts a value into a number, following the same rules as the Number() function.
++('123')        // 123
++(true)         // 1
++(false)        // 0
++('')           // 0
++(' ')          // 0
++('\n')         // 0
++(null)         // 0
++(undefined)    // NaN
++('a')          // NaN
++('1a')         // NaN
+```
+
+# What happens when you evaluate `operand + operand` and one of the operands is a string? 
+---
+JavaScript converts the other operand to a string and concatenates the two operands.
+```
+'123' + 123     // "123123" -- if a string is present, coerce for string concatenation
+123 + '123'     // "123123"
+null + 'a'      // "nulla" -- null is coerced to string
+'' + true       // "true"
+```
+
+# What happens when you evaluate `operand + operand` and both operands are a combination of numbers, booleans, nulls, or undefineds?
+---
+They are converted to numbers and added together.
+```
+1 + true        // 2
+1 + false       // 1
+true + false    // 1
+null + false    // 0
+null + null     // 0
+1 + undefined   // NaN
+```
+
+# What happens when you evaluate `operand + operand`, and one of the operands is an object? 
+---
+Both operands are converted to strings and concatenated together.
+```
+[1] + 2                     // "12"
+[1] + '2'                   // "12"
+[1, 2] + 3                  // "1,23"
+[] + 5                      // "5"
+[] + true                   // "true"
+42 + {}                     // "42[object Object]"
+(function foo() {}) + 42    // "function foo() {}42"
+```
+
+# What kind of conversion happens when you use the -, *, /, or % operators?
+---
+They are only defined for numbers, so JavaScript converts both operands to numbers.
+```
+1 - true                // 0
+'123' * 3               // 369 -- the string is coerced to a number
+'8' - '1'               // 7
+-'42'                   // -42
+null - 42               // -42
+false / true            // 0
+true / false            // Infinity
+'5' % 2                 // 1
+```
+
+# What does the === operator do?
+The two operands are only equal if they are both the same type and have the same value.
+
+# What are the conversion rules for the == operator when:
+a) one operand is a string and the other is a number
+b) one operand is a boolean
+c) one operand is null and the other is undefined
+d) one of the operands is NaN
+---
+a) the string is converted to a number
+b) the boolean is converted to a number
+c) always returns true
+d) always returns false
+
+# What are the conversion rules for the relational operators <, >, <=, and >=?
+---
+When both operands are strings, JavaScript compares them lexicographically. Otherwise, both operands are converted to numbers before comparing them.
+```
+11 > '9'              // true -- '9' is coerced to 9
+'11' > 9              // true -- '11' is coerced to 11
+123 > 'a'             // false -- 'a' is coerced to NaN; any comparison with NaN is false
+123 <= 'a'            // also false
+true > null           // true -- becomes 1 > 0
+true > false          // true -- also becomes 1 > 0
+null <= false         // true -- becomes 0 <= 0
+undefined >= 1        // false -- becomes NaN >= 1
+```
