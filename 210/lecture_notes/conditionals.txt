@@ -1,0 +1,8 @@
+# How do you check if a variable points to NaN?
+---
+value !== value
+because NaN is not equal to itself, but everything else is
+
+# What does `isNaN('hello')` return?
+---
+true, because a String is not a Number
