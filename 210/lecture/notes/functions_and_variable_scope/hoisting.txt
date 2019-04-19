@@ -60,3 +60,15 @@ setScope = function () {
   a = 'inner';
 };
 ```
+
+# True or False: Only the names of function declarations are hoisted, much like how only the names of variables are hoisted.
+---
+False. With function declarations everything is hoisted, including both the function name and body. 
+Example:
+```
+logValue(); // 'Hello, world!'
+
+function logValue() {
+  console.log('Hello, world!');
+}
+```
