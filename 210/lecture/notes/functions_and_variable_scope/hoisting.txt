@@ -32,3 +32,31 @@ The function declaration
 ---
 1. Always declare variables at the top of their scope.
 2. Always declare functions before calling them.
+
+# True or False: Unlike function declarations, function expressions are effectively the same as assignment operations; JavaScript hoists only the variable names, not the function bodies.
+Example: These two code snippets are equivalent:
+```
+var a = 'outer';
+
+console.log(a);
+setScope();
+console.log(a);
+
+var setScope = function () {
+  a = 'inner';
+};
+```
+```
+var a;
+var setScope;
+
+a = 'outer';
+
+console.log(a);
+setScope();
+console.log(a);
+
+setScope = function () {
+  a = 'inner';
+};
+```
