@@ -1,0 +1,34 @@
+# What is hoisting?
+---
+A behavior in JavaScript where variable declarations are effectively moved to the top of the scope: declaring a variable anywhere in a scope is equivalent to declaring it at the top of the scope.
+
+# Will this code execute? What will it log?
+```
+console.log(a);
+var a = 123;
+var b = 456;
+```
+---
+Yes. It will log `undefined`.
+This code is equivalent to:
+```
+var a;           // hoisted to the top of the global scope
+var b;
+
+console.log(a);
+a = 123;
+b = 456;
+```
+
+# Does JavaScript hoist variable assignments?
+---
+No. JavaScript hoists only variable declarations.
+
+# When both a variable and a function declaration exist, which is hoisted first?
+---
+The function declaration
+
+# What are two best practices to follow given the hoisting rules?
+---
+1. Always declare variables at the top of their scope.
+2. Always declare functions before calling them.

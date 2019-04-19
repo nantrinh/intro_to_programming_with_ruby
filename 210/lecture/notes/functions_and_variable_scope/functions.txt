@@ -1,0 +1,102 @@
+# What does the function return if it does not contain an explicit `return` statement, or the `return` statement does not include a value?
+---
+It implicitly returns `undefined`
+
+# What happens when you define a function that takes two parameters but you call it with only one argument?
+---
+It does not raise an error.
+Within the fucntion, the argument that wasn't provided in the call will have the value `undefined`.
+
+# What happens when you pass more arguments to a function than it expects?
+---
+It does not raise an error.
+
+# What is meant by a variable's scope?
+---
+The part of the program that can access that variable by name
+
+# What are variable scoping rules?
+---
+Rules that describe how and where the language finds and retrieves values from previously declared variables.
+
+# True or False: The code within one scope can access any variables in the same scope or any outer scope.
+---
+True
+
+# What is a closure?
+---
+A block of code containing references to everything in scope when it is created. It retains those references for as long as the closure exists.
+
+# What happens if the value of a variable changes after creating a closure that includes the variable? Does the closure see the new value, or the old value?
+---
+The new value.
+
+# Is a function a closure?
+---
+Yes
+
+# What is lexical scoping (aka "static scoping")?
+---
+It means that the source code defines the scope. When JavaScript tries to find a variable, it searches a hierarchy of scopes from local to global, and returns the first variable it finds with a matching name. This means that variables in a lower scope can shadow, or hide, a variable with the same name in a higher scope.
+
+# What does JavaScript do if it cannot find a matching variable?
+---
+It creates a new global variable instead. This is rarely what you want; it can be the source of subtle bugs.
+
+# What happens if you reference a variable, but JavaScript cannot find a variable of the same name anywhere in the scope hierarchy?
+---
+JavaScript throws a `ReferenceError` exception
+
+# What does a function declaration (sometimes called a "function statement")do? Explain this example:
+```
+function hello() {
+  return 'hello world!';
+}
+```
+---
+Here, a function declaration defines a variable `hello` whose type is `function`. The value of the function variable is the function itself. The variable obeys general scoping rules and can be used like other JavaScript variables.
+
+Generally, a function declaration defines a function, declares a variable with the same name as the function, and then assigns the function to that variable. So for every function declaration, a variable is initialized.
+
+# What is a function expression?
+---
+You can define an anonymous function and assign it to a variable. You can then use the variable to invoke the function.
+```
+var hello = function () {
+  return 'hello';
+};
+
+console.log(typeof hello);    // function
+console.log(hello());         // hello
+```
+You can also name the function, but the name would only be available within the function's local scope. Though most function expressions use anonymous functions, named function expressions are useful for debugging. The debugger can show the function's name in the call stack, providing a valuable clue. Named function expressions can also be useful for recursive functions.
+```
+var hello = function foo() {
+  console.log(typeof foo);   // function
+};
+
+hello();
+
+foo();                       // Uncaught ReferenceError: foo is not defined
+```
+
+# What is an easy way to differentiate between a function declaration and a function expression?
+---
+If the function is defined starting with the `function` keyword, then it is a function declaration. Otherwise, it is a function expression.
+In the following code, we can see that even a minor change (adding parentheses) is enough to turn a function declaration into a function expression:
+```
+function foo() {
+  console.log('function declaration');
+}
+
+(function bar() {
+  console.log('function expression');
+});
+
+foo();    // function declaration
+bar();    // Uncaught ReferenceError: bar is not defined
+```
+
+# True or False: A function defined using a function declaration must always have a name (it cannot be an anonymous function). 
+---
+True
