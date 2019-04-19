@@ -100,3 +100,11 @@ bar();    // Uncaught ReferenceError: bar is not defined
 # True or False: A function defined using a function declaration must always have a name (it cannot be an anonymous function). 
 ---
 True
+
+# True or False: A function defined using a function expression must always have a name (it cannot be an anonymous function). 
+---
+False, e.g., `(function () {});`
+
+# True or False: Variables declared inside code blocks (code enclosed by curly braces {}) have local variable scope. Variables declared inside a block aren't accessible outside the block.
+---
+False 
