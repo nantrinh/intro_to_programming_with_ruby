@@ -15,3 +15,8 @@ console.log(gcd(12, 4));   // 4
 console.log(gcd(15, 10));  // 5
 console.log(gcd(9, 2));    // 1
 console.log(gcd(4, 2));    // 2
+
+console.log(gcd(4, 12));   // 4
+console.log(gcd(10, 15));  // 5
+console.log(gcd(2, 9));    // 1
+console.log(gcd(2, 4));    // 2
