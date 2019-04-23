@@ -12,7 +12,7 @@ function rotLetter(letter, offset) {
 }
 
 function rot13(string) {
-  var OFFSET = 13;
+  const OFFSET = 13;
   var i;
   var newString = '';
   for (i = 0; i < string.length; i += 1) {
