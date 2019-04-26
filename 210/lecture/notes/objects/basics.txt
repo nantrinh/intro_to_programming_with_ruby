@@ -1,0 +1,32 @@
+# True or False: In JavaScript, a String primitive is the same thing as a String Object.
+---
+False
+
+# Why can we do this `'hi'.toUpperCase();`?
+---
+JavaScript temporarily coerces primitives to their object counterpart when necessary.
+
+# Does `undefined` have a built-in object counterpart?
+---
+No
+
+# Objects are containers for which two things?
+---
+Data and behavior.
+Data: named items with values. The values represent the attributes of the object. In JavaScript, we call these associations between a name (or key) and a value, properties.
+
+# What do we call functions when they are part of an object?
+---
+methods
+
+# What can be used as a property name? What can be used as a property value?
+---
+Name: any valid string. Value: any valid expression.
+
+# How can you access property values? What do style guides usually recommend using?
+---
+dot notation or bracket notation. Style guides usually recommend dot notation when possible.
+
+# How do you delete a property from an object?
+---
+Use the reserved keyword `delete`. (e.g., `delete foo.prop`;)
