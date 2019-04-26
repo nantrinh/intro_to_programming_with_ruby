@@ -1,0 +1,9 @@
+# What are pure functions?
+---
+Functions that (1) do not have any side effects and (2) always has the same return values given the same arguments.
+
+Pure functions always return values. A Function that has no side effects and doesn't return a value can't do much of anything.
+
+# What is a side effect?
+---
+Changes to the world outside the function. (e.g., directly modifying variables defined in outer scopes, or mutating Objects passed to the Function as arguments)

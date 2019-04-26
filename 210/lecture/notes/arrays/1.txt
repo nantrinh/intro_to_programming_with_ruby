@@ -1,0 +1,11 @@
+# Is the bracket notation an operator or method in JavaScript?
+--
+operator
+
+# What does `typeof [1, 2, 3]` return?
+---
+'object'
+
+# How do you determine if a value is an Array?
+---
+Array.isArray(object); // true
