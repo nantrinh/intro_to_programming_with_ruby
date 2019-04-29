@@ -1,0 +1,42 @@
+# Are all values objects in JavaScript?
+---
+Yes, except for null and undefined.
+
+# What is a guard clause?
+---
+Code that guarantees data meets certain preconditions before it gets used.
+
+# Give an example of using a try/catch/finally block.
+---
+```
+function parseJSON(data) {
+  var result;
+
+  try {
+    result = JSON.parse(data);  // Throws an Error if "data" is invalid
+  } catch (e) {
+    // We run this code if JSON.parse throws an Error
+    // "e" contains an Error object that we can inspect and use.
+    console.log('There was a', e.name, 'parsing JSON data:', e.message);
+    result = null;
+  } finally {
+    // This code runs whether `JSON.parse` succeeds or fails.
+    console.log('Finished parsing data.');
+  }
+
+  return result;
+}
+
+var data = 'not valid JSON';
+
+parseJSON(data);    // Logs "There was a SyntaxError parsing JSON data:
+                    //       Unexpected token i in JSON at position 0"
+                    // Logs "Finished parsing data."
+                    // Returns null
+```
+
+# When should you use try/catch/finally blocks?
+---
+Only use them when the following conditions are true:
+- A built-in JavaScript Function or method can throw an Error and you need to handle or prevent that Error.
+- A simple guard clause is impossible or impractical to prevent the Error.

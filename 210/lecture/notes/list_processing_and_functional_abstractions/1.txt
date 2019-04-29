@@ -1,0 +1,75 @@
+# What does it mean for code to be imperative?
+---
+It focuses on the steps or mechanics of solving the problem. Each line of code has a purpose, but that purpose comes from understanding the developer's implementation. 
+
+# How do you raise the abstraction level of the program?
+---
+By focusing on what we need to do rather than how to do something
+
+# What are the benefits of raising the abstraction level of your code?
+---
+The resulting code shows our purpose
+- more readably, since it fits our mental model of the problem.
+- more concisely, since the code is shorter.
+- more robustly if we now use a built-in abstraction instead of writing our own function.
+
+# The higher the level of abstraction that you work with, the more ______(declarative/imperative) your code is.
+---
+declarative
+
+# What are the three arguments that forEach invokes the function passed to it with?
+---
+- The value of the current element in the Array
+- The index of the current element
+- The Array being processed
+
+#  Does forEach use the return value of the callback?
+---
+No
+
+# What does forEach return?
+---
+undefined. This means that forEach must have side effects to be useful.
+
+# Give an example of using the `filter` method.
+---
+var count = [1, 2, 3, 4, 5];
+var filtered = count.filter(function (number, index, array) {
+  return number % 2 === 0;                    // look for the even numbers
+});
+
+console.log(filtered);                        // logs [ 2, 4 ]
+
+# How does the `filter` method work? What does it return?
+---
+filter takes a single argument, which should be a Function object. This Function will be invoked once for each element in the Array and is called with three arguments:
+- The current element in the Array
+- The index of the current element
+- The Array being iterated over
+If the callback returns true, the element will be included in the final Array. If the callback returns false, it will be excluded.
+
+filter returns a new Array containing the elements for which the callback returned true.
+
+# How does the `map` method work? What does it return?
+---
+map takes a single argument, a callback Function, and calls this function once for each element in the Array. It passes three arguments to the callback Function on each call:
+
+- The value of the current element in the Array
+- The index of the current element
+- The Array being processed
+The values returned by the callback Function become the elements in the new Array.
+map returns a new Array that contains one element for each element in the original Array. Each element in the returned Array contains the value returned by the callback Function for the corresponding element in the original Array.
+
+# How does the `reduce` method work? What does it return?
+---
+The reduce method takes a required first argument, which should be a Function: reduce invokes this callback Function once for each element in the Array. It passes four arguments to the callback Function on each call:
+
+- accumulator: The return value of the previous callback invocation (this is the initial value on the first iteration)
+- currentValue: The value of the current element in the Array
+- currentIndex: The index of the current element
+- array: The array being processed
+reduce passes the accumulator to the next callback invocation, and uses the return value of the final callback invocation as the overall return value of reduce.
+
+reduce accepts an optional second argument, the initialValue. It provides the value to use as the first argument in the first call to the callback. If the caller does not provide the initialValue, reduce uses the first element of the array; when this happens, reduce starts processing with the second element of the Array.
+
+reduce returns the value returned by the final callback invocation.
