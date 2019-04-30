@@ -1,7 +1,17 @@
 function myReduce(array, func, initial) {
-  accum = array[0]
+  var start;
+  if (initial === undefined) {
+    initial = array[0];
+    start = 1;
+  } else {
+    start = 0; 
+  }
   
-  for 
+  var result = initial;
+  for (i = start; i < array.length; i += 1) {
+    result = func(result, array[i]); 
+  } 
+  return result;
 }
 
 var smallest = function (result, value) {
@@ -12,5 +22,5 @@ var sum = function (result, value) {
   return result + value;
 };
 
-myReduce([5, 12, 15, 1, 6], smallest);           // 1
-myReduce([5, 12, 15, 1, 6], sum, 10);            // 49
+console.log(myReduce([5, 12, 15, 1, 6], smallest));           // 1
+console.log(myReduce([5, 12, 15, 1, 6], sum, 10));            // 49

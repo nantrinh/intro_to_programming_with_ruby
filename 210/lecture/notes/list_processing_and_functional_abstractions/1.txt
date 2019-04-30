@@ -73,3 +73,32 @@ reduce passes the accumulator to the next callback invocation, and uses the retu
 reduce accepts an optional second argument, the initialValue. It provides the value to use as the first argument in the first call to the callback. If the caller does not provide the initialValue, reduce uses the first element of the array; when this happens, reduce starts processing with the second element of the Array.
 
 reduce returns the value returned by the final callback invocation.
+
+# How do the `some` and `every` methods work? What do they return?
+Array.prototype.some and Array.prototype.every each take a single argument, which should be a Function. Both methods invoke the callback function once for each element in the Array, passing three arguments to the function each time:
+
+- The value of the current element in the Array
+- The index of the current element
+- The Array being processed
+
+The every method iterates over all the elements in the array until the callback function returns a falsy value; every immediately returns false when this happens. If no elements produce a falsy result, then every returns true.
+
+The some method iterates over all the elements in the array until the callback function returns a truthy value; some immediately returns true when this happens. If no elements have a truthy result, then some returns false.
+
+Array.prototype.some returns true if the callback returns a truthy value for at least one of the elements in the original Array.
+
+Array.prototype.every returns true if the callback returns a truthy value for all of the elements in the original Array.
+
+# How does the Array.prototype.sort method work? What does it return?
+---
+sort takes one argument, a comparison function callback. The comparison function takes two arguments, item1 and item2, and defines the sort order for the final Array by returning specific values: it returns a negative value if item1 should precede item2 in the final result, a positive value if item1 should follow item2 in the final result, or 0 if the sequence of the two items is not important.
+
+sort mutates the original array and returns a reference to the mutated (sorted) array. Thus, you can use sort for either its return value or its side effect.
+
+# Should you use forEach or a simple for loop when your algorithm involves a potential early exit from the loop?
+---
+A simple for loop, because forEach always iterates over the whole list.
+
+# Which JavaScript list processing abstractions traverse the entire list?
+---
+All of them except `some` and `every`.
