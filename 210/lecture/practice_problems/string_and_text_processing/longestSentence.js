@@ -29,7 +29,7 @@ var longText = 'Four score and seven years ago our fathers brought forth' +
   ' earth.';
 
 function countWords(sentence) {
-  const WORD_PATTERN = /[^ ]+/ig
+  const WORD_PATTERN = /[^ ]+/g
   return sentence.match(WORD_PATTERN).length;
 }
 
