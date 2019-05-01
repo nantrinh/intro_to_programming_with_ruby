@@ -145,3 +145,7 @@ If the return value of bar is a function expression or a property assigned to a 
 # How can you break out of Array.prototype.forEach?
 ---
 Only by throwing an exception
+
+# Why does `356.toString()` throw an error? What are two ways to use `toString()` on 356 successfully?
+---
+JavaScript interprets the period immediately after a number as a decimal point, not a method separator. You can do either (365).toString() or 365..toString(). The second way may be rejected by some linters.

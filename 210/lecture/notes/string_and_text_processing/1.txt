@@ -1,0 +1,23 @@
+# What does the `indexOf` method do?
+---
+Returns the index of the first occurrence of a character or substring within a string. Returns -1 if the search character or substring doesn't exist.
+
+# What does the `lastIndexOf` method do?
+---
+Returns the index of the last occurrence of a character or substring within a string. Returns -1 if the search character or substring doesn't exist.
+
+# What does the `replace` method do?
+---
+Performs a substitution operation on the original string, and returns the result as a new string. By default, replace substitutes the first occurrence of the substring or regular expression pattern given by the first argument with the value specified by the second argument. replace does not modify the original string. To replace every instance, we must use a regular expression instead of a String for the first argument and append a g to specify global replacement. 
+
+# What does the `split` method do?
+---
+Splits the string into an array of strings based on a separator. If you supply a string, split parses the string by breaking it at each occurrence of the separator string. If the separator string is an empty string, it splits the string into an array of single character strings. As with the replace method, you can also use a regular expression to identify the separator. This is useful when you need something more complex than a simple constant substring.
+
+
+# What does the `substr` method do?
+---
+This method takes two numeric arguments, a starting index and a character count, and extracts and returns the part of the original string that lies in the indicated range. The first argument is the index of the first character that you wish to extract from the original string, while the second argument is the maximum number of characters you wish to extract. If you omit the second argument, substr returns every character of the original string starting at the index provided by the first argument. You can use a negative starting index to start at an index relative to the end of the string instead of relative to the beginning.
+
+# What does the `substring` method do?
+ extracts and returns a portion of the original string that lies in the range specified by its two numeric arguments. The arguments provide the starting and ending indexes of the string you wish to extract from the original string. The extracted string starts with the character at the smaller index of the two arguments, and ends just before the character at the larger index of the two values.
