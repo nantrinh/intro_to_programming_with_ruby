@@ -102,3 +102,46 @@ A simple for loop, because forEach always iterates over the whole list.
 # Which JavaScript list processing abstractions traverse the entire list?
 ---
 All of them except `some` and `every`.
+
+# Since functions are ____ values in JavaScript, you can store them in _____ and pass them as ____ to other Functions.
+---
+first-class; variables; arguments
+
+# Does the following code block demonstrate the use of first-class functions?
+```
+function iterate(array, callback) {
+  var i;
+  for (i = 0; i < array.length; i += 1) {
+    callback(array[i]);
+  }
+}
+
+var methods = {
+   foo: function () {
+     console.log('hello');
+   },
+};
+
+iterate([1, 2, 3], methods.foo);
+```
+---
+Yes
+
+# Does the following code block demonstrate the use of first-class functions?
+```
+function foo(callback) {
+  // some statements
+}
+
+function bar() {
+  // some statements
+}
+
+foo(bar());
+```
+---
+If the return value of bar is a function expression or a property assigned to a function, then yes; otherwise, no.
+
+# How can you break out of Array.prototype.forEach?
+---
+Only by throwing an exception
