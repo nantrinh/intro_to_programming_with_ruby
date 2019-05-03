@@ -11,41 +11,42 @@ function isValidRangeString(rangeString, delimiters) {
   return true;
 }
 
-function incrementUntilSignificantNext(previousNumber, significantNext) {
-  var test = previousNumber;
-  var stringTest = String(test);
-  var stringSignificantNext = String(significantNext);
+function incrementUntilSignificantNext(stringPrevious, stringSignificantNext, saveIterations) {
+  var stringTest = String(Number(stringPrevious) + 1);
   var stringSignificantTest = stringTest.slice(stringTest.length - stringSignificantNext.length);
+  var result = [];
   while (stringSignificantTest !== stringSignificantNext) {
-    test += 1; 
-    stringTest = String(test);
+    if (saveIterations) {
+      result.push(stringTest); 
+    }
+    stringTest = String(Number(stringTest) + 1); 
     stringSignificantTest = stringTest.slice(stringTest.length - stringSignificantNext.length);
   }
-  return test; 
+  result.push(stringTest);
+  return result; 
 }
 
-function nextNumber(previousNumber, significantNext) {
-  var digitsArray;
-  var tensPlace;
-  if (previousNumber < 10) {
-    return 10 + significantNext; 
-  } else {
-    return incrementUntilSignificantNext(previousNumber, significantNext);
-  }
-}
-
-function makeSignificantList(numbers) {
-  var significantList= [numbers[0]];
-  var previousNumber;
-  numbers.slice(1).forEach(function (significantNext) {
-    previousNumber = significantList[significantList.length - 1];
-    if (previousNumber < significantNext) {
-      significantList.push(significantNext); 
-    } else {
-      significantList.push(nextNumber(previousNumber, significantNext)); 
-    }
+function makeList(stringNumbers, save) {
+  var result = [stringNumbers[0]];
+  var previousStringNumber;
+  stringNumbers.slice(1).forEach(function (significantNext) {
+    previousStringNumber = result[result.length - 1];
+    result = result.concat(incrementUntilSignificantNext(previousStringNumber, significantNext, save)); 
   });
-  return significantList;
+  return result;
+}
+
+function makeListAndHandleSubArrays(secondLevelArray) {
+  var result = [];
+  secondLevelArray.forEach(function (sublist, index) {
+    if (index > 0) {
+      previous = result[result.length - 1];
+      current = sublist[0];
+      sublist[0]  = incrementUntilSignificantNext(previous, current, false)[0]
+    }
+    result = result.concat(makeList(sublist, true).flat());
+  });
+  return result;
 }
 
 function completeList(rangeString) {
@@ -57,6 +58,7 @@ function completeList(rangeString) {
   )
   var firstLevelArray;
   var secondLevelArray;
+  var result;
 
   if (!isValidRangeString(rangeString, combined_delimiters)){
     return DEFAULT; 
@@ -64,12 +66,13 @@ function completeList(rangeString) {
 
   firstLevelArray = rangeString.split(FIRST_LEVEL_DELIMITERS).map(element => element.trim());
   if (firstLevelArray.every(element => !(/[^\d]/.test(element)))) {
-    return makeSignificantList(firstLevelArray.map(Number));
+    result = makeList(firstLevelArray, false);
   } else {
     secondLevelArray = firstLevelArray.map(range => range.split(SECOND_LEVEL_DELIMITERS)); 
-    significantSecond = secondLevelArray.map(sublist => makeSignificantList(sublist.map(Number)));
-    return significantSecond;
+    result = makeListAndHandleSubArrays(secondLevelArray);
   }
+  //console.log('**************FINAL ANSWER**********')
+  return result.map(Number);
 }
 
 console.log(completeList('1, 3, 7, 2, 4, 1')); // [1, 3, 7, 12, 14, 21]
@@ -82,20 +85,23 @@ console.log(completeList("1-3, 1-2")); // [1, 2, 3, 11, 12]
 console.log(completeList("1:3, 1:2")); // [1, 2, 3, 11, 12]
 console.log(completeList("1..3, 1..2")); // [1, 2, 3, 11, 12]
 
+// 3 or more arguments
+console.log(completeList("1..3, 1..2, 1..2")); // [1, 2, 3, 11, 12, 21, 22]
+
 // using different separators in the same rangeString
 console.log(completeList("1..3, 1:2")); // [1, 2, 3, 11, 12]
 console.log(completeList("1-3, 1:2")); // [1, 2, 3, 11, 12]
 
 // range ends in 0
 console.log(completeList("1-0")); // [1, 2, 3, ..., 10]
-// one element array
-console.log(completeList("0-0")); // [0]
-console.log(completeList("1-1")); // [1]
+// same number to same number 
+console.log(completeList("0-0")); // [0, 1, 2, ..., 10]
+console.log(completeList("1-1")); // [1, 2, 3, ..., 11]
 // starting number bigger than ending number
 console.log(completeList("2-1")); // [2, 3, ..., 9, 10, 11]
 // no delimiters
 console.log(completeList("1")); // [1]
-
+ 
 // invalid inputs: return empty array
 // empty string
 console.log(completeList('')); // []
@@ -114,5 +120,5 @@ console.log(completeList({})); // []
 console.log(completeList(23)); // []
 console.log(completeList(null)); // []
 console.log(completeList(true)); // []
-//console.log(completeList());
+console.log(completeList()); // []
 
