@@ -1,0 +1,6 @@
+1.
+Lines 5 and 8. 
+ladder = ladder + '-';
+ladder = word;
+
+ladder is a string, and strings are not mutable. you have to reassign if you want to :
