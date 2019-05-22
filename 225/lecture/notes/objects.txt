@@ -1,0 +1,121 @@
+# A ______ is invoked without an explicit receiver. A _____ is invoked WITH an explicit receiver.
+---
+function; method
+
+# What does `this` refer to? Give an example of how it is used.
+---
+The object itself
+```
+var counter = {
+  count: 0,
+  advance: function() {
+    this.count += 1;
+  },
+};
+
+counter;                // { count: 0, advance: [Function] }
+
+counter.advance();
+counter;                // { count: 1, advance: [Function] }
+
+counter.advance();
+counter.advance();
+
+counter;                // { count: 3, advance: [Function] }
+```
+
+# What are object methods?
+---
+Properties that happen to have a function value.
+Example:
+```
+var car = {
+  fuel: 7.8,
+  running: false,
+  start: function() {
+    this.running = true;
+  },
+};
+
+car.stop = function() {
+  this.running = false;
+};
+```
+
+# When does JavaScript assign the context automatically?
+---
+When a function call uses the () syntax
+
+# What is the default context of the functions in the people object below?
+```
+var people = {
+  collection: [me, friend, mother, father],
+  fullName: function(person) {
+    console.log(person.firstName + ' ' + person.lastName);
+  },
+
+  rollCall: function() {
+    people.collection.forEach(people.fullName);
+  },
+};
+```
+---
+the people object. you can use `this` instead of `people` in the rollCall function and the code will still run just fine.
+
+# Where are primitive values stored? Where are reference values stored?
+---
+stack; heap
+
+# Are pointers copied on the stack when you assign another variable to an existing object? (meaning, do you now have two pointers on the stack instead of one?
+Example:
+```
+var person = {
+  name: 'Jay',
+  age: 23
+};
+
+var secondPerson = person;
+```
+---
+Yes
+
+# Does Object.assign() make a deep copy or a shallow copy of the second object?
+---
+shallow
+
+# What is meant by "functions as object factories"?
+---
+a function that returns a new object
+Example:
+```
+function makeCar(accelerateRate, brakeRate) {
+  return {
+    speed: 0,
+    accelerateRate: accelerateRate,
+    brakeRate: brakeRate,
+    accelerate: function () {
+      this.speed += this.accelerateRate; 
+    },
+    brake: function () {
+      this.speed -= this.brakeRate;
+      if (this.speed < 0) {
+        this.speed = 0; 
+      }
+    },
+  }
+}
+```
+
+# What is object-oriented programming and why do we use it?
+---
+OOP is a pattern that uses objects as the basic building blocks of a program instead of local variables and functions. Ojbects allow us to organize data so that their structure resembles their relationships.
+
+- helps programmers think more abstractly (easier to understand)
+- reduce duplication
+- maintenance is easier
+
+Objects
+- organize related data and code together.
+- are useful when a program needs more than one instance of something.
+- become more useful as the codebase size increases.
+
