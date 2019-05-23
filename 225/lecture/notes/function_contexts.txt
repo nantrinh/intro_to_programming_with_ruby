@@ -1,0 +1,232 @@
+# How can first-class functions be used? Do they have context initially?
+---
+Developers can add first-class functions to objects, execute them in the context of those objects, remove them from their objects, pass them to other functions, and run them in entirely different contexts. First-class Functions initially have no context; they receive one when the program executes them.
+
+# Global values such as `Infinity` and `NaN`, and global functions such as `isNan()` and `parseInt()` are properties of which object?
+---
+the global object (`window` in the browser, `global` in non-browser JavaScript environments, such as Node)
+
+# What is the implicit context when we evaluate expressions?
+---
+The global object
+For example, `foo = 1;` is the same as `window.foo = 1;`, which assigns the property `foo` on the global object with a value of `1`.
+
+# What is a difference between global variables that you declared, and global variables that you did not declare?
+---
+You can delete global variables that you did NOT declare, but not those that you did.
+
+# What is the module scope in Node?
+---
+An additional scope. Variables declared at the top level are added to the module scope instead of the global object. Variables that are not declared are added to the global object. Module-scoped variables are only accessible from anywhere within the file but not anywhere else.
+Example:
+```
+var foo = 'foo';
+// with `var` declaration, the variable is in the module scope
+// and it is not added to the global object
+
+bar = 'bar';
+// without `var` declaration, the variable is in the global scope
+// and added to the global object
+
+console.log(global.foo);    // => undefined
+console.log(global.bar);    // => bar
+```
+
+# In the code below, will we be able to delete `func`? Why or why not?
+```
+function func() {
+  console.log("I'm a function!");
+}
+
+delete func;
+```
+No. A function declaration effectively declares a new variable and assigns a function to it. Since this process involves declaration, the resultant variable cannot be deleted.
+
+# Can global variables added explicitly to the global object as properties be deleted?
+--- 
+Yes.
+
+# What determines which object `this` refers to?
+---
+How the function was invoked
+
+# What does the following example show?
+```
+var object = {
+  foo: function () {
+    return 'this here is: ' + this;
+  },
+};
+
+object.foo();              // "this here is: [object Object]"
+
+var bar = object.foo;
+bar();                     // "this here is: [object Window]"
+```
+---
+Binding a function to a context object occurs when you execute the function, not when you define it. Here, we set bar to point to object's foo method. When we call bar, JavaScript implicitly binds the method to the global object instead of object.
+
+# What is the implicit function execution context? implicit method execution context? explicit function execution context? 
+---
+The implicit function execution context (also called implicit binding for functions) is the context for a function that you invoke without supplying an explicit context. JavaScript binds such functions to the global object.
+
+The implicit method execution context is the execution context for any method (i.e., function referenced as an object property) invoked without an explicit context provided. JavaScript implicitly binds methods invoked in this manner to the owning or calling object.
+
+The explicit function execution context is set by the user using the `call` and `apply` methods. The execution context is changed at execution time. We can explicitly bind a function's execution context to an object when we execute the function.
+
+# Give an example of explicit function execution context.
+---
+```
+var a = 1;
+
+var object = {
+  a: 'hello',
+  b: 'world',
+};
+
+function foo() {
+  return this.a;
+}
+
+foo();                  // 1 (context is global object)
+foo.call(object);       // "hello" (context is object)
+```
+In the example above, we explicitly bind the execution context of `foo` to `object`. 
+```
+var strings = {
+  a: 'hello',
+  b: 'world',
+  foo: function () {
+    return this.a + this.b;
+  },
+};
+
+var numbers = {
+  a: 1,
+  b: 2,
+};
+
+strings.foo.call(numbers); // 3
+```
+In the example above, we "borrow" a method from the `strings` object to use with the `numbers` object.` We are not copying it.
+
+# How does `call` differ from `apply`?
+---
+With call, you pass in arguments by listing them one by one after the context object.
+`someObject.someMethod.call(context, arg1, arg2, arg3, ...)`
+
+With apply, you pass in the arguments as an array.
+`someObject.someMethod.apply(context, [arg1, arg2, arg3, ...])`
+
+# What does `bind` do? How does it differ from `call` and `apply`?
+---
+`bind` creates and returns a new function, and permanently binds it to a given object. Since the binding is permanent, we can pass the function around without concern that its context will change.
+
+Unlike `call` and `apply`, `bind` does not execute a function.
+```
+var a = 'goodbye';
+
+var object = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    return this.a + ' ' + this.b;
+  },
+};
+
+var bar = object.foo;
+bar();                                // "goodbye undefined"
+
+var baz = object.foo.bind(object);
+baz();                                // "hello world"
+
+var object2 = {
+  a: 'hi',
+  b: 'there',
+};
+
+baz.call(object2);  // "hello world" - `this` is still `object`
+```
+
+# What is a function's context when it is assigned to an object?
+---
+The parent object, unless bound otherwise.
+Example:
+```
+var temperatures = [53, 86, 12, 43];
+
+function average() {
+  var total = 0;
+  var i;
+  for (i = this.length - 1; i >= 0; i -= 1) {
+    total += this[i];
+  }
+
+  return total / this.length;
+}
+
+temperatures.average = average;
+console.log(temperatures.average());          // => 48.5
+```
+
+# What will the code below output?
+```
+var obj = {
+  a: 'Amazebulous!',
+};
+var otherObj = {
+  a: "That's not a real word!",
+};
+
+function foo() {
+  console.log(this.a);
+}
+
+var bar = foo.bind(obj);
+
+bar.call(otherObj);
+```
+---
+`Amazebulous!`
+Once a function has been bound to an execution context with bind, its context can't be changed, even explicitly. 
+
+# What are three common ways a function can lose its context?
+---
+1. When you remove a method from its containing object.
+Example:
+```
+var john = {
+  firstName: 'John',
+  lastName: 'Doe',
+  greetings: function() {
+    console.log('hello, ' + this.firstName + ' ' + this.lastName);
+  },
+};
+
+var foo = john.greetings; // Strips context
+foo();
+
+// => hello, undefined undefined
+```
+2. When you call a function within a function of an object without providing an explicit context.
+Example:
+```
+var obj = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    function bar() {
+      console.log(this.a + ' ' + this.b);
+    }
+
+    bar();
+  },
+};
+
+obj.foo();        // => undefined undefined
+```
+`bar` is bound to the global object.
+
+# True or False: You can call bind with either a function expression or function declaration. Both will work.
+---
+False. You must call `bind` with a function expression.
