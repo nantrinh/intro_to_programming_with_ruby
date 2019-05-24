@@ -226,7 +226,90 @@ var obj = {
 obj.foo();        // => undefined undefined
 ```
 `bar` is bound to the global object.
+3. When you pass in an anonymous function as an argument.
+Example:
+```
+var obj = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    [1, 2, 3].forEach(function(number) {
+      console.log(String(number) + ' ' + this.a + ' ' + this.b);
+    });
+  },
+};
+
+obj.foo();
+
+// => 1 undefined undefined
+// => 2 undefined undefined
+// => 3 undefined undefined
+```
+The anonymous function passed to forEach is executed with the global object as context.
+
+# What are three ways to address cases where a function loses its context?
+---
+1. Use a local variable in the lexical scope to store `this`.
+Example:
+```
+var obj = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    var self = this;
+    [1, 2, 3].forEach(function(number) {
+      console.log(String(number) + ' ' + self.a + ' ' + self.b);
+    });
+  },
+};
+
+obj.foo();
+
+// => 1 hello world
+// => 2 hello world
+// => 3 hello world
+```
+2. Bind the argument function with the surrounding context.
+```
+var obj = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    [1, 2, 3].forEach(function(number) {
+      console.log(String(number) + ' ' + this.a + ' ' + this.b);
+    }.bind(this));
+  },
+};
+
+obj.foo();
+
+// => 1 hello world
+// => 2 hello world
+// => 3 hello world
+```
+3. Use the thisArg argument, if available.
+```
+var obj = {
+  a: 'hello',
+  b: 'world',
+  foo: function() {
+    [1, 2, 3].forEach(function(number) {
+      console.log(String(number) + ' ' + this.a + ' ' + this.b);
+    }, this);
+  },
+};
+
+obj.foo();
+
+// => 1 hello world
+// => 2 hello world
+// => 3 hello world
+```
 
 # True or False: You can call bind with either a function expression or function declaration. Both will work.
 ---
 False. You must call `bind` with a function expression.
+
+# True or False: `this` is the same in an inner function as in the outer function.
+---
+False. The context of the inner function depends only on invocation, not on the outer function's context.
