@@ -17,6 +17,10 @@ Functions that either accept a function as an argument or return a function when
 ---
 They close over ("enclose") the context at their definition point. They always have access to that context, regardless of when and where the program invokes the function.
 
+# When is a closure created?
+---
+A closure is created when a function is declared. Closures allow the function to retain access to all of the variables visible to it inside of the scope where it was declared.
+
 # What is partial function application?
 ---
 Partial function application uses a function that creates a new function to call a third function that the first function receives as an argument. The first function receives some of the third function's arguments, while the second receives the rest when it gets invoked. The second then calls the third and passes it all of its arguments, both those passed to the generator and those passed to the applicator.
@@ -150,7 +154,7 @@ False. The parentheses are a grouping operator that controls the evaluation in e
 # How can IIFEs be useful?
 ---
 When you have to insert a piece of code in the middle of a large and messy JavaScript and you want to avoid accidentally overwriting an existing variable or function of the same name.
-You can use IIFEs because they are anonymous and create a private scope for their variables.
+You can use IIFEs because they create a private scope for their variables.
 
 # Is the named function inside in this IIFE accessible in the global scope?
 ```
@@ -162,4 +166,21 @@ foo() // ?
 ```
 ---
 No. Although the function is named, it isn't visible outside of the scope created by the IIFE.
+
+# What does the following code output?
+```
+var person = {
+  firstName: 'Rick ',
+  lastName: 'Sanchez',
+  fullName: this.firstName + this.lastName,
+};
+
+console.log(person.fullName);
+```
+---
+NaN. Anywhere outside a function, the keyword this is bound to the global object. If the keyword is used inside a function, then its value depends on how the function was invoked.
+
+# Do exercise 2 in OOJ: Function Context, Scope, and Closures
+---
+''
 
