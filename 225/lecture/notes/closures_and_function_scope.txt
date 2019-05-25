@@ -1,0 +1,165 @@
+# What are three ways to create a variable in the current scope?
+---
+- the var keyword
+- arguments passed to a function (parameters create variables during function invocation) 
+- the function declaration itself, which creates a variable with the same name as the function
+
+# What two lexical scoping rules do all functions, regardless of syntax, obey? (What variables can they access?)
+---
+- any variables defined within it
+- any variables that were in scope based on the context where the function was DEFINED
+
+# What are higher-order functions?
+---
+Functions that either accept a function as an argument or return a function when invoked.
+
+# Why do we call functions closures?
+---
+They close over ("enclose") the context at their definition point. They always have access to that context, regardless of when and where the program invokes the function.
+
+# What is partial function application?
+---
+Partial function application uses a function that creates a new function to call a third function that the first function receives as an argument. The first function receives some of the third function's arguments, while the second receives the rest when it gets invoked. The second then calls the third and passes it all of its arguments, both those passed to the generator and those passed to the applicator.
+
+Example:
+```
+function add(first, second) {
+  return first + second;
+}
+
+function repeat(count, string) {
+  var result = '';
+  var i;
+  for (i = 0; i < count; i += 1) {
+    result += string;
+  }
+
+  return result;
+}
+
+function partial(primary, arg1) {
+  return function(arg2) {
+    return primary(arg1, arg2);
+  };
+}
+
+var add1 = partial(add, 1);
+add1(2); // 3
+add1(6); // 7
+var threeTimes = partial(repeat, 3);
+threeTimes('Hello'); // HelloHelloHello
+threeTimes('!'); // !!!
+```
+The closure lets us "carry around" a reference to the variable `arg1`, which is a local variable in `partial`. Closure allows the applicator to use the value of arg1 later, long after `partial` finishes running.
+
+In effect, closure lets us define private data that persists for the function's lifetime. This technique is useful when we need to package both data and functionality together. We can pass around functions like this and not lose the private data.
+
+Note: We can also use `bind` for partial function application. For example, we can achieve the same ends as the code above by using `var add1 = add.bind(null, 1);` and `var threeTimes = repeat.bind(null, 3);`. We use `null` for the first argument since the functions do not depend on `this`.
+
+# What is the downside of using partial function application?
+---
+
+
+# True or False: There is no way to access the value of the variable from outside the function.
+---
+True
+
+# What is a benefit of using closures to make data private? What is a cost?
+---
+Benefit: forces developers to use the intended interface. Prevents unauthorized data modification.
+Cost: can make it harder to extend the code.
+Example:
+```
+function makeList() {
+  var items = [];
+
+  return {
+    add: ...,
+    remove: ...,
+    etc.,
+  }
+}
+var list = makeList();
+list.clear = function() {
+  // there is no way to access the items from within this method
+  // because the closure that contains them is inaccessible
+
+  items;                  // throws ReferenceError!
+  this.items;             // undefined
+};
+```
+We would have to update the original definition of makeList to add the `clear` method.
+
+# What is garbage collection?
+---
+The process of "automatically" freeing memory up when values are not in use.
+
+# When is the memory for an object or value marked for garbage collection?
+---
+WHen there aren't any variables, objects, or closures that maintain a reference to the object or value. As long as the object or value remains accessible, JavaScript cannot and will not garbage collect it.
+
+# True or False: Garbage collection occurs when a variable goes out of scope.
+---
+False. A variable can go out of scope, but references to the object or value it referenced may still exist elsewhere. If the variable is the sole remaining reference to the object or value, then it does become eligible for GC.
+
+# When does a global variable become eligible for garbage collection?
+---
+After the program finishes running, or if it is set to `null` at some point.
+
+# True or False: When a new function is created, it retains access to all of the references visible to it in the lexical location of its creation.
+---
+True
+
+# What is an immediately invoked function expression (IIFE)?
+---
+A function that we define and invoke simultaneously.
+Examples:
+```
+(function() {
+  console.log('hello');
+})();                     // => hello
+
+// alternate style
+(function() {
+  console.log('hello');
+}());
+
+// can take arguments and return values
+(function(a) {
+  return a + 1;
+})(2);                    // 3
+```
+The parentheses around the function expressions are required.
+With IIFEs, we use the parentheses to make it explicit that we want to parse the function definition as an expression. As an expression it means that there is a value returned — the function — that we can we immediately "invoke."
+
+We can omit the parentheses around an IIFE when the function definition is an expression that doesn't occur at the beginning of a line (recall the earlier invalid syntax example).
+```
+var foo = function() {
+  return function() {
+    return 10;
+  }();
+}();
+
+console.log(foo);       // => 10
+```
+
+# True or False: In JavaScript, surrounding a value with parentheses changes the value.
+---
+False. The parentheses are a grouping operator that controls the evaluation in expressions.
+
+# How can IIFEs be useful?
+---
+When you have to insert a piece of code in the middle of a large and messy JavaScript and you want to avoid accidentally overwriting an existing variable or function of the same name.
+You can use IIFEs because they are anonymous and create a private scope for their variables.
+
+# Is the named function inside in this IIFE accessible in the global scope?
+```
+(function foo() {
+  console.log('Bar');
+})();
+
+foo() // ?
+```
+---
+No. Although the function is named, it isn't visible outside of the scope created by the IIFE.
+
