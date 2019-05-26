@@ -1,0 +1,275 @@
+# Does JavaScript implement behavior sharing using class-based inheritance?
+---
+No. It uses the object prototype to share properties.
+
+# What is the factory object creation pattern? What are some disadvantages of using this pattern?
+---
+This pattern involves defining functions that return objects. This provides us a way to create objefcts based on a pre-defined template.
+Example:
+```
+function createPerson(firstName, lastName) {
+  return {
+    firstName: firstName,
+    lastName: lastName || '',
+    fullName: function() {
+      return (this.firstName + ' ' + this.lastName).trim();
+    },
+  };
+}
+```
+Disadvantages:
+- Every object created with the factory function has a full copy of all the methods, which can be redundant.
+- There isn't a way for us to inspect an object and know whether we created it from a factory function. This makes it difficult to identify whether an object is of a specific "type."
+
+# What is a constructor function?
+---
+A function that is intended to be called with the `new` operator.
+Example:
+```
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName || '';
+  this.fullName = function() {
+    return (this.firstName + ' ' + this.lastName).trim();
+  };
+}
+
+var john = new Person('John', 'Doe');
+var jane = new Person('Jane');
+
+john.fullName();              // "John Doe"
+jane.fullName();              // "Jane"
+
+john.constructor;             // function Person(..)
+jane.constructor;             // function Person(..)
+
+john instanceof Person;       // true
+jane instanceof Person;       // true
+```
+
+# What happens when you call a function without the `new` operator?
+---
+We end up defining properties and functions on the global object, since `this` will refer to the global object.
+Example:
+```
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName || '';
+  this.fullName = function() {
+    return (this.firstName + ' ' + this.lastName).trim();
+  };
+}
+
+Person('John', 'Doe');
+window.fullName();          // "John Doe"
+```
+
+# What 4 things happen when we call a function with the `new` operator?
+---
+1. A new object is created.
+2. `this` in the function is set to point to the new object.
+3. The code in the function is executed.
+4. `this` is returned if the constructor doesn't explicitly return an object.
+
+# What is output in the following code?
+```
+function Person(firstName, lastName) {
+  if (!lastName) {
+    return 'Please provide a last name';
+  }
+
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.fullName = function() {
+    return (this.firstName + ' ' + this.lastName).trim();
+  };
+}
+
+var noLastName = new Person('John');
+console.log(noLastName);
+console.log(noLastName instanceof Person);
+```
+---
+- an instance of the Person constructor
+- true
+
+If we want to return an error message and have the last line evaluate to `false`, we should return an object instead:
+```
+function Person(firstName, lastName) {
+  if (!lastName) {
+    return { invalidInput: 'Please provide a last name' };
+  }
+
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.fullName = function() {
+    return (this.firstName + ' ' + this.lastName).trim();
+  };
+}
+
+var noLastName = new Person('John');
+console.log(noLastName);   // => { invalidInput: 'Please provide a first name' };
+console.log(noLastName instanceof Person); // => false
+```
+
+# What naming convention separates constructor functions from other functions?
+---
+Constructor functions should start with and uppercase letter instead of lowercase.
+
+# What will the code below output? Why?
+```
+function Lizard() {
+  this.scamper = function() {
+    console.log("I'm scampering!");
+  };
+}
+
+var lizzy = Lizard();
+lizzy.scamper(); // ?
+```
+---
+The code will throw a `TypeError` because `scamper` is an undefined property on `lizzy`. This is the case because `Lizard` was invoked without the new operator and since there is no explicit return value, the return value is `undefined`. As a result, the value assigned to `lizzy` is `undefined` and, consequently calling `lizzy.scamper()` results in an error since it is attempting to call the `scamper()` method on `undefined`.
+
+# What does "dunder" refer to?
+---
+double underscore __
+
+# What is the dunder proto (`__proto__`) property set to when we use the `Object.create` method to create an object?
+---
+the object passed in as an argument to the `Object.create` method.
+Note that this is deprecated.
+Example:
+```
+var foo = {
+  a: 1,
+  b: 2,
+};
+
+var bar = Object.create(foo);
+bar.__proto__ === foo;                  // true
+```
+We say that we created the object `bar` with object `foo` as its prototype.
+Personal note: think of prototype like a parent class.
+
+# What methods can you use to (a) get the prototype object of `myObject` and (b) check if `myObject` is the prototype object of `foo`?
+---
+(a) `Object.getPrototypeOf(myObject)`
+(b) `myObject.isPrototypeOf(foo)`
+
+# What does the following code output?
+```
+var foo = {
+  a: 1,
+  b: 2,
+};
+
+var bar = Object.create(foo);
+var baz = Object.create(bar);
+var qux = Object.create(baz);
+
+Object.getPrototypeOf(qux) === baz;
+Object.getPrototypeOf(baz) === bar;
+Object.getPrototypeOf(bar) === foo;
+
+foo.isPrototypeOf(qux); 
+```
+---
+true for all
+For the last line, we can say that "foo is on qux's prototype chain."
+
+# If you do not create an object from an object `foo`, what is `foo`'s protytpe?
+---
+The `Object.prototype` object. It is "at the end of the prototype chain" for all JavaScript objects.
+```
+var foo = {
+  a: 1,
+  b: 2,
+};
+
+Object.getPrototypeOf(foo) === Object.prototype;      // true
+```
+
+# What is an object's prototype if it was created as an Object literal?
+---
+Object.prototype
+
+# Where does JavaScript search for a property or method, when we try to access it on an object?
+---
+The object itself and all the objects on its prototype chain until the end is reached.
+Example:
+```
+var foo = {
+  a: 1,
+  b: 2,
+};
+
+var bar = Object.create(foo);
+var baz = Object.create(bar);
+
+bar.a;                // 1
+baz.a;                // 1
+baz.c;                // undefined
+```
+
+Let us start with `baz.a` on line 10. First, JavaScript searches the `baz` object. After not finding the `a` property on the `baz` object, it then searches the `bar` object. Finally, it searches the `foo` object and finds the property there. For `baz.c`, since the property is not defined anywhere on `baz`'s prototype chain, `undefined` is returned.
+
+# What are 2 benefits of prototypal inheritance?
+---
+- We do not have to duplicate methods on objects.
+- If we need to add/remove/update behavior or data to apply to all related objects, we can just modify the prototype object. 
+
+# Does JavaScript have classes?
+---
+No. Objects can be created directly from other objects and methods can be shared via the prototype chain.
+
+# Why is the prototypal inheritance pattern also known as "behavior delegation"?
+---
+Objects on the bottom of the prototype chain can "delegate" requests to the upstream objects to be handled.
+
+From a top-down POV, the objects on the bottom of the prototype chain "inherited" the properties and behaviors of all of the upstream objects on the prototype chain.
+
+# Can objects created from prototypes override shared behaviors?
+---
+Yes, by defining the same methods locally.
+Example:
+```
+var dog = {
+  say: function() {
+    console.log(this.name + ' says Woof!');
+  },
+};
+
+var fido = Object.create(dog);
+fido.name = 'Fido';
+fido.say = function() {
+  console.log(this.name + ' says Woof Woof!');
+};
+
+fido.say();             // => Fido says Woof Woof!
+var spot = Object.create(dog);
+spot.name = 'Spot';
+spot.say();             // => Spot says Woof!
+```
+The `say` method is overridden locally on the `fido` object, but it doesn't impact any other objects created from the prototype.
+
+# What methods can you use to (a) check if a certain property is defined on the object itself and (b) return an array of an object's own property names. (as opposed to anywhere on the object's prototype chain)
+---
+`hasOwnProperty` and `Object.getOwnPropertyNames`
+Example:
+```
+var foo = {
+  a: 1,
+};
+
+var bar = Object.create(foo);
+bar.a = 1;
+bar.b = 2;
+bar.hasOwnProperty('a');            // true
+Object.getOwnPropertyNames(bar);    // ["a", "b"]
+
+delete bar.a;
+bar.hasOwnProperty('a');            // false
+Object.getOwnPropertyNames(bar);    // ["b"]
+foo.c = 3;
+bar.hasOwnProperty('c');            // false
+```
