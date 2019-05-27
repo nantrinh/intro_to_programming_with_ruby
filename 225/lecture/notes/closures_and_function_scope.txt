@@ -11,7 +11,7 @@
 
 # What are higher-order functions?
 ---
-Functions that either accept a function as an argument or return a function when invoked.
+Functions that accept a function as an argument, return a function when invoked, or both.
 
 # Why do we call functions closures?
 ---
@@ -64,7 +64,7 @@ Note: We can also use `bind` for partial function application. For example, we c
 ---
 
 
-# True or False: There is no way to access the value of the variable from outside the function.
+# True or False: There is no way to access the value of a variable from outside the function.
 ---
 True
 

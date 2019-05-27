@@ -40,6 +40,7 @@ function func() {
 
 delete func;
 ```
+---
 No. A function declaration effectively declares a new variable and assigns a function to it. Since this process involves declaration, the resultant variable cannot be deleted.
 
 # Can global variables added explicitly to the global object as properties be deleted?
