@@ -49,7 +49,7 @@ jane instanceof Person;       // true
 
 # What happens when you call a function without the `new` operator?
 ---
-We end up defining properties and functions on the global object, since `this` will refer to the global object.
+We end up defining properties on the global object, since `this` will refer to the global object.
 Example:
 ```
 function Person(firstName, lastName) {
@@ -177,9 +177,9 @@ foo.isPrototypeOf(qux);
 true for all
 For the last line, we can say that "foo is on qux's prototype chain."
 
-# If you do not create an object from an object `foo`, what is `foo`'s protytpe?
+# What is at the end of the prototype chain for all objects?
 ---
-The `Object.prototype` object. It is "at the end of the prototype chain" for all JavaScript objects.
+The `Object.prototype` object.
 ```
 var foo = {
   a: 1,
@@ -398,10 +398,7 @@ function Triangle(a, b, c) {
 }
 
 Triangle.prototype = shape;
-Triangle.prototype.getPerimeter = function() {
-  return this.a + this.b + this.c;
-}
-
+t = new Triangle(1, 2, 3);
 console.log(t.constructor);
 ```
 ---
