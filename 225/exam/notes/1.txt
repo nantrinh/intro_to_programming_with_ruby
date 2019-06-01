@@ -1,0 +1,86 @@
+# What are objects?
+---
+Collections of name/value pairs linked to a prototype object.
+
+# What are objects produced from object literals linked to?
+---
+Object.prototype
+
+# WHat are function objects linked to?
+---
+Function.prototype, which is itself linked to Object.prototype
+function object -> Function.prototype -> Object.prototype
+
+# What are three properties that functions are created with?
+---
+- prototype
+- context
+- code that implements the function's behavior
+
+More detail on the prototype property:
+"Every function object is created with a prototype property. Its value is an object with a constructor property whose value is the function. This is distinct from the hidden link to Function.prototype."
+
+// function object
+{
+  prototype: {constructor: the function object},
+  context: // not really named context probably, here for illustration
+  code: // not really named code probably, here for illustration
+}
+
+# Which two parameters does every function receive in addition to the declared parameters, at invocation time?
+---
+`this` and `arguments`
+
+# What are the four patterns of invocation in JavaScript?
+---
+the method invocation pattern
+the function invocation pattern
+the constructor invocation pattern
+the apply invocation pattern
+
+# What are public methods?
+---
+Methods that get their object context from `this`. The binding of `this` to the object at invocation time makes functions that use `this` highly reusable.
+
+# What is `this` bound to when (a) a function is invoked with the method invocation pattern and (b) a function is invoked with the function invocation pattern?
+---
+(a) the object that the method is a property of
+(b) the global object (this is a mistake in the design of the language)
+
+# Why is it considered a mistake of the language that `this` refers to the global object when a function is invoked with the function invocation pattern?
+---
+In the case where you have an inner function, the `this` argument of the inner function should be bound to the `this` of the outer function, not the global object. 
+A consequence of this error is that a method cannot employ an inner function to help do its work because the inner function does not share the method's access to the object as `this` is bound to the wrong value.
+
+One workaround is to define a variable in the outer function and assign it the value of `this`, and the inner function will have access to `this` through that variable.
+
+Example:
+```
+myObject.double = function ( ) {
+  var that = this; // Workaround.
+  var helper = function ( ) {
+    that.value = add(that.value, that.value);
+  };
+  helper( ); // Invoke helper as a function.
+};
+```
+
+# What happens when a function is invoked with the `new` prefix?
+---
+A new object will be created with a hidden link to the value of the function's prototype member.
+`this` will be bound to that new object.
+The behavior of the `return` statement is also changed.
+Use of this style of constructor functions is not recommend by JavaScript, The Good Parts.
+
+# Can functions have methods?
+---
+Yes. (e.g., apply, call)
+
+# What is returned from a function if the function is invoked with the `new` prefix?
+---
+If the return value is an object, then that specified object.
+If the return value is not an object, then `this` (the new object) is returned.
+
+# What is it called when a function has access to the context in which it was created?
+---
+Closure
