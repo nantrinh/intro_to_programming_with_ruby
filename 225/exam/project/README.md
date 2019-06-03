@@ -1,0 +1,16 @@
+# Assumptions
+- todo object
+  - all strings will be trimmed
+  - month property valid values
+    - empty string
+    - an integer between 1 and 12 inclusive
+  - year property valid values
+    - empty string
+    - any non-negative integer
+  - title and description
+    - must have at least one non-whitespace character 
+    - capitalization not enforced
+- initialization of todoList
+  - if the number of items in the todoSet is greater than or equal to n, then the first n items are added to the todoList
+  - if the number of items in the todoSet is less than n, then todoList will loop over the entire list repeatedly until it has created n items
+  - all todoData objects must be valid inputs for any todo objects to be added to the todoList. Otherwise 'Invalid input' is logged to the console and `false` is returned 
