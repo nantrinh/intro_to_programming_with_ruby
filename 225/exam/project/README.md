@@ -16,7 +16,6 @@
 - todoList
   - "maintains a collection of todo objects": not sure what kind of method this refers to in particular, so I didn't implement anything for it
   - initialization of todoList
-    - the todoManager is responsible for calling this function
     - all todoData objects must be valid inputs for any todo objects to be added to the todoList. Otherwise `{invalidInput: true}` is returned 
     - if all todoData objects are valid and added successfully to the todoList, `this` (the todoList) is returned.
   - delete

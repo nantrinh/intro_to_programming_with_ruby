@@ -1,4 +1,3 @@
-// DATA
 var todoData1 = {
   title: 'Buy Milk',
   month: '1',
@@ -78,7 +77,8 @@ var invalidTodoData5 = {
 
 var todoSet1 = [todoData1, todoData2, todoData3, todoData4];
 var todoSet2 = [todoData5, todoData6];
-var invalidTodoSet = [invalidTodoData1, invalidTodoData2, invalidTodoData3, invalidTodoData4, invalidTodoData5];
+var invalidTodoSet = [invalidTodoData1, invalidTodoData2, invalidTodoData3,
+  invalidTodoData4, invalidTodoData5];
 
 function isValidMonth(month) {
   return (
@@ -115,7 +115,10 @@ function isValidTodoData(todoData) {
 
 var todo = {
   isWithinMonthYear: function(month, year) {
-    return (Number(this.month) === Number(month) && Number(this.year) === Number(year)); 
+    return (
+      Number(this.month) === Number(month)
+      && Number(this.year) === Number(year)
+    ); 
   },
 }
 
@@ -202,9 +205,10 @@ var todoList = (function() {
     },
 
     deleteTodo: function(id) {
-      var previous_length = lists[this.listID].list.length;
-      lists[this.listID].list = lists[this.listID].list.filter(todo => todo.id != id);
-      return lists[this.listID].list.length != previous_length;
+      var previousList = lists[this.listID].list;
+      var previousLength = previousList.length;
+      lists[this.listID].list = previousList.filter(todo => todo.id != id);
+      return lists[this.listID].list.length != previousLength;
     },
 
     returnTodo: function(id) {
@@ -275,7 +279,8 @@ var todoManager = (function() {
     },
 
     completed: function() {
-      return managers[this.managerID].returnAll().filter(todo => todo.completed);
+      return (managers[this.managerID].returnAll()
+        .filter(todo => todo.completed));
     },
 
     filterBy: function(month, year) {
@@ -284,7 +289,8 @@ var todoManager = (function() {
     },
 
     completedFilterBy: function(month, year) {
-      return this.filterBy(Number(month), Number(year)).filter(todo => todo.completed);
+      return (this.filterBy(Number(month), Number(year))
+        .filter(todo => todo.completed));
     },
   };
 }());
@@ -373,6 +379,7 @@ console.log(list1.updateTodo(1, {month: '-1'})); // false because month is inval
 console.log(list1.updateTodo(9, {title: 'Eat wheatgrass'})); // false because id 9 does not exist in the list 
 
 // TESTING LIST MANAGER
+console.log('***Testing todoManager***')
 var manager1 = Object.create(todoManager).setList(list1); 
 var manager2 = Object.create(todoManager).setList(list2); 
 console.log(manager1.all());
