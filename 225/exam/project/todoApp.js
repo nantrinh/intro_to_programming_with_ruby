@@ -180,14 +180,14 @@ var todoList = (function() {
     init: function(todoSet) {
       if (todoSet.every(todoData => isValidTodoData(todoData))) {
         this.listID = nextListID += 1;
-
         lists[this.listID] = {
           list: [], 
-          nextTodoID: -1,
+          nextTodoID: 0,
         }
 
+        var list = lists[this.listID].list;
         todoSet.forEach(todoData => {
-          lists[this.listID].list.push(createTodo(lists[this.listID].nextTodoID += 1, todoData));
+          list.push(createTodo(lists[this.listID].nextTodoID += 1, todoData));
         }, this);
 
         return this;
@@ -203,17 +203,18 @@ var todoList = (function() {
 
     addTodo: function(todoData) {
       if (isValidTodoData(todoData)) {
-        lists[this.listID].list.push(createTodo(lists[this.listID].nextTodoID, todoData));
+        var list = lists[this.listID].list;
+        var id = lists[this.listID].nextTodoID += 1
+        list.push(createTodo(id, todoData));
         return true;
       } 
       return false;
     },
 
     deleteTodo: function(id) {
-      var list = lists[this.ListID].list;
-      var previous_length = list.length;
-      list = list.filter(todo => todo.id != id);
-      return list.length != previous_length;
+      var previous_length = lists[this.listID].list.length;
+      lists[this.listID].list = lists[this.listID].list.filter(todo => todo.id != id);
+      return lists[this.listID].list.length != previous_length;
     },
 
     returnTodo: function(id) {
