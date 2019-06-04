@@ -1,20 +1,4 @@
-// todoManager: returns a set of todos from a todoList
-// todoList: an object that has a collection of todo objects
-//   - returns a copy of the collection anytime a method  returns all or a subset of it
-//   - does not allow users to manipulate todo object values directly
-//   - provides an interface for manipulating the collection of objects (add, update, delete, etc)
-// todo: an object with the following properties and shared methods
-//   Properties:
-//   * id (must be unique)
-//   * title
-//   * completed
-//   * month
-//   * year
-//   * description
-//   
-//   Shared Methods:
-//   * isWithinMonthYear(month, year)
-
+// DATA
 var todoData1 = {
   title: 'Buy Milk',
   month: '1',
@@ -131,7 +115,7 @@ function isValidTodoData(todoData) {
 
 var todo = {
   isWithinMonthYear: function(month, year) {
-    return (this.month === month && this.year === year); 
+    return (Number(this.month) === Number(month) && Number(this.year) === Number(year)); 
   },
 }
 
@@ -201,6 +185,12 @@ var todoList = (function() {
       console.log(lists[this.listID].list)
     },
 
+    returnAll: function() {
+      var copyOfList = [];
+      lists[this.listID].list.forEach(todo => copyOfList.push(copy(todo)));
+      return copyOfList;
+    },
+
     addTodo: function(todoData) {
       if (isValidTodoData(todoData)) {
         var list = lists[this.listID].list;
@@ -253,11 +243,86 @@ var todoList = (function() {
         toChange.completed = newData.completed; 
         changed = true;
       }
+
       return changed;
+    },
+
+    markCompleted: function(id) {
+      var toChange = getTodo(this.listID, id); 
+      if (toChange === undefined) {
+        return false; 
+      }
+      
+      toChange.completed = true;
+      return true;
     },
   };
 }());
 
+var todoManager = (function() {
+  var managers = {};
+  var nextManagerID = -1;
+  
+  return {
+    setList: function(list) {
+      this.managerID = nextManagerID += 1; 
+      managers[this.managerID] = list;
+      return this;
+    },
+
+    all: function() {
+      return managers[this.managerID].returnAll();
+    },
+
+    completed: function() {
+      return managers[this.managerID].returnAll().filter(todo => todo.completed);
+    },
+
+    filterBy: function(month, year) {
+      return (managers[this.managerID].returnAll()
+        .filter(todo => todo.isWithinMonthYear(Number(month), Number(year))));
+    },
+
+    completedFilterBy: function(month, year) {
+      return this.filterBy(Number(month), Number(year)).filter(todo => todo.completed);
+    },
+  };
+}());
+
+// TEST VALIDITY FUNCTIONS
+// should all log true
+console.log(isValidMonth('') === true);
+console.log(isValidMonth('12') === true);
+console.log(isValidMonth('1') === true);
+console.log(isValidMonth('1.5') === false );
+console.log(isValidMonth('-1') === false );
+console.log(isValidMonth('0') === false );
+console.log(isValidMonth('13') === false );
+console.log(isValidMonth('abc') === false );
+
+console.log(isValidYear('') === true );
+console.log(isValidYear('0') === true );
+console.log(isValidYear('1') === true );
+console.log(isValidYear('2001') === true );
+console.log(isValidYear('-2001') === false );
+console.log(isValidYear('abc') === false );
+console.log(isValidYear('2.5') === false );
+
+console.log(isValidTitle('abc') === true);
+console.log(isValidTitle('AbC') === true);
+console.log(isValidTitle('A') === true);
+console.log(isValidTitle('&') === true);
+console.log(isValidTitle('1') === true);
+console.log(isValidTitle('') === false );
+
+console.log(isValidDescription('abc') === true);
+console.log(isValidDescription('AbC') === true);
+console.log(isValidDescription('A') === true);
+console.log(isValidDescription('&') === true);
+console.log(isValidDescription('1') === true);
+console.log(isValidDescription('') === false );
+
+// TESTING LISTS
 console.log('***Testing todoList.init***')
 var list1 = Object.create(todoList).init(todoSet1);
 console.log('list 1');
@@ -306,3 +371,21 @@ console.log(list1.updateTodo(1, {title: 'Buy 2 Gallons of Milk', month: 6})); //
 console.log(list1.returnTodo(1)); // should  have changed to reflected the above
 console.log(list1.updateTodo(1, {month: '-1'})); // false because month is invalid
 console.log(list1.updateTodo(9, {title: 'Eat wheatgrass'})); // false because id 9 does not exist in the list 
+
+// TESTING LIST MANAGER
+var manager1 = Object.create(todoManager).setList(list1); 
+var manager2 = Object.create(todoManager).setList(list2); 
+console.log(manager1.all());
+console.log(manager2.all());
+
+list1.markCompleted(2);
+list1.markCompleted(5);
+console.log(manager1.completed()); // should show todos 2 and 5
+list1.addTodo({
+  title: 'Take shower',
+  month: '3',
+  year: '2019',
+  description: 'To feel clean',
+});
+console.log(manager1.filterBy(3, 2019)); // should show read and shower 
+console.log(manager1.completedFilterBy(3, 2019)); // should show read

@@ -1,4 +1,9 @@
+# Notes
+- I added a `print` method to todoList for debugging purposes. I did not comment it out in case the grader was interested in running the statements I used for debugging at the bottom of the file.
+
 # Assumptions
+- todoManager
+    - the requirements suggest that each todoManager interfaces with only one list
 - todo object
   - all strings will be trimmed
   - month property valid values
@@ -10,8 +15,7 @@
   - title and description
     - must have at least one non-whitespace character 
     - capitalization not enforced
-- todolist
-  - I added a `print` method for debugging purposes. I did not comment it out in case the grader was interested in running the statements I used for debugging at the bottom of the file
+- todoList
   - "maintains a collection of todo objects": not sure what kind of method this refers to in particular, so I didn't implement anything for it
   - initialization of todoList
     - the todoManager is responsible for calling this function
@@ -28,3 +32,7 @@
     - will update the todo corresponding to the id passed in, if found
     - only the `title`, `month`, `year`, `description`, and `completed` properties may be updated, if the new values are valid. 
     - returns `true` if a todo has been updated; `false` otherwise
+
+
+# Areas of Improvement
+- As I have implemented it, a list's `listID` property is public, as is a manager's `managerID`. A user could change their list's or manager's  ID to something different and access other lists and managers that way. This does not seem ideal to me, but I could not think of a better way to implement it. Ideas on how to address this would be very welcome.
