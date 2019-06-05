@@ -1,0 +1,71 @@
+# What is the DOM (Document Object Model)?
+---
+An in-memory object representation of an HTML document.
+A hierarchy of nodes.
+It provides a way to interact with a web page using JavaScript and provides the functionality needed to build modern interactive user experiences.
+
+# Why do browsers insert elements into the DOM that are missing from the HTML?
+---
+A fundamental tenet of the web is permissiveness. Browsers always do their best to display HTML, even when it has errors.
+
+# Are all text nodes the same?
+---
+Yes. However, developers sometimes make a distinction between empty nodes (spaces, tabs, newlines, etc.) and text nodes that contain content (words, numbers, symbols, etc.).
+
+# Are empty nodes reflected visually in the browser?
+---
+No, but they are in the DOM, so do not neglect them.
+
+# True or False: there is a direct one-to-one mapping between the tags that appear in an HTML file and the nodes in the DOM.
+---
+False. The browser may insert nodes that don't appear in the HTML due to invalid markup or the omission of optional tags. Text, including whitespace, also creates nodes that don't map to tags.
+
+# True or False: Text nodes sometimes contain nothing but whitespace.
+---
+True. All text -- including whitespace -- in the original HTML appears in the DOM as a text node.
+
+# What is the top-most DOM node?
+---
+The parent of all nodes in the DOM. It represents the entire HTML document.
+
+# What is the nodeName property?
+---
+For elements, it is the name of the corresponding tag in uppercase. The use of uppercase is a historical throwback to a time when standard practice was to write uppercase HTML tags; contemporary HTML uses lowercase tags, but this method still returns uppercase names.
+For text nodes -- even empty nodes -- the nodeName is "#text".
+For comments, it's "#comment".
+
+# What is the nodeType property?
+---
+It returns a number that matches a node type constant.
+THe most comment types are:
+1: Node.ELEMENT_NODE
+3: Node.TEXT_NODE
+8: Node.COMMENT_NODE
+9: Node.DOCUMENT_NODE
+Use the constant names instead of the numeric values to write clear code that checks the node type.
+```
+p.nodeType === Node.ELEMENT_NODE // true
+document.nodeType === Node.DOCUMENT_NODE // true
+```
+
+# What is the nodeValue property?
+---
+References the value of a node.
+Elements do not have values. `p.nodeValue === null`
+The nodeValue of a text node is the textual content of a node. It grabs text up to the next opening or closing tag.
+
+# What is the textContent property?
+---
+textContent represents the textual content of all the nodes inside the Element. You can think of it as the nodeValue for all the Element's child nodes concatenated into a single String. For example, if we access the paragraph's textContent property, it contains the content of the Text nodes directly inside the tag as well as the text within the a Node that the p Node contains.
+textContent joins the nodeValues of all child Text Nodes together, including the empty Nodes, which leads to excess whitespace.
+
+# What are some important things to remember about these types?
+EventTarget, Node, Text, Element
+---
+EventTarget provides the event-handling behavior that supports interactive web applications.
+Node provides common behavior to all nodes.
+Text and Element are the chief subtypes of Node.
+Text nodes hold text.
+Element nodes represent HTML tags.
+Most HTML tags map to specific element subtypes that inherit from HTMLElement (which inherits from Element).
+Other element types exist, such as SVGElement and its subtypes.
