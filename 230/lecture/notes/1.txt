@@ -122,7 +122,7 @@ h1.style.lineHeight = '3em'; // when a CSS property's name contains dashes, you 
 ---
 `document.getElementById(id)`
 
-# What do the methods `Element.getElementsByTagName(tagName)` and `Element.getElementsByClassName(className)` return?
+# What do the methods `Document.getElementsByTagName(tagName)` and `Document.getElementsByClassName(className)` return?
 ---
 `HTMLCollection` or `NodeList` of matching elements, depending on the browser.
 To loop through these collections, use a `for` loop or convert the object into an array then use the higher-order array functions.
@@ -132,3 +132,33 @@ To loop through these collections, use a `for` loop or convert the object into a
 Collections automatically update to reflect changes in the DOM.
 HTML Collections seem to be always live.
 A nodeList may or may not be live.
+
+# What do these methods return?
+`Document.querySelector(selectors)`
+`Document.querySelectorAll(selectors)`
+---
+first matching element or `null`
+`NodeList` of matching elements
+
+Most valid CSS selectors work as arguments to `querySelector` and `querySelectorAll`.
+
+# What approach should you take if you want to update text with JavaScript?
+---
+place the text you need to update within a specific element such as a span or div, identified with a class.
+Example: if you have
+```
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>My Site</title>
+  </head>
+  <body>
+    <div>
+      Welcome to the site!<br>
+      The time is <span class="time">9:15 am</span>.<br>
+      You are logged in as <a href="/account">Kabu</a>.
+    </div>
+  </body>
+</html>
+```
+All you need to do is `document.querySelector('.time').textContent = '9:16 am';`
