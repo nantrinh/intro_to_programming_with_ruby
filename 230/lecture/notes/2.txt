@@ -80,3 +80,82 @@ The function will receive a single argument, an Event object. We'll learn more a
 
 4. Register the function as an event listener.
 This step brings the first three together into a working system.
+
+# Suppose we have a function `displayAlert` that we want to invoke when a user clicks on a button. Show how to do this (a) by registering `displayAlert` as the `click` listener, and (b) using the GlobalEventHandlers mixin to assign the listener to the `onclick` property of the `button` element.
+---
+```
+document.addEventListener('DOMContentLoaded', function() {
+  var button = document.getElementById('alert');
+  button.addEventListener('click', displayAlert);
+});
+```
+```
+document.addEventListener('DOMContentLoaded', function() {
+  var button = document.getElementById('alert');
+  button.onclick = displayAlert;
+});
+```
+Note that using GlobalEventHandlers mixins isn't exactly equivalent to using EventTarget.addEventListener. You can't use the `onclick` property to add multiple event listeners, for instance.
+
+# What do the `type`, `currentTarget`, and `target` properties of Event objects represent?
+---
+`type`: the name of the event (e.g., 'click')
+`currentTarget`: the current object that the event object is on. It always refers to the element that has the event listener attached to it
+`target`: the initial object to receive notification of the event, e.g., the element clicked by the user
+
+# True or False: most events have properties specific to their type.
+---
+True
+
+# What do the `button`, `clientX`, and `clientY` properties of mouse events represent?
+`button`: this is a read-only property that indicates which button was pressed
+`clientX`: the horizontal position of the mouse when the event occurred
+`clientY`: the vertical position of the mouse when the event occurred
+
+Note that `clientX` and `clientY` return values relative to the visible area of the page: the number of pixels from the upper-left corner of the browser's viewport.
+
+# What do the `key`, `shiftKey`, `altKey`, `ctrlKey`, and `metaKey` properties of keyboard events represent?
+---
+`key`: The string value of the pressed key.
+`shiftKey`: Boolean value that indicates whether the user pressed the shift key 
+`altKey`: Boolean value that indicates whether the user pressed the alt (or option)
+`ctrlKey`: Boolean value that indicates whether the user pressed the control key
+`metaKey`: Boolean value that indicates whether the user pressed the meta (or command) key
+
+Note that keypress doesn't fire for all keys. The modifier keys (Shift, Control, etc.), for instance, don't generate a keypress event. If you must detect these keys by themselves, you have to listen for keyup or keydown events, not keypress.
+
+# What are three downsides to the approach of adding handlers to elements that may be the source of events? (This approach results in event listeners attached to each element of interest on the page.)
+---
+- You can't add an event listener to an element until the DOM is ready, which means that you must wait until the DOMContentLoaded event fires.
+- You must add event handlers manually when you add new elements to the page after DOMContentLoaded fires.
+- Adding handlers to many elements can be slow, and can lead to complicated, difficult to maintain code. Imagine a page with a large spreadsheet-like grid with hundreds or thousands of cells; you must provide listeners for both keyboard and mouse events in every cell.
+
+# What is the difference between `currentTarget` and `target`?
+---
+`currentTarget` always refers to the element to which an event listener is added.
+`target` refers to the element on which the event occurred, such as the element clicked on.
+
+# What is the value of `this` within the handler?
+---
+`currentTarget`: the element the listener was added to
+
+# What does "capturing and bubbling" refer to?
+---
+Phases that an event goes through after it initially fires. The event first gets dispatched to the global window object, then to the document object, all the way down to the target element, which is the element on which the event was originally fired. At this point, this dispatch process reverses and from the target element the event works its way through containing elements until it reaches the window object. 
+
+# Is the listener set to fire during the capturing or bubbling phase, by default?
+---
+Bubbling. To set it to listen on the "capturing phase" you can use the third optional, argument, for the addEventListener method, useCapture, and set it to true.
+`elem1.addEventListener('click', callbackFunction, true);`
+
+# What does the "target phase" refer to?
+---
+When event listeners fire on the target element.
+
+# Does adding an event listener of the same type (e.g. `click`) to the same element overwrite the first one that was added?
+---
+No
+
+# True or False: When multiple events happen, they form a queue, and the oldest one gets processed first.
+---
+True
