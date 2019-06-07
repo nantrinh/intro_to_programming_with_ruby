@@ -1,0 +1,82 @@
+# Can you tell whether code is asynchronous just by looking at it?
+---
+No. 
+If it calls any functions, then you must be familiar with the behavior of each of those functions to determine whether any are asynchronous.
+You must also know whether the code you're looking at was invoked asynchronously.
+
+# Are setTimeout and setInterval part of the JavaScript specification?
+---
+No, but most environments make them available.
+
+# What does setTimeout do?
+---
+executes a function after n milliseconds have passed
+Example:
+```
+setTimeout(function() {
+  console.log('!');
+}, 3000);
+```
+
+# What does setInterval do?
+---
+Executes a function every n milliseconds until canceled.
+setInterval returns an identifier that can be passed as an argument to clearInterval() to cancel the timer.
+Example:
+```
+function save() {
+  // Send the form values to the server for safe keeping
+}
+
+// Call save() every 10 seconds
+var id = setInterval(save, 10000);
+
+// Later, perhaps after the user submits the form
+clearInterval(id);
+```
+
+# What is an event?
+---
+An object that represents some occurrence; it contains information about what happened and where it happened
+
+# What are the two main tasks of user interfaces in the browser?
+---
+1. Set up the user interface and display it.
+2. Handle events resulting from user or browser actions.
+
+# What is an event listener?
+---
+The code that the browser runs in response to an event.
+Functions that the JavaScript runtime calls when a particular event occurs.
+
+# Give an example of the page-loading process. Specify when the DOMContentLoaded event and load event will fire.
+---
+1. HTML code received from server.
+2. HTML parsed and JavaScript evaluated.
+3. DOM constructed from parsed HTML.
+4. `DOMContentLoaded` event fires on `document`.
+5. Page displayed on screen.
+6. Embedded assets are loaded.
+7. `load` event fires on `window`.
+
+# When would we typically use the DOMContentLoaded event?
+---
+When we have JavaScript code that must access the DOM.
+
+# Why is the `load` event not useful in most cases?
+---
+It fires only after everything on the page loads, including images and videos. It may not occur for a long time after the page first appears.
+
+# What are the four steps needed to set up an event handler?
+---
+1. Identify the event you need to handle.
+User actions, the page lifecycle, and more can fire events.
+
+2. Identify the element that will receive the event.
+Depending on the event, the object could be a button, an input field, or any other element on the page.
+
+3. Define a function to call when this event occurs.
+The function will receive a single argument, an Event object. We'll learn more about Events later.
+
+4. Register the function as an event listener.
+This step brings the first three together into a working system.

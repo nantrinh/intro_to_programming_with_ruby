@@ -162,3 +162,55 @@ Example: if you have
 </html>
 ```
 All you need to do is `document.querySelector('.time').textContent = '9:16 am';`
+
+# What are three ways to create a new node?
+---
+`document.createElement(tagName)`
+`document.createTextNode(text)`
+`node.cloneNode(deepClone)` // where deepClone is true or false
+
+# What do the following methods do?
+`parent.appendChild(node)`
+`parent.insertBefore(node, targetNode)`
+`parent.replaceChild(node, targetNode)`
+---
+- Append node to the end of parent.childNodes (note that document.appendChild causes an error. Use document.body.appendChild instead)
+- Insert node into parent.childNodes before targetNode
+- Remove targetNode from parent.childNodes and insert node in its place
+
+# What happens if you try to add a node that already exists in the DOM, to another location?
+---
+It gets removed from the original location. Thus, you can move an existing node by inserting it where you want it.
+
+# What do the following methods do? What are valid values for `position`?
+`element.insertAdjacentElement(position, newElement)`
+`element.insertAdjacentText(position, text)`
+---
+Inserts newElement at position relative to element
+Inserts Text node that contains text at position relative to element
+
+`position` may be one of the following values:
+- "beforebegin" (before the element)
+- "afterbegin" (before the first child of the element)
+- "beforeend" (after the last child of the element)
+- "afterend" (after the element)
+
+# What are to ways to remove a node from the DOM?
+---
+node.remove()
+parent.removeChild(node)
+
+# What happens when you remove a node from the DOM?
+---
+It becomes eligible for garbage collection unless you keep a reference to the node in a variable.
+
+# Are these components part of the DOM?
+- the windows used to display web pages
+- the browser's history
+- sensors, including location
+---
+No, they are part of the browser object model (BOM).
+
+# How do the `textContent` and `innerText` properties differ?
+---
+innerText is aware of the rendered appearance of text, while textContent is not
