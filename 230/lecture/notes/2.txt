@@ -159,3 +159,49 @@ No
 # True or False: When multiple events happen, they form a queue, and the oldest one gets processed first.
 ---
 True
+
+# What does `event.stopPropagation` do?
+---
+It stops the `event` object from continuing its path along the capturing and bubbling phases.
+
+# What does `event.preventDefault` do?
+---
+ This method tells the browser that it shouldn't perform any actions that it might otherwise perform in response to a user's action. For instance, clicking a link typically loads a new page in the browser. preventDefault tells the browser not do that. 
+
+# Where should we call `preventDefault` or `stopPropagation` in an event handler?
+---
+As soon as possible. Doing so emphasizes the presence of those methods to people reading the code. It also ensures that these methods run before any errors occur; not running these methods before an error occurs can lead to unexpected behavior that is hard to debug.
+
+# Is the default behavior prevented by `preventDefault` the element that the event listener is attached to, or the `event` object?
+---
+The `event`. The browser waits for the event object to go through the propagation phases (capturing and bubbling) before it performs the default action of the event. If there's an event handler with a preventDefault call somewhere in the propagation path, the default behavior is skipped.
+
+# What is event delegation? What benefits does it afford, compared with adding an event handler to each element we want to handle? What is a potential drawback?
+---
+Event delegation is an approach where, instead of adding listeners to every element you're watching, you can add a single handler to any of their parents. The listener, in turn, performs the required actions for each element.
+
+Benefits:
+- If we attach an event handler to `document`, this means we do not have to wait until the DOM is ready.
+- If the web page adds new elements after the page loads, we can still handle those elements if they were added to a child of the element we attach an event handler to.
+- Attaching many listeners to a document has a cost in performance and memory. Event delegation reduces the number of event handlers required.
+
+Drawback: Code may be more complex. However, jQuery includes functionality that makes delegation comparatively easy while avoiding the complexity drawback.
+
+Recommended Approach:
+Start by binding event handlers directly to elements when a project is new and small. As the code grows in size and complexity, delegation may make sense to reduce the number of event handlers required.
+
+# What does the event loop do?
+---
+If the stack is empty and there is something in the task queue, the event loop pushes the item from the task queue onto the stack, effectively running it.
+
+# Is setTimeout a guaranteed time to execution?
+---
+No it is a minimum time to execution, because after the timer is up, it is pushed to the callback queue and waits there until the stack is clear, before being pushed to the stack and subsequently executed.
+
+# Which of the following statements are true about the `DOMContentLoaded` event? Select all that apply.
+A. It is the event that fires after everything on the page loads, including images, videos, etc. 
+B. When this event fires, JavaScript cannot interact with DOM elements that have assets.
+C. Any JavaScript that needs to use the DOM must wait for this event to fire.
+---
+C.
+A. refers to the `load` event.
