@@ -190,3 +190,24 @@ Unprocessable entity. The request was invalid in a way that prevented the server
 The resource may not exist.
 The URL may be incorrect.
 Accessing the requested resource may require authentication. In an ideal world, these errors would use a more accurate HTTP status code of 401 or 403, but for security reasons, it is sometimes better to only expose the existence of a resource to those who are authorized to access it.
+
+# What is rate limiting?
+---
+Each API consumer is allotted a certain number of requests within a specified amount of time. Any requests made beyond these limits are sent an error response and not processed further. The status code of responses to rate limited requests varies by service, but it is often 403 Forbidden. 
+
+# What is the PUT method?
+---
+A PUT method updates the value of a resource and sends all of its values back to the server. PUT tells the server to "put this resource in this place."
+
+According to the HTTP spec, PUT requests must take a complete representation of the resource being updated. Any parameter left out of a PUT request is assumed to have an empty value (usually null or nil).
+
+Most APIs don't strictly follow this requirement, however, and only update any parameters sent in a PUT request, not changing any other parameters that are already on the resource. This is technically the behavior of the HTTP method PATCH.
+
+# What does 204 No Content mean?
+---
+The request was processed successfully, and there is nothing in the response body.
+
+# What is OAuth?
+---
+A system that provides a way for users to authorize access to their account without giving out their credentials.
+It involves the usage of an access token, access token secret, application key, and application secret. You need all four values to make requests.
