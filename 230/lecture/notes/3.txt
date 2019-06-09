@@ -1,0 +1,192 @@
+# What is XMLHttpRequest?
+---
+One of the browser APIs that provide network programming functionality to JavaScript applications. Libraries or utility functions often wrap this web API.
+
+# What is AJAX?
+---
+AJAX is short for Asynchronous JavaScript and XML. Its main feature is that it allows browsers to issue requests and process responses without a full page refresh.
+
+AJAX requests are just like normal requests: they are sent to the server with all the normal components of an HTTP request, and the server handles them like any other request. The only difference is that instead of the browser refreshing and processing the response, the response is processed by a callback function, which is usually some client-side JavaScript code.
+
+# What is an API?
+---
+API stands for Application Programming Interface.
+They provide functionality for use by another program.
+
+Examples:
+- Every programming language has a built-in API that is used to write programs.
+- Mobile devices provide APIs to provide access to location or other sensor data, such as the device's GPS location or the orientation of the device.
+- Operating systems have APIs that programs can use to open files, access memory, draw text on the screen, etc.
+
+# What are web APIs?
+---
+APIs that use the HTTP protocol.
+
+# What is an API provider? What is an API consumer?
+---
+API provider: the system that provides an API for other parties to use.
+GitHub is the provider of the GitHub API, and Dropbox is the provider of the Dropbox API.
+
+API consumer: the system that uses the API to accomplish some work.
+When you check the weather on your phone, it is running a program that is consuming a weather API to retrieve forecast data.
+
+# What are 3 use cases for APIs?
+---
+1. share data
+2. enable automation. APIs allow users of a service to make use of it in new and useful ways.
+3. leverage existing services (e.g., process credit card payments, send emails, fetch information about books, call cellphones, read messages). APIs enable application developers to build their applications on top of a variety of other specialized systems, allowing them to focus on their actual objectives and not worry about all the complexities of every part of the system.
+
+# What is the difference between public and private APIs?
+---
+Public APIs are intended for consumption outside the organization that provides them. Private APIs are intended only for internal use.
+
+# What do these status codes usually mean? 2XX, 3XX, 4XX, 5XX
+--
+2XX: Request was handled successfully and everything is fine.
+3XX: Request was handled sucessfully but the response to the request is located at a different URL. (common response to HTML form POST submission; not scommon response when working with HTTP APIs)
+4XX: THe client did something in the request that the server did not like (e.g., required parameter not provided; incorrect URL)
+5XX: Server encountered an error. Usually this means that the system you are connecting to is having issues that need to be resolved by those who run it before you can continue, although sometimes it can also be the result of a bad request.
+
+Note that servers do not always return the correct status code, often as a result of a programming oversight. Sometimes it is necessary to look at the entire response for clues as to what is happening when you have received a status code that doesn't make sense.
+
+# What is parsing?
+---
+The process of converting the data from one format into a representation that is easier to work with for a computer.
+
+# What is the name of the header that describes the format of the response body?
+---
+Content-Type
+
+# What is the difference between URL and URI?
+---
+URL, or uniform resource locator, is the location where a resource can be found.
+URI, or uniform resource identifier, is a name used to identify a resource. The resources represented by URIs can be anywhere.
+
+URIs are like social security numbers -- you can use them to reference specific individuals, but only knowing their SSN does not tell you where to find them.
+
+URLs are like street addresses. They uniquely identify a location.
+URLs also include how to access the resource (http, https)
+
+If you are working with resources on the internet, use URL.
+
+# What are the components of a URL?
+---
+A protocol, such as http
+://, a colon and two slashes
+A hostname, usually a domain name such as blogs.com
+An optional colon and port, such as :81
+The path to the resource, such as /api/v1/pages/1
+An optional query string, such as ?query=term
+
+Ports are relatively uncommon in the URLs used when interacting with public APIs.
+If you have a full URL and need to know what its path is, remove everything from the beginning to the end of the domain name, and leave the slash.
+
+# When referring to a path in a general sense, how do you denote a placeholder?
+---
+A value that begins with a colon (e.g., `id` is a placeholder in `/products/:id/`). It is possible for paths to include multiple placeholders (e.g., `/products/:product_id/comments/:id`).
+
+The specific placeholder used within a path isn't important as long as it is unique within the path. It is common for the final identifier to be named :id, while other placeholders have names prefixed with the resource they map to.
+
+# How is HTML represented as a value for the Content-Type header?
+---
+text/html
+
+# What are data serialization formats?
+---
+They describe a way for programs to convert data into a form which is more easily or efficiently stored or transferred. The stored or transferred data can then be converted back into the original data at any time by the original program or any other program that can understand its format. 
+
+# What is XML?
+---
+Extensible markup language.  It is generally stricter than HTML and does not handle missing tags or improper nesting. It is considered an older data serialization format.
+Example:
+```
+<address>
+    <street>1600 Pennsylvania Ave NW</street>
+    <city>Washington</city>
+    <state>DC</state>
+    <zipcode>20500</zipcode>
+    <country>Unites States</country>
+</address>
+```
+
+# What is JSON?
+---
+JavaScript Object Notation. It is perhaps the most popular data serialization format used by web APIs today. It is based on the way object literals are written in JavaScript.
+Example:
+```
+{
+  "street": "1600 Pennsylvania Ave NW",
+  "city": "Washington",
+  "state": "DC",
+  "zipcode": "20500",
+  "country": "United States"
+}
+```
+
+# What are media types?
+---
+Media types describe how a response's body is formatted. They are commonly referred to as "content types". JSON is the most popular media type for web APIs.
+
+# What is REST?
+---
+The term REST is often used to describe a set of conventions for how to build APIs. REST stands for representational state transfer, and it was originally defined by Roy Fielding in his doctoral dissertation in 2000.
+
+- "representational" refers to how a representation of a resource is being transferred, and not the resource itself.
+- "state transfer" refers to how HTTP is a stateless protocol. This means that servers don't know anything at all about the clients, and that everything the server needs to process the request (the state) is included in the request itself.
+
+A good way to think about REST is as a way to define everything you might want to do with two values, what and how:
+What: Which resource is being acted upon?
+How: How are we changing / interacting with the resource?
+
+# What is CRUD?
+---
+CRUD is an acronym that is used to describe the four actions that can be taken upon resources:
+
+- Create (POST /$RESOURCEs)
+- Read (GET /$RESOURCEs/:id)
+- Update (PUT /$RESOURCEs/:id)
+- Delete (DELETE /$RESOURCEs/:id)
+
+# What is the most powerful thing about REST?
+---
+Since it is a set of conventions, it is universal and applies just as well to any kind of resource.
+By following REST conventions, API designers have fewer decisions to make about how to build an API and API consumers have fewer questions to answer before using one. Fetching an object? It's probably a GET request to /things/:id. Creating a new resource? Use a POST to /things. The resource-centric nature of REST and limited set of CRUD actions limit the complexity for API providers and consumers alike.
+
+# What makes a design RESTful?
+---
+A RESTful design is one in which any action a user needs to make can be accomplished using CRUD operations on one or many resources. It requires thinking in a resource-oriented way.
+
+Sometimes performing what initially appears to be a single action will translate into multiple requests to a RESTful API. 
+
+# What is a resource?
+---
+The representation of some grouping of data. A resource can be anything an API user needs to interact with.
+
+# What are elements? What are collections?
+---
+Elements are the representation of a single resource.
+Collections represent a grouping of elements of the same type. It is common for collection and element resources to have a parent-child relationship, where the collection is the "parent" and an element is a "child", although this is not always the case.
+
+Signs a URL is for a collection:
+- The path ends in a plural word, such as example.com/products
+- The response body contains multiple elements
+
+Signs a URL is for a single element:
+- The path ends in a plural word, a slash, and then what could be an identifier (which could be numeric or alphabetic)
+- The response body contains a single element
+
+# What does the Accept header specify?
+---
+What media types the client will accept in response to the request.
+`*/*` means the client will accept any media type in a request.
+It is better to be more explicit, such as `Accept: application/json`.
+
+# What does the 422 status code mean?
+---
+Unprocessable entity. The request was invalid in a way that prevented the server from working with it. This is often caused by a validation error.
+
+# What are some common causes for getting a 404 Not Found response?
+---
+The resource may not exist.
+The URL may be incorrect.
+Accessing the requested resource may require authentication. In an ideal world, these errors would use a more accurate HTTP status code of 401 or 403, but for security reasons, it is sometimes better to only expose the existence of a resource to those who are authorized to access it.
