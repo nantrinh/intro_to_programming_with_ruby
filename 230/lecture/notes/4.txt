@@ -70,3 +70,25 @@ $('[class*=block]');
 `figure > img` and `figure img`
 ---
 With `>`, this selects only `img` elements that are nested directly inside a `figure` element, and not any `img` elements nested further within.
+
+# What does it mean when we say that jQuery is modular?
+---
+You have the option to create a stripped-down custom build that provides the functionality that you need, and nothing else.
+
+# What are five syntaxes that can be used in place of `document.addEventListener('DOMContentLoaded', function() {});`?
+---
+$(handler)
+$(document).ready(handler)
+$("document").ready(handler)
+$("img").ready(handler)
+$().ready(handler)
+
+the first way is recommended
+
+# How does the jQuery implement the hide() method?
+---
+It sets the `display` to "none" and caches the current `display` value.
+
+# What does `$.grep(myArray, someFunc);` do?
+---
+Filters the elements of `myArray` by using the callback `someFunc`.
