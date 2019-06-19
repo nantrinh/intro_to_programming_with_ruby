@@ -1,0 +1,72 @@
+# What is jQuery?
+---
+A JavaScript library that provides a convenient and consistent API across most browsers and platforms. 
+
+You can use plain JavaScript and the DOM API to accomplish much of what jQuery provides, but differences between DOM implementations have historically made it difficult to share code between browsers, especially when using the newest features and technologies.
+
+jQuery is not a separate language from JavaScript.
+
+At its core, jQuery is a function that wraps a collection of DOM elements and some convenience methods into an object. You can call the function to select the elements you need to process, and manipulate the object or its elements with methods built into the object.
+
+# What is the DOM ready callback?
+---
+```
+$(document).ready(function() {
+  // DOM loaded and ready, referenced image on img tags are not ready
+});
+
+// a shorter way is to pass a callback function directly to the jQuery function $();
+$(function() {
+  // DOM is now loaded
+});
+```
+The callback function we pass to ready executes after the document, and its dependencies, finish loading. Note, though, that ready doesn't wait for the browser to load images included via <img> tags.
+
+# How do you delay execution of a function until after the images are loaded and ready?
+---
+```
+$(window).load(function() {
+  // DOM loaded and ready, referenced image on img tags loaded and ready
+});
+```
+
+# What is the jQuery function?
+---
+$()
+A function that works with an argument that you pass to it. If the argument is a string or a DOM element, it wraps a collection of jQuery objects and returns them. If the argument is a function, jQuery uses that function as a callback when the document is ready.
+
+
+# It is common practice to use which alias for `jQuery` when calling jQuery?
+---
+$
+
+# What is the Airbnb-recommended style for variables that reference jQuery objects?
+---
+Prefix them with a `$`
+
+# How can you check whether a variable references a jQuery object?
+---
+check if the `jquery` property refers to a number that matches the jQuery version
+`console.log($content.jquery);`
+
+# What is one very important difference in how the `closest` method works, compared to how the `parent` method works?
+---
+`parent` never looks at the current element for consideration. `closest` looks at the current element first to see if it is a match.
+
+# How do you find all elements that have a class name that contains 'block'?
+---
+$('[class*=block]');
+
+# How do you find all anchor elements that have an href value that
+1. begins with #?
+2. contains # anywhere in the href value?
+3. ends with #?
+---
+1. $("a[href^=#]")
+2. $("a[href*=#]")
+3. $("a[href$=#]")
+
+# What is the difference between these two selectors? 
+`figure > img` and `figure img`
+---
+With `>`, this selects only `img` elements that are nested directly inside a `figure` element, and not any `img` elements nested further within.

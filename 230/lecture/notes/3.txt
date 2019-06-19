@@ -44,7 +44,7 @@ Public APIs are intended for consumption outside the organization that provides 
 # What do these status codes usually mean? 2XX, 3XX, 4XX, 5XX
 --
 2XX: Request was handled successfully and everything is fine.
-3XX: Request was handled sucessfully but the response to the request is located at a different URL. (common response to HTML form POST submission; not scommon response when working with HTTP APIs)
+3XX: Request was handled sucessfully but the response to the request is located at a different URL. (common response to HTML form POST submission; not common response when working with HTTP APIs)
 4XX: THe client did something in the request that the server did not like (e.g., required parameter not provided; incorrect URL)
 5XX: Server encountered an error. Usually this means that the system you are connecting to is having issues that need to be resolved by those who run it before you can continue, although sometimes it can also be the result of a bad request.
 
