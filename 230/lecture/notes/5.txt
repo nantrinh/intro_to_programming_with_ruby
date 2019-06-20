@@ -107,4 +107,29 @@ Turns off all animations globally and sets elements to their final state when ca
 
 Useful when you are using a test suite that renders your pages and interacts with them, or if you don't want to see jQuery animations on sites.
 
+# What are data attributes?
+---
+Attributes that can be added to any HTML element and bear no significance other than to store data for you. Data attributes always start with `data-` and need at least one character after the hyphen. The value must be a string. (I think?)
+There is no limit to the number of data attributes that can be added to an element. 
 
+# Does using the `data` method as a setter update the HTML markup?
+---
+No, it sets a key and value pair in an internal store for data on that DOM element. This data store is not the same as the HTML data attributes, so if you set data on an element using the .data() method, if you were to go back and check the HTML attribute with the same name it would be unchanged.
+
+# How would you get and set the value of the data-block attribute?
+HTML: `<a href="#" data-block="gold">Gold Sponsors</a>`
+JS starter code: `var $a = $('a[data-block=gold]');`
+---
+```
+console.log($a.attr('data-block')); // gold
+console.log($a.data('block')); // gold
+
+$a.data('block', 'silver');
+
+console.log($a.attr('data-block')); // gold
+console.log($a.data('block')); // silver
+
+$a.attr('data-block', 'platinum');
+console.log($a.attr('data-block')); // platinum 
+console.log($a.data('block')); // silver 
+```
