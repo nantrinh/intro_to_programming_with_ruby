@@ -1,0 +1,110 @@
+# By default, all animation methods will use a duration of ___ milliseconds, and will update every ___ milliseconds.
+---
+400; 13
+
+# What arguments do these methods take?
+fadeOut, fadeIn, fadeToggle, fadeTo
+---
+fadeOut, fadeIn, and fadeToggle can be called without arguments.
+They take an optional first argument that specifies the duration in milliseconds. The default is 400. The keywords "slow" and "fast" refer to values of 600 and 200 milliseconds.
+The optional second argument is a callback that is called when the animation is complete.
+Example:
+```
+$('p').fadeIn(250, function() {
+  $(this).addClass('visible');
+  // this is the DOM element that was element.
+  // Note that it is not a jQuery object so it has to be passed to the
+  // jQuery function in order to call any jQuery methods on it
+});
+```
+fadeTo requires the first two arguments. The third optional argument is a callback.
+fadeTo(duration, opacity, callback)
+
+These methods can all take an options argument instead of a sequence of arguments.
+
+# What are the sliding methods? What arguments do they take?
+---
+slideDown, slideUp, slideToggle
+
+First argument: duration, in milliseconds. Default is 400.
+Second argument can be the easing method. Default is 'swing'. Can be changed to 'linear'.
+If easing method was set, third argument can be the callback.
+If the easing method was not set, the second argument can be the callback.
+```
+$p.slideToggle(400, 'linear', function() {
+  console.log('Sliding complete!');
+});
+```
+
+These methods can all take an options argument instead of a sequence of arguments.
+```
+$p.slideToggle({
+  duration: 400,
+  easing: 'linear',
+  complete: function() {
+    console.log('Sliding complete!');
+  }
+});
+```
+
+# What arguments does the animate method take?
+---
+This method takes its arguments in two different forms.
+
+1. An object that represents the CSS properties to be animated and what values to end on for each, followed by duration, easing, and callback.
+```
+$p.animate({
+  left: 500,
+  top: 250
+}, 400, function() {
+  $(this).text('All done!');
+});
+```
+
+2. An object that represents the CSS properties to be animated and what values to end on for each, followed by an object containing the duration, easing, and callback.
+```
+$p.animate({
+  left: 500,
+  top: 250
+}, {
+  duration: 1000,
+  complete: function() {
+    $(this).text('All done!');
+  }
+});
+```
+
+# True or false: Pretty much every CSS property that allows for a numeric value can be animated using the `animate` method, however complex values like colors cannot.
+---
+True
+
+# All properties that can use a pixel measurement, like padding, margin, width, and height, are animated using ___________ unless you specify a measurement with em or % at the end of it.
+---
+pixel values
+
+# Can you chain a `slideUp` and `fadeIn` method together?
+---
+Yes. The first will run, and the second will start once the first is completed.
+
+# Suppose you want to run a slideUp, then a slideDown animation. How do you run the slideUp animation, wait 5000 milliseconds, and then run the slideDown animation?
+---
+$('p').slideDown().delay(500).slideDown();
+
+# What arguments does the `stop` method take? 
+---
+clearQueue (default: False): if True, removes queued animation as well
+jumpToEnd (default: False): if True, completes the current animation immediately
+
+# What does the `finish` method do?
+---
+Stops the currently running animation, removes all queued animations, and completes all animations for the matched elements.
+
+The .finish() method is similar to .stop(true, true) in that it clears the queue and the current animation jumps to its end value. It differs, however, in that .finish() also causes the CSS property of all queued animations to jump to their end values, as well.
+
+# What does setting `$.fx.off` to `true` do?
+---
+Turns off all animations globally and sets elements to their final state when called, rather than displaying an effect.
+
+Useful when you are using a test suite that renders your pages and interacts with them, or if you don't want to see jQuery animations on sites.
+
+
