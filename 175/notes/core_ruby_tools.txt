@@ -1,0 +1,84 @@
+# Why is the system version of Ruby on Linux suboptimal for development?
+---
+1. The installation is usually an older version of Ruby
+2. You may need root access to install and manipulate other Ruby components.
+
+# Your system version of Ruby is suboptimal for development. What should you do?
+---
+Install a Ruby version manager.
+Use the version manager to install the Ruby version(s) you need.
+
+# Besides the `ruby` command, what other files and tools does a Ruby installation contain? Name 6.
+---
+1. The core library
+2. The standard Library
+3. The irb REPL (Read Evaluate Print Loop)
+4. The rake utility: a tool to automate Ruby development tasks
+5. The gem command: a tool to manage RubyGems
+6. Documentation tools (rdoc and ri)
+
+# What are Gems?
+---
+Packages that you can download, install, and use in your Ruby programs or from the command line.
+
+# What happens when you run `gem install GEM_NAME`?
+---
+The `gem` command connects to the remote library, downlaods the appropriate Gems, and installs them.
+
+# Where are gems installed on your computer?
+---
+The exact location depends on your setup. Run `gem env` and look for "INSTALLATION DIRECTORY" to see where `gem` installs Gems by default.  
+
+# What are Ruby version managers?
+---
+Programs that let you install, manage, and use multiple versions of Ruby, and Gems.
+
+# What is Bundler? What files does it rely on? What is the workflow like when you use Bundler?
+---
+A dependency manager.
+It relies on a file named `Gemfile` to tell it which version of Ruby and its Gems it should use.
+
+1. Create `Gemfile`
+2. Run `bundle install`. This downloads and installs all of the dependencies listed in `Gemfile`, and produces a `Gemfile.lock` file. `Gemfile.lock` shows all of the dependencies for your program: the Gems listed in `Gemfile`, as well as all of the Gems those Gems depend on. It finds those dependencies by examining the `Gemfiles` for each of the Gems listed explicitly in your `Gemfile`, recursively(?).
+3. Add `require 'bundler/setup'` to the beginning of your app, before any other Gems. (You do not need to add this if your app is a Rails app). bundler/setup first removes all Gem directories from Ruby's $LOAD_PATH global array. Ruby uses $LOAD_PATH to list the directories that it searches when it needs to locate a required file. When bundler/setup removes those directories from $LOAD_PATH, Ruby can no longer find Gems. To fix this, bundler/setup reads Gemfile.lock; for each Gem listed, it adds the directory that contains that Gem back to $LOAD_PATH. When finished, `require` only finds the proper versions of each Gem. This ensures that the specific Gem and version your app depends on is loaded, and not a conflicting version of that Gem.
+4. Run your app. The correct Gem will be loaded when you `require` files.
+
+# When would you need to use `bundle exec rake` or `bundle exec` some other command?
+---
+To resolve dependency conflicts when isssuing shell commands. Any Gem command that requires other Gems may load a Gem that conflicts with your app's requirements.
+
+# What should you do when you see this error? `Gem::LoadError: You have already activated ...`
+---
+Try the command again with `bundle exec`
+
+# What should you do when you see this error? `in `require': cannot load such file -- colorize (LoadError)`
+---
+Check to see if the gem is listed in your Gemfile. If you forgot to put it there, add it and run `bundle install` again.
+ 
+# What is Rake?
+---
+A gem that automates many common functions required to build, test, package, and install programs. It is part of every modern Ruby installation.
+
+# How do you use Rake?
+---
+Create a Rakefile.
+
+Example:
+```
+desc 'Say hello'
+task :hello do
+  puts "Hello there. This is the `hello` task."
+end
+
+desc 'Say goodbye'
+task :bye do
+  puts 'Bye now!'
+end
+
+desc 'Do everything'
+task :default => [:hello, :bye]
+```
+
+Rake runs the default task if you do not provide a specific task name when invoking rake.
+
+Run `rake -T` to view the `desc` associated with each task.
