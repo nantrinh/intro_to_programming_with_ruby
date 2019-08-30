@@ -65,16 +65,15 @@ main {
 #spaces,
 #guesses,
 p {
-  padding: 0 0 40px 0;
+  padding: 0 0 20px 0;
 }
 
 p {
-  padding-bottom: 25px;
   font-size: 20px;
 }
-p:empty {
+/*p:empty {
   display: none;
-}
+}*/
 
 span {
   display: inline-block;
@@ -93,4 +92,8 @@ h2 {
   width: 100px;
   margin: 0;
   vertical-align: middle;
+}
+
+.invisible {
+  visibility: hidden;
 }
