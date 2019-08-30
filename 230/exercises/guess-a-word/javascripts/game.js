@@ -9,15 +9,13 @@ function indexesOfMatches(str, letter) {
   return indexes;
 };
 
-var randomWord = (function() {
-  var words = ["apple", "banana", "orange", "pear"];
+var words = ["apple", "banana", "orange", "pear"];
 
-  return function() {
-    var word = words[Math.floor(Math.random() * words.length)]; 
-    words.splice(words.indexOf(word), 1);
-    return word;
-  };
-})();
+var randomWord = function() {
+  var word = words[Math.floor(Math.random() * words.length)]; 
+  words.splice(words.indexOf(word), 1);
+  return word;
+};
 
 $(function () {
   function Game() {
@@ -25,12 +23,13 @@ $(function () {
     this.incorrect = 0;
     this.mistakes_left = 6;
     this.letters_guessed = new Set();
-    this.correct_spaces = 0;
-    if (!this.word) {
+    this.correct_guesses = 0;
+    this.won = false;
+    $word_bag.text(`There are ${words.length} words remaining in the bag.`);
+    if (words.length === 0) {
       this.displayMessage("Sorry, I've run out of words!"); 
       return;
     }
-    //this.word = this.word.split("");
     this.init();
   };
 
@@ -41,10 +40,13 @@ $(function () {
       $letters.append(spaces);
       this.$spaces = $("#spaces span");
     },
-    outputGuesses: function (indexes, letter) {
+    outputCorrectGuesses: function (indexes, letter) {
       indexes.forEach(function(index) {
        this.$spaces.eq(index).text(letter);
       }, this);
+    },
+    outputGuess: function (letter) {
+      $guesses.append(`<span>${letter.toUpperCase()}</span`); 
     },
     incrementIncorrectGuess: function(letter) {
       this.displayMessage(`"${letter.toUpperCase()}" is not in the word.`);
@@ -57,9 +59,15 @@ $(function () {
     },
     newGuess: function(letter) {
       this.letters_guessed.add(letter);
+      this.outputGuess(letter);
       var indexes = indexesOfMatches(game.word, letter);
       if (indexes.length > 0) {
-        this.outputGuesses(indexes, letter);
+        this.outputCorrectGuesses(indexes, letter);
+        this.correct_guesses += indexes.length
+        if (this.correct_guesses === this.word.length) {
+          this.won = true; 
+          this.gameOver();
+        }
       } else {
         this.incrementIncorrectGuess(letter);
         if (this.mistakes_left === 0) {
@@ -68,8 +76,15 @@ $(function () {
       }
     },
     gameOver: function() {
-      this.displayMessage("Sorry, you've run out of guesses!"); 
+      if (this.won) {
+        this.displayMessage("You win!");
+        $body.addClass("win");
+      } else {
+        this.displayMessage("Sorry, you've run out of guesses!"); 
+        $body.addClass("lose");
+      }
       $play_again.removeClass("invisible");
+      $(document).unbind("keypress");
     },
     displayMessage: function(text) {
       $message.text(text);
@@ -77,7 +92,11 @@ $(function () {
     },
     init: function() {
       this.createBlanks(); 
+      $guesses.find("span").remove();
       $play_again.addClass("invisible");
+      $(document).keypress(gameHandler);
+      $apples.removeClass();
+      $body.removeClass();
     }
   }
 
@@ -86,10 +105,12 @@ $(function () {
   var $guesses = $("#guesses");
   var $apples = $("#apples");
   var $play_again = $("#replay");
+  var $word_bag = $("#word_bag");
+  var $body = $("body");
 
   var game = new Game();
 
-  $(document).keypress(function(e) {
+  var gameHandler = function(e) {
     if (e.keyCode >= 97 && e.keyCode <= 122) {
       $message.addClass("invisible");
       var letter = String.fromCharCode(e.keyCode);
@@ -99,5 +120,11 @@ $(function () {
         game.newGuess(letter);
       }
     }
+  };
+
+  $(document).keypress(gameHandler);
+  $play_again.click(function (e) {
+    e.preventDefault();
+    game = new Game(); 
   });
 });
