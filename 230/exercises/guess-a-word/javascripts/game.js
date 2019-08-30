@@ -41,6 +41,36 @@ $(function () {
       $letters.append(spaces);
       this.$spaces = $("#spaces span");
     },
+    outputGuesses: function (indexes, letter) {
+      indexes.forEach(function(index) {
+       this.$spaces.eq(index).text(letter);
+      }, this);
+    },
+    incrementIncorrectGuess: function(letter) {
+      this.displayMessage(`"${letter.toUpperCase()}" is not in the word.`);
+      this.incorrect += 1;
+      $apples.addClass(`guess_${this.incorrect}`);
+      this.mistakes_left -= 1;
+    },
+    oldGuess: function(letter) {
+      this.displayMessage(`You have already guessed "${letter.toUpperCase()}".`);
+    },
+    newGuess: function(letter) {
+      this.letters_guessed.add(letter);
+      var indexes = indexesOfMatches(game.word, letter);
+      if (indexes.length > 0) {
+        this.outputGuesses(indexes, letter);
+      } else {
+        this.incrementIncorrectGuess(letter);
+        if (this.mistakes_left === 0) {
+          this.gameOver();
+        }
+      }
+    },
+    gameOver: function() {
+      this.displayMessage("Sorry, you've run out of guesses!"); 
+      $play_again.removeClass("invisible");
+    },
     displayMessage: function(text) {
       $message.text(text);
       $message.removeClass("invisible");
@@ -64,24 +94,9 @@ $(function () {
       $message.addClass("invisible");
       var letter = String.fromCharCode(e.keyCode);
       if (game.letters_guessed.has(letter)) {
-        game.displayMessage(`You have already guessed "${letter.toUpperCase()}".`);
+        game.oldGuess(letter);
       } else {
-        game.letters_guessed.add(letter);
-        var indexes = indexesOfMatches(game.word, letter);
-        if (indexes.length > 0) {
-          indexes.forEach(function(index) {
-            game.$spaces.eq(index).text(letter);
-          });
-        } else {
-          game.displayMessage(`"${letter.toUpperCase()}" is not in the word.`);
-          game.incorrect += 1;
-          $apples.addClass(`guess_${game.incorrect}`);
-          game.mistakes_left -= 1;
-          if (game.mistakes_left === 0) {
-            game.displayMessage("Sorry, you've run out of guesses!"); 
-            $play_again.removeClass("invisible");
-          }
-        }
+        game.newGuess(letter);
       }
     }
   });
