@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="dark-theme.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="myscript.js"></script>
+    <script id="article_template" type="text/x-handlebars">
+      <article id="{{name}}">
+        <h2>{{name}}</h2>
+        <p>{{truncate description}}</p>
+        <button class="more">Show More</button>
+      </article>
+    </script>
+    <script id="articles" type="text/x-handlebars">
+      {{#each articles}}
+      {{> article_template}}
+      {{/each}}
+    </script>
+  </head>
+  <body>
+    <h1>Programming Languages</h1>
+  </body>
+</html>
